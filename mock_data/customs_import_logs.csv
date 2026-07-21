@@ -1,0 +1,7 @@
+Log_ID,Date,Consignee,HS_Code,Item_Description,Supplier,Declared_Value_INR_Lakhs,Lead_Time_Days,Tariff_Rate_Pct,Audit_Trail
+IMP-2025-081,2025-10-12,ideaForge Technology Ltd,85258900,EO/IR Optical Payload Dual Sensor Module,Elbit Systems Ltd (Israel),12.4,115,10.0,"ICES Export-Import Cargo Logs, Chennai Port Bill of Entry #882103"
+IMP-2025-095,2025-11-20,ideaForge Technology Ltd,90142000,High-Accuracy IMU Inertial Sensors,Honeywell Aerospace (USA),1.8,65,7.5,"ICES Air Cargo Logs, Bangalore Customs Port BOE #771204"
+IMP-2025-112,2025-12-15,ideaForge Technology Ltd,85423100,Autopilot Microcontrollers (STM32H7 series),STMicroelectronics (Taiwan),0.45,88,7.5,"ICES Air Cargo Logs, Mumbai Customs Port BOE #991209"
+IMP-2026-004,2026-01-22,ideaForge Technology Ltd,85258900,EO/IR Optical Payload Dual Sensor Module,Elbit Systems Ltd (Israel),14.2,130,15.0,"ICES Export-Import Cargo Logs, Chennai Port BOE #110294"
+IMP-2026-021,2026-02-28,ideaForge Technology Ltd,85423100,Autopilot Microcontrollers (STM32H7 series),STMicroelectronics (Taiwan),0.52,92,7.5,"ICES Air Cargo Logs, Mumbai Customs Port BOE #220194"
+IMP-2026-042,2026-03-18,ideaForge Technology Ltd,90142000,High-Accuracy IMU Inertial Sensors,Honeywell Aerospace (USA),2.1,70,7.5,"ICES Air Cargo Logs, Bangalore Customs Port BOE #330291"

@@ -1,0 +1,30 @@
+{
+    "company_name": "ideaForge Technology Limited",
+    "fiscal_year": "FY2024-25",
+    "document_reference": "BRSR/FY25/AR-01",
+    "key_disclosures": {
+        "indigenous_sourcing_pct": {
+            "value": 58.0,
+            "unit": "%",
+            "audit_trail": "BRSR Section C, Principle 3, Page 22"
+        },
+        "rd_expenditure": {
+            "capitalized_cr": 24.5,
+            "expensed_cr": 12.8,
+            "total_cr": 37.3,
+            "audit_trail": "Notes to Ind AS Accounts, Note 14 (Intangible Assets), Page 84"
+        },
+        "working_capital_cycle": {
+            "inventory_days": 135,
+            "receivable_days": 110,
+            "payable_days": 40,
+            "net_wc_days": 205,
+            "audit_trail": "Management Discussion & Analysis (MD&A), Section 4, Page 41"
+        },
+        "employee_benefit_expenses": {
+            "total_cr": 45.2,
+            "share_based_payments_esop_cr": 8.4,
+            "audit_trail": "Profit & Loss Account Schedule 22, Page 68"
+        }
+    }
+}

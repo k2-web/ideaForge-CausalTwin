@@ -1,0 +1,52 @@
+[
+    {
+        "tender_id": "GEM/2026/B/99812",
+        "authority": "Ministry of Defence (Indian Army)",
+        "portal": "Government e-Marketplace (GeM)",
+        "publish_date": "2026-02-15",
+        "product_category": "Micro UAV / VTOL Drone Platforms",
+        "quantity": 180,
+        "estimated_value_cr": 45.0,
+        "indigenous_content_requirement": ">= 60%",
+        "technical_specs": {
+            "flight_endurance": ">= 90 mins",
+            "payload": "Day/Night EO/IR Optical sensor",
+            "operational_altitude": "Up to 4500m"
+        },
+        "status": "Under Evaluation (Bid opened Mar 10, 2026)",
+        "audit_trail": "GeM Portal Tender Summary Sheet - ID 99812, Page 1"
+    },
+    {
+        "tender_id": "CPPP/2026/MOD/ARMY/321",
+        "authority": "Indian Army Aviation Corps",
+        "portal": "CPPP (Central Public Procurement Portal)",
+        "publish_date": "2026-04-01",
+        "product_category": "High-End ISR UAV (Tactical VTOL)",
+        "quantity": 120,
+        "estimated_value_cr": 115.0,
+        "indigenous_content_requirement": ">= 50%",
+        "technical_specs": {
+            "flight_endurance": ">= 120 mins",
+            "payload": "Dual EO/IR sensor + Laser Range Finder",
+            "range": ">= 15 km"
+        },
+        "status": "Financial Bid Opened (ideaForge L1 bidder)",
+        "audit_trail": "CPPP Bid Opening Report, Ref CPPP/2026/321, Page 3"
+    },
+    {
+        "tender_id": "GEM/2026/B/88219",
+        "authority": "Survey of India (SVAMITVA Scheme)",
+        "portal": "GeM Tenders",
+        "publish_date": "2026-05-12",
+        "product_category": "Survey Grade Quadcopters",
+        "quantity": 300,
+        "estimated_value_cr": 36.0,
+        "indigenous_content_requirement": ">= 60%",
+        "technical_specs": {
+            "flight_endurance": ">= 45 mins",
+            "payload": "24MP RGB Mapping Camera & RTK GPS"
+        },
+        "status": "Awarded to ideaForge (Contract signed Jun 01, 2026)",
+        "audit_trail": "SVAMITVA Contract Award Registry - SoI/2026/88219, Page 2"
+    }
+]

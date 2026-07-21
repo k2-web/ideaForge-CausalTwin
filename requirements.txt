@@ -1,0 +1,6 @@
+streamlit>=1.30.0
+pandas>=2.0.0
+numpy>=1.20.0
+networkx>=3.0
+statsmodels>=0.14.0
+st-cytoscape>=0.1.0
