@@ -1,6 +1,6 @@
-# ideaForge Causal Digital Twin Codebase Export
+# Autonomous Financial Digital Twin Codebase Export
 
-This document aggregates all the code files for the ideaForge Causal Digital Twin project. You can copy and paste this directly into ChatGPT to share the complete context of the application.
+This document aggregates all the code files for the Autonomous Financial Digital Twin project. You can copy and paste this directly into ChatGPT to share the complete context of the application.
 
 ## File: `requirements.txt`
 ```text
@@ -213,6 +213,170 @@ class IdeaForgeOntologyGraph:
     def close(self):
         if self.use_neo4j:
             self.driver.close()
+
+```
+
+## File: `memory_engine.py`
+```python
+import os
+import json
+from datetime import datetime
+
+class MemoryEngine:
+    def __init__(self, storage_dir=None):
+        if storage_dir is None:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            self.storage_dir = os.path.join(current_dir, "mock_data")
+        else:
+            self.storage_dir = storage_dir
+            
+        os.makedirs(self.storage_dir, exist_ok=True)
+        self.memory_file = os.path.join(self.storage_dir, "persistent_memory.json")
+        self._load_or_initialize_memory()
+
+    def _load_or_initialize_memory(self):
+        if os.path.exists(self.memory_file):
+            try:
+                with open(self.memory_file, "r") as f:
+                    self.memory_data = json.load(f)
+                return
+            except Exception as e:
+                print(f"Error loading memory file ({e}), re-initializing.")
+                
+        # Initialize default persistent memory structure
+        self.memory_data = {
+            "company_name": "ideaForge Technology Limited",
+            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "belief_ledger": [
+                {
+                    "timestamp": "2025-04-15 10:00:00",
+                    "assumption_key": "MoD_Disbursement_Lag",
+                    "old_value": 45,
+                    "new_value": 60,
+                    "reason": "MoD defense budget allocation delay announced in Parliament",
+                    "event_id": "EVT-2025-001",
+                    "impact_severity": "Moderate"
+                },
+                {
+                    "timestamp": "2025-09-20 14:30:00",
+                    "assumption_key": "EO_IR_Optical_Payload_Lead_Time",
+                    "old_value": 90,
+                    "new_value": 120,
+                    "reason": "Middle East cargo logistics bottleneck and customs clearance delay",
+                    "event_id": "EVT-2025-014",
+                    "impact_severity": "Major"
+                },
+                {
+                    "timestamp": "2026-01-10 11:15:00",
+                    "assumption_key": "FLYGHT_SaaS_Attach_Rate",
+                    "old_value": 0.25,
+                    "new_value": 0.35,
+                    "reason": "SVAMITVA civil mapping mandate required cloud portal analytics",
+                    "event_id": "EVT-2026-003",
+                    "impact_severity": "Positive Growth"
+                }
+            ],
+            "decision_history": [
+                {
+                    "decision_id": "DEC-2025-Q2-01",
+                    "date": "2025-06-30",
+                    "context": "MoD Disbursement Lag increased to 60 days causing cash flow tension",
+                    "chosen_action": "Buffered raw material inventory and arranged working capital line from SBI (INR 30 Cr)",
+                    "predicted_outcome": "EBITDA margin maintained at 18.2%, Working Capital expanded to 240 days",
+                    "actual_outcome": "Working Capital reached 245 days; interest expense increased by INR 0.8 Cr",
+                    "lessons_learned": "Inventory buffering without vendor extended credit line increases net borrowing costs by 10.5% p.a."
+                },
+                {
+                    "decision_id": "DEC-2025-Q4-02",
+                    "date": "2025-12-15",
+                    "context": "Foreign drone import ban enforced by DGFT",
+                    "chosen_action": "Accelerated SWITCH UAV production for Indian Army fast-track tender",
+                    "predicted_outcome": "Quarterly revenue surge to INR 160+ Cr",
+                    "actual_outcome": "Revenue reached INR 161.2 Cr in Q4 FY25; gross margin expanded to 48%",
+                    "lessons_learned": "Sovereign protection policy significantly increases win rate in defense tenders."
+                }
+            ],
+            "state_snapshots": [
+                {
+                    "quarter": "Q4 FY25",
+                    "revenue_cr": 161.2,
+                    "ebitda_margin_pct": 23.9,
+                    "working_capital_days": 275,
+                    "saas_attach_rate": 0.25,
+                    "key_highlight": "Record Q4 execution driven by Army SWITCH UAV deliveries"
+                },
+                {
+                    "quarter": "Q3 FY26",
+                    "revenue_cr": 121.8,
+                    "ebitda_margin_pct": 18.1,
+                    "working_capital_days": 228,
+                    "saas_attach_rate": 0.32,
+                    "key_highlight": "SVAMITVA civil mapping expansion offsets seasonal defense dip"
+                }
+            ],
+            "executive_briefings": []
+        }
+        self._save_memory()
+
+    def _save_memory(self):
+        self.memory_data["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(self.memory_file, "w") as f:
+            json.dump(self.memory_data, f, indent=4)
+
+    def revise_belief(self, key, old_val, new_val, reason, event_id="EVT-LIVE", severity="Moderate"):
+        entry = {
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "assumption_key": key,
+            "old_value": old_val,
+            "new_value": new_val,
+            "reason": reason,
+            "event_id": event_id,
+            "impact_severity": severity
+        }
+        self.memory_data["belief_ledger"].insert(0, entry)
+        self._save_memory()
+
+    def log_decision_and_forecast(self, decision_id, context, chosen_action, predicted_outcome, rationale):
+        entry = {
+            "decision_id": decision_id,
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "context": context,
+            "chosen_action": chosen_action,
+            "predicted_outcome": predicted_outcome,
+            "actual_outcome": "Pending Evaluation",
+            "lessons_learned": rationale
+        }
+        self.memory_data["decision_history"].insert(0, entry)
+        self._save_memory()
+
+    def log_executive_briefing(self, briefing_text, key_takeaways, recommended_actions):
+        entry = {
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "briefing_text": briefing_text,
+            "key_takeaways": key_takeaways,
+            "recommended_actions": recommended_actions
+        }
+        self.memory_data["executive_briefings"].insert(0, entry)
+        self._save_memory()
+
+    def get_belief_history(self):
+        return self.memory_data.get("belief_ledger", [])
+
+    def get_decision_history(self):
+        return self.memory_data.get("decision_history", [])
+
+    def get_state_snapshots(self):
+        return self.memory_data.get("state_snapshots", [])
+
+    def get_latest_executive_briefing(self):
+        briefings = self.memory_data.get("executive_briefings", [])
+        if briefings:
+            return briefings[0]
+        return None
+
+    def get_all_executive_briefings(self):
+        return self.memory_data.get("executive_briefings", [])
 
 ```
 
@@ -433,6 +597,88 @@ class IdeaForgeIngestionPipeline:
                 return f"Chennai/Mumbai Custom House Bill of Entry, {match.iloc[0]['Audit_Trail']}"
             return "ICES Indian Custom House Cargo logs"
         return "Regulatory Disclosure Summary Sheet"
+
+    def load_dynamic_events(self):
+        file_path = os.path.join(self.data_dir, "dynamic_events.json")
+        if not os.path.exists(file_path):
+            default_events = [
+                {
+                    "event_id": "EVT-2026-101",
+                    "title": "MoD Capital Budget Disbursement Lag Extended by 30 Days",
+                    "category": "Government Policy & Defense Finance",
+                    "source": "Ministry of Finance Clearance Gazette / PIB Release",
+                    "timestamp": "2026-07-20 09:30:00",
+                    "description": "Ministry of Defence announces milestone verification audits for Q2 defense capital payments, pushing disbursement schedules from 60 days to 90 days across all defense hardware contractors.",
+                    "impact_parameters": {
+                        "mod_lag_days": 90,
+                        "import_tariff_shock_pct": 0,
+                        "saas_attach_rate_pct": 35
+                    }
+                },
+                {
+                    "event_id": "EVT-2026-102",
+                    "title": "15% Tariff Surge on Israeli & US Electro-Optical Payloads",
+                    "category": "Supply Chain & International Trade",
+                    "source": "DGFT Customs Tariff Notification #44/2026",
+                    "timestamp": "2026-07-21 14:00:00",
+                    "description": "Basic Customs Duty (BCD) on imported dual-use electro-optical/infrared (EO/IR) sensor payloads increased from 10% to 25%, creating a 15% net input cost shock for SWITCH UAV assembly.",
+                    "impact_parameters": {
+                        "mod_lag_days": 60,
+                        "import_tariff_shock_pct": 15,
+                        "saas_attach_rate_pct": 35
+                    }
+                },
+                {
+                    "event_id": "EVT-2026-103",
+                    "title": "Survey of India Mandates FLYGHT Analytics Integration for SVAMITVA Phase 3",
+                    "category": "Civil Market & Software Attach",
+                    "source": "Survey of India Circular #SoI/SVAMITVA/2026/09",
+                    "timestamp": "2026-07-22 11:15:00",
+                    "description": "All survey drone deployments under SVAMITVA Phase 3 require mandatory cloud-synced GIS analytics, boosting FLYGHT SaaS attach rates across civil fleets to 45%.",
+                    "impact_parameters": {
+                        "mod_lag_days": 60,
+                        "import_tariff_shock_pct": 0,
+                        "saas_attach_rate_pct": 45
+                    }
+                },
+                {
+                    "event_id": "EVT-2026-104",
+                    "title": "Indian Semiconductor Mission (ISM) Announces 50% Fab Subsidies in Gujarat",
+                    "category": "Government Policy & Domestic Sourcing",
+                    "source": "Ministry of Electronics and IT (MeitY) Press Release",
+                    "timestamp": "2026-07-24 16:45:00",
+                    "description": "MeitY approves capital subsidies for local assembly of autopilot microcontrollers and IMU sensors in Sanand, Gujarat, reducing local semiconductor procurement costs by 12%.",
+                    "impact_parameters": {
+                        "mod_lag_days": 60,
+                        "import_tariff_shock_pct": -5,
+                        "saas_attach_rate_pct": 35
+                    }
+                }
+            ]
+            with open(file_path, "w") as f:
+                json.dump(default_events, f, indent=4)
+            return default_events
+        
+        with open(file_path, "r") as f:
+            return json.load(f)
+
+    def inject_custom_event(self, title, category, description, impact_parameters):
+        events = self.load_dynamic_events()
+        new_event = {
+            "event_id": f"EVT-CUSTOM-{len(events)+1:03d}",
+            "title": title,
+            "category": category,
+            "source": "User Executive Override / Live Ingestion Stream",
+            "timestamp": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "description": description,
+            "impact_parameters": impact_parameters
+        }
+        events.insert(0, new_event)
+        file_path = os.path.join(self.data_dir, "dynamic_events.json")
+        with open(file_path, "w") as f:
+            json.dump(events, f, indent=4)
+        return new_event
+
 
 ```
 
@@ -658,6 +904,322 @@ class IdeaForgeCausalEngine:
 
 ```
 
+## File: `reasoning_loop.py`
+```python
+import json
+
+class StrategicReasoningEngine:
+    def __init__(self, causal_engine, memory_engine):
+        self.causal_engine = causal_engine
+        self.memory_engine = memory_engine
+
+    def execute_7_step_loop(self, event_data):
+        """
+        Executes the formal 7-Step Strategic Reasoning Cycle for any event.
+        Returns a structured dictionary with full step-by-step analytical traces.
+        """
+        event_id = event_data.get("event_id", "EVT-UNKNOWN")
+        title = event_data.get("title", "Unspecified Event")
+        category = event_data.get("category", "General Operations")
+        desc = event_data.get("description", "")
+        params = event_data.get("impact_parameters", {})
+
+        # --- STEP 1: What happened? ---
+        step1 = {
+            "step": "Step 1: Event Identification",
+            "question": "What happened?",
+            "summary": title,
+            "category": category,
+            "source": event_data.get("source", "Internal Monitoring"),
+            "timestamp": event_data.get("timestamp", ""),
+            "full_description": desc
+        }
+
+        # --- STEP 2: Does this affect me? ---
+        # Determine relevance based on category and parameters
+        if any(p in params for p in ["mod_lag_days", "import_tariff_shock_pct", "saas_attach_rate_pct"]):
+            relevance = "DIRECT"
+            rationale = "Event acts directly on core operational variables (Disbursement Lag, Tariff Sourcing, or SaaS Attach Rate)."
+        elif "competitor" in category.lower() or "policy" in category.lower():
+            relevance = "INDIRECT"
+            rationale = "Event shifts macro competitive dynamics or regulatory frameworks."
+        else:
+            relevance = "NEGLIGIBLE"
+            rationale = "Event is outside ideaForge's core dual-use defense and civil UAV supply network."
+
+        step2 = {
+            "step": "Step 2: Relevance Assessment",
+            "question": "Does this affect me?",
+            "relevance_type": relevance,
+            "rationale": rationale
+        }
+
+        # --- STEP 3: Which business dimensions are affected? ---
+        dimensions = {
+            "Revenue": "AFFECTED" if params.get("saas_attach_rate_pct") or params.get("mod_lag_days") else "STABLE",
+            "Margins": "CRITICAL" if params.get("import_tariff_shock_pct") else "MONITORED",
+            "Operations": "AFFECTED" if params.get("mod_lag_days", 0) > 75 else "STABLE",
+            "Manufacturing": "AFFECTED" if params.get("import_tariff_shock_pct", 0) > 10 else "STABLE",
+            "Supply Chain": "CRITICAL" if params.get("import_tariff_shock_pct") else "STABLE",
+            "Customers": "AFFECTED" if "tenders" in desc.lower() or "svamitva" in desc.lower() else "STABLE",
+            "Competition": "MONITORED",
+            "Regulation": "CRITICAL" if "tariff" in desc.lower() or "pli" in desc.lower() or "mod" in desc.lower() else "STABLE",
+            "Capital Allocation": "AFFECTED" if params.get("mod_lag_days", 0) > 75 else "STABLE",
+            "Cash Flow": "CRITICAL" if params.get("mod_lag_days", 0) > 75 else "STABLE",
+            "Debt": "AFFECTED" if params.get("mod_lag_days", 0) > 80 else "STABLE",
+            "Growth": "POSITIVE" if params.get("saas_attach_rate_pct", 0) > 35 else "MONITORED",
+            "Market Perception": "STABLE",
+            "Talent": "STABLE",
+            "Technology": "POSITIVE" if "semiconductor" in desc.lower() or "analytics" in desc.lower() else "STABLE"
+        }
+
+        step3 = {
+            "step": "Step 3: 15-Dimension Impact Mapping",
+            "question": "Which parts of my business are affected?",
+            "impacted_dimensions": dimensions
+        }
+
+        # --- STEP 4: How large is the impact? ---
+        mod_lag = params.get("mod_lag_days", 60)
+        tariff = params.get("import_tariff_shock_pct", 0)
+        saas = params.get("saas_attach_rate_pct", 35)
+
+        if tariff > 20 or mod_lag > 110:
+            severity = "EXISTENTIAL / SEVERE"
+        elif tariff > 10 or mod_lag > 75:
+            severity = "MAJOR"
+        elif tariff > 0 or mod_lag > 60 or saas > 35:
+            severity = "MODERATE"
+        else:
+            severity = "MINOR"
+
+        step4 = {
+            "step": "Step 4: Severity Assessment",
+            "question": "How large is the impact?",
+            "severity_level": severity,
+            "key_drivers": f"MoD Lag: {mod_lag}d | Import Tariff Shock: +{tariff}% | SaaS Attach: {saas}%"
+        }
+
+        # --- STEP 5: What assumptions changed? ---
+        revisions = []
+        if mod_lag != 60:
+            revisions.append({
+                "key": "MoD_Disbursement_Lag",
+                "old": 60,
+                "new": mod_lag,
+                "reason": f"Updated due to event '{title}'"
+            })
+            self.memory_engine.revise_belief("MoD_Disbursement_Lag", 60, mod_lag, f"Event {event_id}: {title}", event_id, severity)
+
+        if tariff != 0:
+            revisions.append({
+                "key": "Import_Tariff_Shock_Pct",
+                "old": 0,
+                "new": tariff,
+                "reason": f"Updated due to event '{title}'"
+            })
+            self.memory_engine.revise_belief("Import_Tariff_Shock_Pct", 0, tariff, f"Event {event_id}: {title}", event_id, severity)
+
+        if saas != 35:
+            revisions.append({
+                "key": "FLYGHT_SaaS_Attach_Rate",
+                "old": 0.35,
+                "new": saas / 100.0,
+                "reason": f"Updated due to event '{title}'"
+            })
+            self.memory_engine.revise_belief("FLYGHT_SaaS_Attach_Rate", 0.35, saas / 100.0, f"Event {event_id}: {title}", event_id, severity)
+
+        step5 = {
+            "step": "Step 5: Assumption Revision & Belief Updates",
+            "question": "What assumptions changed?",
+            "invalidated_beliefs": revisions if revisions else ["No baseline assumptions invalidated."]
+        }
+
+        # --- STEP 6: Do I need to act? ---
+        if severity in ["MAJOR", "EXISTENTIAL / SEVERE"] or saas > 40:
+            act_required = True
+            action_rationale = "Material operational impact detected. Immediate executive counter-strategy required."
+        else:
+            act_required = False
+            action_rationale = "Impact is within normal operating buffers. Log event to memory and monitor."
+
+        step6 = {
+            "step": "Step 6: Executive Action Trigger",
+            "question": "Do I need to act?",
+            "action_required": act_required,
+            "decision_rationale": action_rationale
+        }
+
+        # --- STEP 7: Simulate outcomes & scenarios ---
+        # Run 2SLS Causal Counterfactual Simulations for 3 strategic options
+        # Baseline simulation (Do Nothing)
+        sim_no_action = self.causal_engine.simulate_counterfactual(
+            mod_lag_days=mod_lag,
+            import_tariff_shock_pct=tariff,
+            saas_attach_rate_pct=saas
+        )
+
+        # Action Option A: Supply Chain Buffering & Local Sourcing Offsets
+        sim_action_a = self.causal_engine.simulate_counterfactual(
+            mod_lag_days=max(45, mod_lag - 15), # Negotiate faster milestone release
+            import_tariff_shock_pct=max(0, tariff - 10), # Substitute with local Gujarat components
+            saas_attach_rate_pct=saas
+        )
+
+        # Action Option B: Accelerated SaaS Monetization & Price Adjustments
+        sim_action_b = self.causal_engine.simulate_counterfactual(
+            mod_lag_days=mod_lag,
+            import_tariff_shock_pct=tariff,
+            saas_attach_rate_pct=min(100, saas + 15) # Drive FLYGHT SaaS attach to offset hardware margin squeeze
+        )
+
+        step7 = {
+            "step": "Step 7: Scenario & Outcome Simulation (2SLS Causal Engine)",
+            "question": "If we act, what happens?",
+            "simulations": {
+                "Option_No_Action": {
+                    "title": "Do Nothing (Status Quo)",
+                    "probability": "0.45",
+                    "ebitda_margin_pct": round(sim_no_action["metrics"]["EBITDA_Margin"], 2),
+                    "working_capital_days": round(sim_no_action["metrics"]["Working_Capital_Days"], 1),
+                    "net_profit_cr": round(sim_no_action["metrics"]["Net_Profit"], 2),
+                    "working_capital_req_cr": round(sim_no_action["metrics"]["Working_Capital_Requirement_Cr"], 2)
+                },
+                "Option_A_Supply_Mitigation": {
+                    "title": "Action A: Fast-track Local Sourcing & Milestone Audit",
+                    "probability": "0.75",
+                    "ebitda_margin_pct": round(sim_action_a["metrics"]["EBITDA_Margin"], 2),
+                    "working_capital_days": round(sim_action_a["metrics"]["Working_Capital_Days"], 1),
+                    "net_profit_cr": round(sim_action_a["metrics"]["Net_Profit"], 2),
+                    "working_capital_req_cr": round(sim_action_a["metrics"]["Working_Capital_Requirement_Cr"], 2)
+                },
+                "Option_B_SaaS_Accelerate": {
+                    "title": "Action B: Accelerate FLYGHT SaaS Fleet Bundling",
+                    "probability": "0.85",
+                    "ebitda_margin_pct": round(sim_action_b["metrics"]["EBITDA_Margin"], 2),
+                    "working_capital_days": round(sim_action_b["metrics"]["Working_Capital_Days"], 1),
+                    "net_profit_cr": round(sim_action_b["metrics"]["Net_Profit"], 2),
+                    "working_capital_req_cr": round(sim_action_b["metrics"]["Working_Capital_Requirement_Cr"], 2)
+                }
+            }
+        }
+
+        full_trace = {
+            "event_id": event_id,
+            "step1_event": step1,
+            "step2_relevance": step2,
+            "step3_dimensions": step3,
+            "step4_severity": step4,
+            "step5_assumptions": step5,
+            "step6_action_trigger": step6,
+            "step7_simulations": step7
+        }
+
+        return full_trace
+
+```
+
+## File: `strategic_advisor.py`
+```python
+class StrategicAdvisorEngine:
+    def __init__(self, causal_engine, memory_engine):
+        self.causal_engine = causal_engine
+        self.memory_engine = memory_engine
+
+    def generate_strategic_recommendations(self, reasoning_trace):
+        """
+        Synthesizes top-tier management consulting (McKinsey, Bain, BCG) and 
+        Private Equity perspectives into a prioritized Executive Action Matrix.
+        """
+        event_info = reasoning_trace.get("step1_event", {})
+        severity = reasoning_trace.get("step4_severity", {}).get("severity_level", "MODERATE")
+        sims = reasoning_trace.get("step7_simulations", {}).get("simulations", {})
+
+        no_action = sims.get("Option_No_Action", {})
+        action_a = sims.get("Option_A_Supply_Mitigation", {})
+        action_b = sims.get("Option_B_SaaS_Accelerate", {})
+
+        recommendations = []
+
+        # --- 1. MCKINSEY OPERATIONAL & SUPPLY CHAIN STRATEGY ---
+        rec_supply = {
+            "rec_id": "REC-MCK-01",
+            "framework": "McKinsey Operational Excellence & Supply Chain Resilience",
+            "title": "Accelerate Domestic Component Sourcing & Sanand Fab Supplier Qualifying",
+            "category": "Supply Chain & Manufacturing",
+            "executive_owner": "Chief Operating Officer (COO)",
+            "priority": "HIGH" if "EXISTENTIAL" in severity or "MAJOR" in severity else "MEDIUM",
+            "timeline": "30 - 60 Days",
+            "problem_statement": "Import dependency on Israeli/US optical sensors and Taiwanese autopilot ICs exposes gross margins to tariff shocks and logistics lead-time bottlenecks.",
+            "recommended_action": "Execute fast-track vendor qualification for local assembly under the Indian Semiconductor Mission (ISM) in Sanand, Gujarat. Transition autopilot microcontrollers from 100% import to 60% local assembly.",
+            "financial_impact": f"Reclaims +{round(action_a.get('ebitda_margin_pct', 0) - no_action.get('ebitda_margin_pct', 0), 2)}% in EBITDA Margin; saves INR {round(abs(action_a.get('working_capital_req_cr', 0) - no_action.get('working_capital_req_cr', 0)), 1)} Cr in Working Capital.",
+            "risk_rating": "Medium (Requires strict DGFT defense certification)",
+            "mitigant": "Dual-source critical optical sensors while ramping local IMU testing."
+        }
+        recommendations.append(rec_supply)
+
+        # --- 2. BAIN & COMPANY SAAS MONETIZATION STRATEGY ---
+        rec_saas = {
+            "rec_id": "REC-BAIN-02",
+            "framework": "Bain & Company SaaS Attach & Customer Retention Engine",
+            "title": "Mandate FLYGHT Patrol Software Bundling on SVAMITVA & Commercial Fleets",
+            "category": "Software & Recurring Revenue",
+            "executive_owner": "Chief Product Officer (CPO) & VP Commercial Sales",
+            "priority": "HIGH",
+            "timeline": "Immediate (0 - 30 Days)",
+            "problem_statement": "Pure hardware manufacturing sales suffer from lumpy procurement cycles and inventory holding costs.",
+            "recommended_action": "Bundle 1-year complimentary FLYGHT Patrol SaaS subscriptions with all SWITCH UAV and Q6 civil sales, transitioning to auto-renewing ARR contracts at INR 1.5 Lakhs/drone/year.",
+            "financial_impact": f"Boosts EBITDA Margin to {action_b.get('ebitda_margin_pct', 0)}% (+{round(action_b.get('ebitda_margin_pct', 0) - no_action.get('ebitda_margin_pct', 0), 2)}% expansion) and increases Net Profit to ₹{action_b.get('net_profit_cr', 0)} Cr.",
+            "risk_rating": "Low (High customer stickiness in GIS drone fleet management)",
+            "mitigant": "Provide API integration with Survey of India GIS portals."
+        }
+        recommendations.append(rec_saas)
+
+        # --- 3. BCG MATRIX PORTFOLIO POSITIONING ---
+        rec_bcg = {
+            "rec_id": "REC-BCG-03",
+            "framework": "BCG Growth-Share Matrix Optimization",
+            "title": "Protect 'Cash Cow' (SWITCH UAV) while Scaling 'Star' (FLYGHT SaaS Platform)",
+            "category": "Portfolio & Product Strategy",
+            "executive_owner": "Chief Executive Officer (CEO) & Head of Strategy",
+            "priority": "MEDIUM",
+            "timeline": "60 - 90 Days",
+            "problem_statement": "SWITCH UAV provides 65% of defense revenue but faces competitive quadcopter pressure in civil markets.",
+            "recommended_action": "Reallocate 15% of civil drone R&D spend toward high-margin payload integrations (LIDAR, Thermal IR) for heavy-lift Q6 UAVs targeting industrial port surveillance.",
+            "financial_impact": "Stabilizes overall gross margin floor at 46.5% while expanding high-margin enterprise accounts.",
+            "risk_rating": "Low",
+            "mitigant": "Focus marketing efforts on enterprise infrastructure partners (e.g. Adani Ports, NTPC)."
+        }
+        recommendations.append(rec_bcg)
+
+        # --- 4. PRIVATE EQUITY CAPITAL ALLOCATION STRATEGY ---
+        rec_pe = {
+            "rec_id": "REC-PE-04",
+            "framework": "Private Equity Working Capital Optimization & Capital Allocation",
+            "title": "Establish Milestone-Linked Vendor Credit & Restructure MoD Billing Cycles",
+            "category": "Finance & Working Capital",
+            "executive_owner": "Chief Financial Officer (CFO)",
+            "priority": "HIGH" if "EXISTENTIAL" in severity or "MAJOR" in severity else "MEDIUM",
+            "timeline": "30 Days",
+            "problem_statement": "MoD disbursement delays expand working capital to 240+ days, incurring 10.5% p.a. borrowing costs on short-term bank debt.",
+            "recommended_action": "Negotiate 90-day extended credit terms with carbon fiber and battery suppliers linked back-to-back with Indian Army milestone acceptance certificates.",
+            "financial_impact": f"Reduces annual debt interest expense by ₹{round(no_action.get('working_capital_req_cr', 0) * 0.105 * 0.25, 2)} Cr.",
+            "risk_rating": "Medium (Supplier resistance to extended terms)",
+            "mitigant": "Offer preferred volume purchase guarantees in exchange for extended payables."
+        }
+        recommendations.append(rec_pe)
+
+        summary_matrix = {
+            "event_title": event_info.get("summary", ""),
+            "severity_assessment": severity,
+            "recommended_primary_action": rec_saas["title"] if action_b.get("ebitda_margin_pct", 0) > action_a.get("ebitda_margin_pct", 0) else rec_supply["title"],
+            "action_matrix": recommendations
+        }
+
+        return summary_matrix
+
+```
+
 ## File: `agents.py`
 ```python
 import pandas as pd
@@ -671,9 +1233,12 @@ class SharedTwinState:
             "DefenseProcurement": [],
             "SupplyChainRisk": [],
             "QofEAccounting": [],
-            "CausalSimulation": []
+            "CausalSimulation": [],
+            "StrategicAdvisory": [],
+            "ExecutiveBriefing": []
         }
         self.critical_flags = []
+        self.strategic_recommendations = []
 
 class DefenseProcurementAgent:
     def __init__(self, ingestion_pipeline):
@@ -855,30 +1420,197 @@ class CausalSimulationAgent:
                 f"creates an additional borrowing interest cost of INR {state.simulated_results.get('Additional_Interest_Cost_Cr', 0.0):.2f} Cr."
             )
 
+class StrategicAdvisoryAgent:
+    def execute(self, state):
+        state.agent_logs["StrategicAdvisory"].append(
+            "Evaluating McKinsey, Bain, and PE strategic frameworks..."
+        )
+        ebitda = state.simulated_results.get("EBITDA_Margin", 18.2)
+        wc_days = state.simulated_results.get("Working_Capital_Days", 240)
+        
+        if ebitda < 16.0:
+            state.agent_logs["StrategicAdvisory"].append(
+                "[RECOMMENDATION] Primary Action: Immediate FLYGHT SaaS bundling to defend EBITDA margin floor."
+            )
+        elif wc_days > 250:
+            state.agent_logs["StrategicAdvisory"].append(
+                "[RECOMMENDATION] Primary Action: Restructure payables and accelerate Gujarat fab domestic sourcing."
+            )
+        else:
+            state.agent_logs["StrategicAdvisory"].append(
+                "[RECOMMENDATION] Primary Action: Expand enterprise commercial accounts while maintaining defense order pace."
+            )
+
+class ExecutiveBriefingAgent:
+    def execute(self, state):
+        flags = state.critical_flags
+        ebitda = state.simulated_results.get("EBITDA_Margin", 18.2)
+        state.agent_logs["ExecutiveBriefing"].append(
+            f"Daily Synthesis: Operational Twin status evaluated with {len(flags)} critical flags."
+        )
+        state.agent_logs["ExecutiveBriefing"].append(
+            f"Current Simulated EBITDA Margin: {ebitda:.2f}%. System is continuously monitoring regulatory updates."
+        )
+
 class IdeaForgeAgentOrchestrator:
     def __init__(self, ingestion_pipeline, causal_engine):
         self.defense_agent = DefenseProcurementAgent(ingestion_pipeline)
         self.supply_agent = SupplyChainRiskAgent(ingestion_pipeline)
         self.qofe_agent = QofEAccountingAgent(ingestion_pipeline)
         self.causal_agent = CausalSimulationAgent(causal_engine)
+        self.strategic_agent = StrategicAdvisoryAgent()
+        self.briefing_agent = ExecutiveBriefingAgent()
 
     def run_workflow(self, scenario_config):
-        """Runs the four agents sequentially to generate a cooperative report"""
+        """Runs all 6 agents sequentially to generate a full cooperative report"""
         state = SharedTwinState(scenario_config)
         
-        # 1. Defense Procurement Agent
         self.defense_agent.execute(state)
-        
-        # 2. Supply Chain Risk Agent
         self.supply_agent.execute(state)
-        
-        # 3. QofE Accounting Agent
         self.qofe_agent.execute(state)
-        
-        # 4. Causal Simulation Agent (Computes the final econometric state)
         self.causal_agent.execute(state)
+        self.strategic_agent.execute(state)
+        self.briefing_agent.execute(state)
         
         return state
+
+```
+
+## File: `daily_briefing_job.py`
+```python
+import os
+import sys
+
+# Ensure current directory is in path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from data_ingestion import IdeaForgeIngestionPipeline
+from graph_db import IdeaForgeOntologyGraph
+from causal_engine import IdeaForgeCausalEngine
+from memory_engine import MemoryEngine
+from reasoning_loop import StrategicReasoningEngine
+from strategic_advisor import StrategicAdvisorEngine
+from agents import IdeaForgeAgentOrchestrator
+
+def run_daily_briefing_job(event_id=None):
+    """
+    Autonomous Daily Executive Briefing Job.
+    Runs without requiring human prompts:
+    1. Ingests dynamic breaking events.
+    2. Executes the 7-Step Strategic Reasoning Loop.
+    3. Fits 2SLS Causal Econometric Models.
+    4. Synthesizes McKinsey/PE Recommendations.
+    5. Saves the report to persistent memory.
+    """
+    print("==========================================================================")
+    print(" 🚀 AUTONOMOUS EXECUTIVE DIGITAL TWIN: DAILY BRIEFING GENERATOR")
+    print("==========================================================================")
+    
+    pipeline = IdeaForgeIngestionPipeline()
+    financials_df = pipeline.load_quarterly_financials()
+    causal_engine = IdeaForgeCausalEngine(financials_df)
+    memory_engine = MemoryEngine()
+    reasoning_engine = StrategicReasoningEngine(causal_engine, memory_engine)
+    strategic_advisor = StrategicAdvisorEngine(causal_engine, memory_engine)
+    
+    events = pipeline.load_dynamic_events()
+    
+    # Pick target event
+    target_event = None
+    if event_id:
+        for e in events:
+            if e["event_id"] == event_id:
+                target_event = e
+                break
+                
+    if not target_event:
+        target_event = events[0] # Default to latest breaking event
+        
+    print(f"\n[EVENT DETECTED]: {target_event['event_id']} - {target_event['title']}")
+    print(f"[CATEGORY]: {target_event['category']}")
+    print(f"[TIMESTAMP]: {target_event['timestamp']}")
+    
+    # Execute 7-Step Strategic Reasoning Loop
+    trace = reasoning_engine.execute_7_step_loop(target_event)
+    
+    # Generate Strategic Consulting Recommendations
+    rec_matrix = strategic_advisor.generate_strategic_recommendations(trace)
+    
+    # Format Executive Briefing Report
+    sims = trace["step7_simulations"]["simulations"]
+    no_action = sims["Option_No_Action"]
+    action_a = sims["Option_A_Supply_Mitigation"]
+    action_b = sims["Option_B_SaaS_Accelerate"]
+    
+    briefing_text = f"""
+# 📋 DAILY EXECUTIVE BRIEFING: IDEAFORGE DIGITAL TWIN
+**Generated On**: {target_event['timestamp']} | **Source**: {target_event['source']}
+
+---
+
+### 1. Executive Summary & Event Breakdown
+**Event**: {target_event['title']}
+**Category**: {target_event['category']}
+**Relevance**: {trace['step2_relevance']['relevance_type']} — {trace['step2_relevance']['rationale']}
+**Severity Assessment**: **{trace['step4_severity']['severity_level']}**
+
+**Description**:
+{target_event['description']}
+
+---
+
+### 2. 15-Dimension Business Impact
+- **Revenue**: {trace['step3_dimensions']['impacted_dimensions']['Revenue']}
+- **EBITDA Margins**: {trace['step3_dimensions']['impacted_dimensions']['Margins']}
+- **Supply Chain**: {trace['step3_dimensions']['impacted_dimensions']['Supply Chain']}
+- **Cash Flow / Working Capital**: {trace['step3_dimensions']['impacted_dimensions']['Cash Flow']}
+- **Regulation**: {trace['step3_dimensions']['impacted_dimensions']['Regulation']}
+
+---
+
+### 3. 2SLS Econometric Counterfactual Simulations
+- **Do Nothing (Status Quo)**:
+  - EBITDA Margin: **{no_action['ebitda_margin_pct']}%**
+  - Working Capital Days: **{no_action['working_capital_days']} days**
+  - Working Capital Req.: **₹{no_action['working_capital_req_cr']} Cr**
+  - Projected Net Profit: **₹{no_action['net_profit_cr']} Cr**
+
+- **Action A (Fast-Track Sanand Local Sourcing)**:
+  - EBITDA Margin: **{action_a['ebitda_margin_pct']}%** (+{round(action_a['ebitda_margin_pct'] - no_action['ebitda_margin_pct'], 2)}% vs status quo)
+  - Working Capital Days: **{action_a['working_capital_days']} days**
+  - Projected Net Profit: **₹{action_a['net_profit_cr']} Cr**
+
+- **Action B (Accelerate FLYGHT SaaS Bundling)**:
+  - EBITDA Margin: **{action_b['ebitda_margin_pct']}%** (+{round(action_b['ebitda_margin_pct'] - no_action['ebitda_margin_pct'], 2)}% vs status quo)
+  - Working Capital Days: **{action_b['working_capital_days']} days**
+  - Projected Net Profit: **₹{action_b['net_profit_cr']} Cr**
+
+---
+
+### 4. Prioritized McKinsey / PE Executive Action Matrix
+**Primary Recommended Strategy**: {rec_matrix['recommended_primary_action']}
+
+"""
+    
+    key_takeaways = [
+        f"Event '{target_event['title']}' categorized as {trace['step4_severity']['severity_level']}.",
+        f"Action B (SaaS Bundling) yields highest EBITDA expansion (+{round(action_b['ebitda_margin_pct'] - no_action['ebitda_margin_pct'], 2)}%).",
+        f"Action A (Local Sourcing) reduces working capital requirement by ₹{round(abs(action_a['working_capital_req_cr'] - no_action['working_capital_req_cr']), 1)} Cr."
+    ]
+    
+    recommended_actions = [rec['title'] for rec in rec_matrix['action_matrix']]
+    
+    # Save briefing to persistent memory
+    memory_engine.log_executive_briefing(briefing_text, key_takeaways, recommended_actions)
+    
+    print("\n" + briefing_text)
+    print("==========================================================================")
+    print(" ✅ DAILY BRIEFING GENERATED & SAVED TO PERSISTENT MEMORY")
+    print("==========================================================================")
+    return briefing_text
+
+if __name__ == "__main__":
+    run_daily_briefing_job()
 
 ```
 
@@ -894,16 +1626,19 @@ import os
 from graph_db import IdeaForgeOntologyGraph
 from data_ingestion import IdeaForgeIngestionPipeline
 from causal_engine import IdeaForgeCausalEngine
+from memory_engine import MemoryEngine
+from reasoning_loop import StrategicReasoningEngine
+from strategic_advisor import StrategicAdvisorEngine
 from agents import IdeaForgeAgentOrchestrator
 
 # 1. Page Configuration and Theme Injection
 st.set_page_config(
-    page_title="ideaForge Causal Twin",
+    page_title="ideaForge Autonomous Financial Digital Twin",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom sleek dark CSS styling for premium look
+# Custom sleek dark CSS styling for executive command center
 st.markdown("""
 <style>
     /* Main layout styling */
@@ -948,6 +1683,35 @@ st.markdown("""
         font-weight: 600;
     }
     
+    /* Reasoning step cards */
+    .reasoning-box {
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+    .reasoning-step-title {
+        font-weight: 700;
+        color: #58a6ff;
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+    
+    /* Recommendation card */
+    .rec-card {
+        background-color: #1c2128;
+        border-left: 4px solid #38d9a9;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .rec-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #63e6be;
+    }
+    
     /* Agent speech bubbles */
     .agent-bubble {
         background-color: #1e2530;
@@ -956,14 +1720,12 @@ st.markdown("""
         padding: 12px;
         margin-bottom: 12px;
     }
-    
     .agent-header {
         font-weight: 700;
         font-size: 0.9rem;
         color: #63b3ed;
         margin-bottom: 4px;
     }
-    
     .agent-body {
         font-size: 0.85rem;
         color: #e2e8f0;
@@ -977,28 +1739,31 @@ if "selected_node" not in st.session_state:
     st.session_state["selected_node"] = None
 if "focus_neighborhood" not in st.session_state:
     st.session_state["focus_neighborhood"] = False
-if "simulation_run" not in st.session_state:
-    st.session_state["simulation_run"] = False
+if "current_event_idx" not in st.session_state:
+    st.session_state["current_event_idx"] = 0
 
-# Initialize pipeline, graph database, and causal engine
+# Initialize backend objects
 @st.cache_resource
 def get_backend_objects():
     pipeline = IdeaForgeIngestionPipeline()
     graph_db = IdeaForgeOntologyGraph()
     financials_df = pipeline.load_quarterly_financials()
     causal_engine = IdeaForgeCausalEngine(financials_df)
+    memory_engine = MemoryEngine()
+    reasoning_engine = StrategicReasoningEngine(causal_engine, memory_engine)
+    strategic_advisor = StrategicAdvisorEngine(causal_engine, memory_engine)
     orchestrator = IdeaForgeAgentOrchestrator(pipeline, causal_engine)
-    return pipeline, graph_db, financials_df, causal_engine, orchestrator
+    return pipeline, graph_db, financials_df, causal_engine, memory_engine, reasoning_engine, strategic_advisor, orchestrator
 
-pipeline, graph_db, financials_df, causal_engine, orchestrator = get_backend_objects()
+pipeline, graph_db, financials_df, causal_engine, memory_engine, reasoning_engine, strategic_advisor, orchestrator = get_backend_objects()
 
 # Baseline numbers (latest quarter: Q4 FY26)
 baseline_data = financials_df.iloc[-1].to_dict()
 
-# Sidebar: Controls
+# Sidebar: Global Digital Twin Controls
 st.sidebar.image("https://img.icons8.com/nolan/96/drone.png", width=64)
-st.sidebar.title("Causal Twin Controls")
-st.sidebar.write("Simulate operational interventions below:")
+st.sidebar.title("Autonomous Twin Controls")
+st.sidebar.caption("Digital Operating System for Corporate Strategy")
 
 # Slider 1: MoD Disbursement Lag
 mod_lag = st.sidebar.slider(
@@ -1030,7 +1795,7 @@ saas_attach_rate = st.sidebar.slider(
     help="Attach rate of software platform (recurring cloud subscription) across defense/civil fleets."
 )
 
-# Slider 4: Indigenous Sourcing Mix (displays current compliance level)
+# Slider 4: Indigenous Sourcing Mix
 indigenous_mix = st.sidebar.slider(
     "Indigenous Sourcing Ratio (%)",
     min_value=30,
@@ -1040,10 +1805,6 @@ indigenous_mix = st.sidebar.slider(
     help="Level of local manufacturing and assembly sourcing, qualifying for PLI incentives and tenders."
 )
 
-# Run button
-run_simulation = st.sidebar.button("RUN COUNTERFACTUAL SIMULATION", type="primary", use_container_width=True)
-
-# Generate current config
 scenario_config = {
     "mod_lag_days": mod_lag,
     "import_tariff_shock_pct": import_price_shock,
@@ -1051,18 +1812,18 @@ scenario_config = {
     "indigenous_mix": indigenous_mix / 100.0
 }
 
-# Run agents workflow
+# Run multi-agent workflow
 agent_state = orchestrator.run_workflow(scenario_config)
 sim_res = agent_state.simulated_results
 
-# ----------------- MAIN PANEL -----------------
-st.title("⚡ ideaForge Technology Limited: Enterprise Causal Digital Twin")
-st.markdown("Mathematical simulation and multi-agent audit of India's leading UAS manufacturer under supply shocks and defense disbursement delays.")
+# ----------------- MAIN TITLE & HEADER -----------------
+st.title("⚡ ideaForge Technology Limited: Autonomous Financial Digital Twin")
+st.markdown("**AI Operating System for Corporate Strategy** | Persistent Memory • 7-Step Causal Reasoning • 2SLS Econometrics • McKinsey/PE Advisory")
 
-# Row 1: KPI Metrics
+# KPI Summary Cards
 kpi_cols = st.columns(4)
 
-def render_kpi(col, title, val_fmt, baseline_val, simulated_val, unit=""):
+def render_kpi(col, title, val_fmt, baseline_val, simulated_val):
     diff = simulated_val - baseline_val
     delta_class = "metric-delta-pos" if diff >= 0 else "metric-delta-neg"
     sign = "+" if diff >= 0 else ""
@@ -1077,7 +1838,6 @@ def render_kpi(col, title, val_fmt, baseline_val, simulated_val, unit=""):
         val_str = f"₹{simulated_val:.2f} Cr"
         delta_str = f"{sign}₹{diff:.2f} Cr"
 
-    # Flip color logic for working capital days (less is better)
     if title == "Working Capital" and diff != 0:
         delta_class = "metric-delta-neg" if diff > 0 else "metric-delta-pos"
 
@@ -1089,7 +1849,6 @@ def render_kpi(col, title, val_fmt, baseline_val, simulated_val, unit=""):
     </div>
     """, unsafe_allow_html=True)
 
-# Fill KPI row
 render_kpi(kpi_cols[0], "EBITDA Margin", "pct", baseline_data["EBITDA_Margin"], sim_res["EBITDA_Margin"])
 render_kpi(kpi_cols[1], "Working Capital", "days", baseline_data["Working_Capital_Days"], sim_res["Working_Capital_Days"])
 render_kpi(kpi_cols[2], "Net Profit", "currency", baseline_data["Net_Profit"], sim_res["Net_Profit"])
@@ -1099,258 +1858,343 @@ render_kpi(kpi_cols[3], "Working Capital Req.", "currency",
 
 st.write("---")
 
-# Row 2: Graph Visualization & Node Details
-left_graph_col, right_details_col = st.columns([2, 1])
+# Navigation Tabs
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "🌐 1. Digital Twin Knowledge Graph",
+    "🔄 2. 7-Step Strategic Reasoning Loop",
+    "📊 3. 2SLS Econometric Causal Engine",
+    "🧠 4. Strategic Recommendation Workbench",
+    "📚 5. Persistent Memory & Briefing Archive"
+])
 
-with left_graph_col:
-    st.subheader("🕸️ Operational Directed Acyclic Graph (DAG) Ontology")
-    st.caption("Bidirectional graph mapping ideaForge's business divisions, product units, supply chain links, and Ind AS financial flow dependencies.")
+# ==============================================================================
+# TAB 1: KNOWLEDGE GRAPH ONTOLOGY
+# ==============================================================================
+with tab1:
+    st.subheader("🕸️ Operational Knowledge Graph & Node Subgraph Inspector")
+    st.caption("Bidirectional graph mapping ideaForge's business divisions, product platforms, supply chain nodes, and Ind AS financial metrics.")
     
-    # Reset Graph View button
-    if st.session_state["focus_neighborhood"]:
-        if st.button("Clear Neighborhood Focus"):
-            st.session_state["focus_neighborhood"] = False
-            st.session_state["selected_node"] = None
-            st.rerun()
-
-    # Query graph nodes and edges
-    if st.session_state["focus_neighborhood"] and st.session_state["selected_node"]:
-        neighborhood = graph_db.get_2_hop_neighborhood(st.session_state["selected_node"])
-        nodes = neighborhood["nodes"]
-        edges = neighborhood["edges"]
-    else:
-        nodes = graph_db.get_nodes()
-        edges = graph_db.get_edges()
-
-    # Format nodes & edges for Cytoscape.js
-    cy_elements = []
+    col_g1, col_g2 = st.columns([2, 1])
     
-    # Define colors for different node classes
-    color_map = {
-        "BusinessSegment": "#1E88E5",      # Blue
-        "ProductPlatform": "#43A047",      # Green
-        "SupplyChainComponent": "#E53935", # Red
-        "GovernmentPolicy": "#8E24AA",     # Purple
-        "CustomerEntity": "#FB8C00",       # Orange
-        "FinancialMetric": "#FDD835"       # Gold/Yellow
-    }
-    
-    for n in nodes:
-        node_label = n.get("name") or n.get("model_name") or n.get("title") or n.get("id")
-        cy_elements.append({
-            "data": {
-                "id": n["id"],
-                "label": node_label,
-                "class": n.get("label"),
-                "color": color_map.get(n.get("label"), "#cccccc")
-            }
-        })
-        
-    for e in edges:
-        cy_elements.append({
-            "data": {
-                "source": e["source"],
-                "target": e["target"],
-                "id": f"{e['source']}_{e['target']}",
-                "relationship": e.get("relationship", "")
-            }
-        })
+    with col_g1:
+        if st.session_state["focus_neighborhood"]:
+            if st.button("Clear Neighborhood Focus"):
+                st.session_state["focus_neighborhood"] = False
+                st.session_state["selected_node"] = None
+                st.rerun()
 
-    # Style sheet for st-cytoscape
-    stylesheet = [
-        {
-            "selector": "node",
-            "style": {
-                "label": "data(label)",
-                "background-color": "data(color)",
-                "color": "#ffffff",
-                "font-size": "11px",
-                "width": "35px",
-                "height": "35px",
-                "text-valign": "center",
-                "text-halign": "bottom",
-                "text-wrap": "wrap",
-                "text-max-width": "90px",
-                "border-width": "1px",
-                "border-color": "#ffffff"
-            }
-        },
-        {
-            "selector": "edge",
-            "style": {
-                "width": "2px",
-                "line-color": "#4a5568",
-                "target-arrow-color": "#4a5568",
-                "target-arrow-shape": "triangle",
-                "curve-style": "bezier",
-                "label": "data(relationship)",
-                "font-size": "8px",
-                "color": "#a0aec0",
-                "text-rotation": "autorotate",
-                "text-margin-y": "-10px"
-            }
-        },
-        {
-            "selector": ":selected",
-            "style": {
-                "border-width": "3px",
-                "border-color": "#63b3ed",
-                "width": "42px",
-                "height": "42px"
-            }
+        if st.session_state["focus_neighborhood"] and st.session_state["selected_node"]:
+            neighborhood = graph_db.get_2_hop_neighborhood(st.session_state["selected_node"])
+            nodes = neighborhood["nodes"]
+            edges = neighborhood["edges"]
+        else:
+            nodes = graph_db.get_nodes()
+            edges = graph_db.get_edges()
+
+        cy_elements = []
+        color_map = {
+            "BusinessSegment": "#1E88E5",      # Blue
+            "ProductPlatform": "#43A047",      # Green
+            "SupplyChainComponent": "#E53935", # Red
+            "GovernmentPolicy": "#8E24AA",     # Purple
+            "CustomerEntity": "#FB8C00",       # Orange
+            "FinancialMetric": "#FDD835"       # Gold
         }
-    ]
-
-    layout = {"name": "cose", "nodeRepulsion": 8000, "idealEdgeLength": 100}
-
-    # Render Cytoscape Graph with fallback handling
-    try:
-        from st_cytoscape import cytoscape
-        selected = cytoscape(
-            cy_elements,
-            stylesheet,
-            layout=layout,
-            height="480px",
-            selection_type="single",
-            key="cy_graph"
-        )
         
-        # Intercept selections
-        if selected and selected.get("nodes"):
-            clicked = selected["nodes"][0]
-            if clicked != st.session_state["selected_node"]:
-                st.session_state["selected_node"] = clicked
+        for n in nodes:
+            node_label = n.get("name") or n.get("model_name") or n.get("title") or n.get("id")
+            cy_elements.append({
+                "data": {
+                    "id": n["id"],
+                    "label": node_label,
+                    "class": n.get("label"),
+                    "color": color_map.get(n.get("label"), "#cccccc")
+                }
+            })
+            
+        for e in edges:
+            cy_elements.append({
+                "data": {
+                    "source": e["source"],
+                    "target": e["target"],
+                    "id": f"{e['source']}_{e['target']}",
+                    "relationship": e.get("relationship", "")
+                }
+            })
+
+        stylesheet = [
+            {
+                "selector": "node",
+                "style": {
+                    "label": "data(label)",
+                    "background-color": "data(color)",
+                    "color": "#ffffff",
+                    "font-size": "11px",
+                    "width": "35px",
+                    "height": "35px",
+                    "text-valign": "center",
+                    "text-halign": "bottom",
+                    "text-wrap": "wrap",
+                    "text-max-width": "90px",
+                    "border-width": "1px",
+                    "border-color": "#ffffff"
+                }
+            },
+            {
+                "selector": "edge",
+                "style": {
+                    "width": "2px",
+                    "line-color": "#4a5568",
+                    "target-arrow-color": "#4a5568",
+                    "target-arrow-shape": "triangle",
+                    "curve-style": "bezier",
+                    "label": "data(relationship)",
+                    "font-size": "8px",
+                    "color": "#a0aec0",
+                    "text-rotation": "autorotate",
+                    "text-margin-y": "-10px"
+                }
+            }
+        ]
+        layout = {"name": "cose", "nodeRepulsion": 8000, "idealEdgeLength": 100}
+
+        try:
+            from st_cytoscape import cytoscape
+            selected = cytoscape(cy_elements, stylesheet, layout=layout, height="480px", selection_type="single", key="cy_graph_tab1")
+            if selected and selected.get("nodes"):
+                clicked = selected["nodes"][0]
+                if clicked != st.session_state["selected_node"]:
+                    st.session_state["selected_node"] = clicked
+                    st.session_state["focus_neighborhood"] = True
+                    st.rerun()
+        except Exception:
+            all_node_ids = [n["id"] for n in nodes]
+            chosen = st.selectbox("Direct Node Inspector", ["-- Select a node to expand --"] + all_node_ids)
+            if chosen != "-- Select a node to expand --" and chosen != st.session_state["selected_node"]:
+                st.session_state["selected_node"] = chosen
                 st.session_state["focus_neighborhood"] = True
                 st.rerun()
-    except Exception as e:
-        # Fallback iframe using direct HTML injection in case of libraries issue
-        st.error(f"Render failed: {e}. Injecting embedded Cytoscape visualizer.")
-        st.info("Interactive nodes are supported in pure HTML mode below.")
-        
-        # Simple list select fallback for node focus since iframe doesn't bubble up events natively
-        all_node_ids = [n["id"] for n in nodes]
-        chosen = st.selectbox("Direct Node Inspector", ["-- Select a node to expand --"] + all_node_ids)
-        if chosen != "-- Select a node to expand --" and chosen != st.session_state["selected_node"]:
-            st.session_state["selected_node"] = chosen
-            st.session_state["focus_neighborhood"] = True
-            st.rerun()
 
-with right_details_col:
-    st.subheader("🔍 Node Properties & 2-Hop Details")
-    if st.session_state["selected_node"]:
-        node_id = st.session_state["selected_node"]
-        details = graph_db.get_node_details(node_id)
-        
-        if details:
-            st.markdown(f"### 📦 `{node_id}`")
-            st.markdown(f"**Classification**: `{details.get('label')}`")
-            
-            # Format properties into a readable table
-            props = {k: v for k, v in details.items() if k != "label"}
-            st.table(pd.DataFrame(list(props.items()), columns=["Property", "Value"]))
-            
-            # Show neighbors
-            adj_nodes = list(graph_db.graph.neighbors(node_id))
-            pre_nodes = list(graph_db.graph.predecessors(node_id))
-            
-            if adj_nodes:
-                st.markdown("**Downstream Outflows:**")
-                for n in adj_nodes:
-                    st.markdown(f"- `{n}` via `[{graph_db.graph[node_id][n]['relationship']}]`")
-            if pre_nodes:
-                st.markdown("**Upstream Inflows:**")
-                for n in pre_nodes:
-                    st.markdown(f"- `{n}` via `[{graph_db.graph[n][node_id]['relationship']}]`")
+    with col_g2:
+        st.subheader("🔍 Node Inspector")
+        if st.session_state["selected_node"]:
+            node_id = st.session_state["selected_node"]
+            details = graph_db.get_node_details(node_id)
+            if details:
+                st.markdown(f"### 📦 `{node_id}`")
+                st.markdown(f"**Classification**: `{details.get('label')}`")
+                props = {k: v for k, v in details.items() if k != "label"}
+                st.table(pd.DataFrame(list(props.items()), columns=["Property", "Value"]))
         else:
-            st.write("No details found.")
-    else:
-        st.info("Click a node in the network graph above to inspect its BOM, supply constraints, and financial flows.")
+            st.info("Click any node in the Cytoscape graph to inspect its underlying BOM, supply chain links, and financial dependencies.")
 
-st.write("---")
+# ==============================================================================
+# TAB 2: 7-STEP STRATEGIC REASONING LOOP
+# ==============================================================================
+with tab2:
+    st.subheader("🔄 Autonomous 7-Step Strategic Reasoning Engine")
+    st.caption("Select a dynamic breaking news event or inject a custom event to watch the twin execute its internal 7-step reasoning cycle.")
 
-# Row 3: Econometric Modeling Detail & Agent Reports
-left_math_col, right_agent_col = st.columns([1, 1])
+    events_list = pipeline.load_dynamic_events()
+    event_options = [f"{e['event_id']}: {e['title']}" for e in events_list]
+    
+    col_r1, col_r2 = st.columns([2, 1])
+    with col_r1:
+        selected_event_str = st.selectbox("Select Ingested Event Feed", event_options)
+        selected_idx = event_options.index(selected_event_str)
+        target_event = events_list[selected_idx]
+        
+    with col_r2:
+        st.write("")
+        st.write("")
+        if st.button("➕ Inject Custom Breaking Event"):
+            with st.form("custom_event_form"):
+                st.write("Inject Custom Operational/Macro Shock")
+                c_title = st.text_input("Event Title", "Middle East Air Cargo Embargo Pushes EO/IR Sensor Lead Time to 180 Days")
+                c_cat = st.selectbox("Category", ["Supply Chain & Logistics", "Macroeconomic & Interest Rates", "Government Policy & Defense Finance", "Competitor Activity"])
+                c_desc = st.text_area("Description", "Regional escalation closes primary air freight routes from Tel Aviv, stalling optical payload imports for SWITCH UAV build.")
+                c_mod = st.number_input("MoD Disbursement Lag (Days)", 15, 180, 75)
+                c_tariff = st.number_input("Import Tariff Cost Shock (%)", 0, 100, 25)
+                c_saas = st.number_input("SaaS Attach Rate (%)", 0, 100, 35)
+                submit_custom = st.form_submit_button("Inject Event to Digital Twin")
+                if submit_custom:
+                    new_e = pipeline.inject_custom_event(c_title, c_cat, c_desc, {
+                        "mod_lag_days": c_mod,
+                        "import_tariff_shock_pct": c_tariff,
+                        "saas_attach_rate_pct": c_saas
+                    })
+                    st.success(f"Injected custom event `{new_e['event_id']}`!")
+                    st.rerun()
 
-with left_math_col:
-    st.subheader("📊 2SLS Causal Equations & Model Statistics")
-    st.markdown("Standard observational models suffer from backdoor confounding due to macroeconomic and funding cycles. We resolve this by using a **Two-Stage Least Squares (2SLS)** structure:")
-    
-    st.latex(r"""
-    \text{1st Stage: } \text{Working Capital Days} = \gamma_0 + \gamma_1 (\text{MoD Disbursement Lag}) + \mathbf{W}\boldsymbol{\Gamma} + v
-    """)
-    st.latex(r"""
-    \text{2nd Stage: } \text{EBITDA Margin} = \beta_0 + \beta_1 (\widehat{\text{Working Capital Days}}) + \mathbf{W}\boldsymbol{\mathbf{B}} + \varepsilon
-    """)
-    
-    st.write("**Second Stage Corrected Regressor Parameters**:")
-    stage2_df = causal_engine.get_second_stage_summary()
-    st.dataframe(stage2_df.style.format({
-        "Coefficient": "{:.5f}",
-        "Std Error": "{:.5f}",
-        "t-Statistic": "{:.3f}",
-        "p-Value": "{:.5e}"
-    }))
-    
-    st.write("**First Stage Instrument Diagnostic**:")
-    stage1_df = causal_engine.get_first_stage_summary()
-    st.dataframe(stage1_df.style.format({
-        "Coefficient": "{:.4f}",
-        "Std Error": "{:.4f}",
-        "t-Statistic": "{:.3f}",
-        "p-Value": "{:.5e}"
-    }))
-    
-    st.caption("Note: Working Capital Days is highly endogenous. Using MoD Disbursement Lag as an IV satisfies exclusion restrictions, isolating true operational performance drivers.")
+    # Execute 7-Step Reasoning Loop
+    reasoning_trace = reasoning_engine.execute_7_step_loop(target_event)
 
-with right_agent_col:
-    st.subheader("🤖 LangGraph Analytical Debate Transcript")
-    st.caption("Four autonomous agent instances auditing this scenario's structural validity and checking for Indian Accounting Standards compliance:")
-    
-    # 1. Defense Procurement
-    st.markdown(f"""
-    <div class="agent-bubble">
-        <div class="agent-header">🪖 Defense Procurement Agent</div>
-        <div class="agent-body">
-            {"<br>".join(agent_state.agent_logs["DefenseProcurement"])}
+    st.write("---")
+    st.markdown(f"### ⚙️ Executive Reasoning Trace for Event: `{target_event['event_id']}`")
+
+    # Render Steps 1 to 7
+    s1 = reasoning_trace["step1_event"]
+    s2 = reasoning_trace["step2_relevance"]
+    s3 = reasoning_trace["step3_dimensions"]
+    s4 = reasoning_trace["step4_severity"]
+    s5 = reasoning_trace["step5_assumptions"]
+    s6 = reasoning_trace["step6_action_trigger"]
+    s7 = reasoning_trace["step7_simulations"]
+
+    r_col1, r_col2 = st.columns(2)
+
+    with r_col1:
+        st.markdown(f"""
+        <div class="reasoning-box">
+            <div class="reasoning-step-title">{s1['step']}</div>
+            <b>Q: {s1['question']}</b><br>
+            <b>Summary</b>: {s1['summary']}<br>
+            <b>Source</b>: {s1['source']} ({s1['timestamp']})<br>
+            <i>{s1['full_description']}</i>
         </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class="reasoning-box">
+            <div class="reasoning-step-title">{s2['step']}</div>
+            <b>Q: {s2['question']}</b><br>
+            <b>Relevance Rating</b>: <span style="color:#58a6ff; font-weight:bold;">{s2['relevance_type']}</span><br>
+            <b>Rationale</b>: {s2['rationale']}
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class="reasoning-box">
+            <div class="reasoning-step-title">{s4['step']}</div>
+            <b>Q: {s4['question']}</b><br>
+            <b>Severity Level</b>: <span style="color:#f56565; font-weight:bold;">{s4['severity_level']}</span><br>
+            <b>Key Drivers</b>: {s4['key_drivers']}
+        </div>
+        """, unsafe_allow_html=True)
+
+    with r_col2:
+        st.markdown(f"""
+        <div class="reasoning-box">
+            <div class="reasoning-step-title">{s5['step']}</div>
+            <b>Q: {s5['question']}</b><br>
+            <b>Belief Ledger Revisions</b>: {json.dumps(s5['invalidated_beliefs'], indent=2)}
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class="reasoning-box">
+            <div class="reasoning-step-title">{s6['step']}</div>
+            <b>Q: {s6['question']}</b><br>
+            <b>Action Required?</b>: <span style="color:{'#48bb78' if s6['action_required'] else '#a0aec0'}; font-weight:bold;">{'YES - EXECUTE STRATEGY' if s6['action_required'] else 'NO - STORE & MONITOR'}</span><br>
+            <b>Rationale</b>: {s6['decision_rationale']}
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="reasoning-box">
+        <div class="reasoning-step-title">{s3['step']}</div>
+        <b>Q: {s3['question']}</b><br>
+    </div>
+    """, unsafe_allow_html=True)
+    st.json(s3['impacted_dimensions'])
+
+    st.markdown(f"""
+    <div class="reasoning-box">
+        <div class="reasoning-step-title">{s7['step']}</div>
+        <b>Q: {s7['question']}</b>
     </div>
     """, unsafe_allow_html=True)
     
-    # 2. Supply Chain Risk
-    st.markdown(f"""
-    <div class="agent-bubble">
-        <div class="agent-header">⚙️ Supply Chain Risk Agent</div>
-        <div class="agent-body">
-            {"<br>".join(agent_state.agent_logs["SupplyChainRisk"])}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    sim_table_data = []
+    for k, v in s7["simulations"].items():
+        sim_table_data.append({
+            "Option Name": v["title"],
+            "Probability": v["probability"],
+            "EBITDA Margin (%)": v["ebitda_margin_pct"],
+            "Working Capital (Days)": v["working_capital_days"],
+            "Net Profit (₹ Cr)": v["net_profit_cr"],
+            "Working Capital Req (₹ Cr)": v["working_capital_req_cr"]
+        })
+    st.table(pd.DataFrame(sim_table_data))
+
+# ==============================================================================
+# TAB 3: 2SLS ECONOMETRIC CAUSAL TWIN
+# ==============================================================================
+with tab3:
+    st.subheader("📊 Two-Stage Least Squares (2SLS) Econometric Causal Model")
+    st.markdown("Isolates true operating drivers of EBITDA margin volatility under MoD budget disbursement lags:")
     
-    # 3. Quality of Earnings (QofE)
-    st.markdown(f"""
-    <div class="agent-bubble">
-        <div class="agent-header">🔍 QofE Accounting Agent (Ind AS Compliance)</div>
-        <div class="agent-body">
-            {"<br>".join(agent_state.agent_logs["QofEAccounting"])}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.latex(r"\text{1st Stage: } \text{Working Capital Days} = \gamma_0 + \gamma_1 (\text{MoD Disbursement Lag}) + \mathbf{W}\boldsymbol{\Gamma} + v")
+    st.latex(r"\text{2nd Stage: } \text{EBITDA Margin} = \beta_0 + \beta_1 (\widehat{\text{Working Capital Days}}) + \mathbf{W}\boldsymbol{\mathbf{B}} + \varepsilon")
     
-    # 4. Causal Simulation
-    st.markdown(f"""
-    <div class="agent-bubble" style="border-left-color: #48bb78;">
-        <div class="agent-header">📈 Causal Simulation Agent</div>
-        <div class="agent-body">
-            {"<br>".join(agent_state.agent_logs["CausalSimulation"])}
+    c_m1, c_m2 = st.columns(2)
+    with c_m1:
+        st.write("**Second Stage Corrected Outcome Regressors**:")
+        st.dataframe(causal_engine.get_second_stage_summary().style.format({
+            "Coefficient": "{:.5f}",
+            "Std Error": "{:.5f}",
+            "t-Statistic": "{:.3f}",
+            "p-Value": "{:.5e}"
+        }))
+    with c_m2:
+        st.write("**First Stage Instrument Diagnostic**:")
+        st.dataframe(causal_engine.get_first_stage_summary().style.format({
+            "Coefficient": "{:.4f}",
+            "Std Error": "{:.4f}",
+            "t-Statistic": "{:.3f}",
+            "p-Value": "{:.5e}"
+        }))
+
+# ==============================================================================
+# TAB 4: STRATEGIC RECOMMENDATION WORKBENCH
+# ==============================================================================
+with tab4:
+    st.subheader("🧠 McKinsey / Bain / PE Executive Recommendation Workbench")
+    st.caption("Top-tier management consulting and private equity counter-strategies synthesized for the current digital twin state.")
+
+    advisor_matrix = strategic_advisor.generate_strategic_recommendations(reasoning_trace)
+
+    st.info(f"💡 **Primary Recommended Strategy**: {advisor_matrix['recommended_primary_action']}")
+
+    for rec in advisor_matrix["action_matrix"]:
+        st.markdown(f"""
+        <div class="rec-card">
+            <div class="rec-title">[{rec['framework']}] {rec['title']}</div>
+            <p style="margin: 4px 0;"><b>Category</b>: {rec['category']} | <b>Owner</b>: {rec['executive_owner']} | <b>Timeline</b>: {rec['timeline']}</p>
+            <p><b>Problem</b>: {rec['problem_statement']}</p>
+            <p><b>Recommended Action</b>: {rec['recommended_action']}</p>
+            <p style="color:#38d9a9; font-weight:bold;">💰 Financial Impact: {rec['financial_impact']}</p>
+            <p style="color:#ffa8a8;">⚠️ Risk & Mitigant: {rec['risk_rating']} — {rec['mitigant']}</p>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Critical flags banner
-    if agent_state.critical_flags:
-        st.error(f"🚨 **Critical Operational Flags Triggered**: {', '.join(agent_state.critical_flags)}")
-    else:
-        st.success("✅ **All Operational Thresholds Within Normal Tolerances**")
+        """, unsafe_allow_html=True)
+
+# ==============================================================================
+# TAB 5: PERSISTENT MEMORY & BRIEFING ARCHIVE
+# ==============================================================================
+with tab5:
+    st.subheader("📚 Persistent Memory & Executive Briefing Archive")
+    st.caption("Auditable ledger of historical assumptions, belief revisions, past decision lessons, and proactive daily executive briefings.")
+
+    m_col1, m_col2 = st.columns(2)
+
+    with m_col1:
+        st.markdown("### 📜 Belief Revision Ledger")
+        beliefs = memory_engine.get_belief_history()
+        st.dataframe(pd.DataFrame(beliefs))
+
+        st.markdown("### 🎯 Decision & Forecast History")
+        decisions = memory_engine.get_decision_history()
+        st.dataframe(pd.DataFrame(decisions))
+
+    with m_col2:
+        st.markdown("### 📋 Proactive Daily Executive Briefings")
+        briefings = memory_engine.get_all_executive_briefings()
+        if briefings:
+            for b in briefings:
+                with st.expander(f"Briefing Date: {b['date']}"):
+                    st.markdown(b["briefing_text"])
+        else:
+            st.info("No saved briefings found. Run `python3 daily_briefing_job.py` in your terminal to generate automated daily briefings!")
 
 ```
 
@@ -1365,7 +2209,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_ingestion import IdeaForgeIngestionPipeline
 from graph_db import IdeaForgeOntologyGraph
 from causal_engine import IdeaForgeCausalEngine
+from memory_engine import MemoryEngine
+from reasoning_loop import StrategicReasoningEngine
+from strategic_advisor import StrategicAdvisorEngine
 from agents import IdeaForgeAgentOrchestrator
+from daily_briefing_job import run_daily_briefing_job
 
 def test_ingestion_pipeline():
     print("Testing Ingestion Pipeline...")
@@ -1373,15 +2221,17 @@ def test_ingestion_pipeline():
     financials_df = pipeline.load_quarterly_financials()
     tenders = pipeline.load_government_tenders()
     imports = pipeline.load_import_logs()
+    events = pipeline.load_dynamic_events()
     
     assert financials_df is not None and not financials_df.empty, "Quarterly financials df is empty!"
     assert len(tenders) > 0, "No tenders loaded!"
     assert not imports.empty, "Import logs df is empty!"
+    assert len(events) > 0, "No dynamic events loaded!"
     
     ref = pipeline.get_audit_trail_reference("financials", "indigenous_sourcing_pct")
     assert "BRSR" in ref, "Invalid audit trail reference format!"
     print("Ingestion Pipeline Test passed successfully.\n")
-    return pipeline, financials_df
+    return pipeline, financials_df, events
 
 def test_graph_ontology():
     print("Testing Graph Ontology Design...")
@@ -1392,12 +2242,10 @@ def test_graph_ontology():
     assert len(nodes) > 0, "No nodes in ontology!"
     assert len(edges) > 0, "No edges in ontology!"
     
-    # Check node details
     switch_details = graph.get_node_details("SWITCH_UAV")
     assert switch_details is not None, "SWITCH_UAV node not found!"
     assert switch_details["label"] == "ProductPlatform", "Invalid class label for SWITCH UAV!"
     
-    # Check 2-hop neighborhood
     neighborhood = graph.get_2_hop_neighborhood("SWITCH_UAV")
     assert len(neighborhood["nodes"]) > 0, "2-hop neighborhood is empty!"
     print("Graph Ontology Test passed successfully.\n")
@@ -1407,11 +2255,9 @@ def test_causal_engine(financials_df):
     print("Testing 2SLS Causal Engine...")
     engine = IdeaForgeCausalEngine(financials_df)
     
-    # Verify coefficients exist
     assert len(engine.beta) > 0, "2nd stage coefficients are missing!"
     assert len(engine.gamma) > 0, "1st stage coefficients are missing!"
     
-    # Run counterfactual simulation
     sim_res = engine.simulate_counterfactual(mod_lag_days=90, import_tariff_shock_pct=15.0, saas_attach_rate_pct=40.0)
     metrics = sim_res["metrics"]
     
@@ -1421,41 +2267,49 @@ def test_causal_engine(financials_df):
     print("Causal Engine Test passed successfully.\n")
     return engine
 
-def test_agent_orchestrator(pipeline, engine):
-    print("Testing LangGraph Agent Orchestrator...")
-    orchestrator = IdeaForgeAgentOrchestrator(pipeline, engine)
+def test_memory_engine():
+    print("Testing Persistent Memory & Belief Revision Engine...")
+    memory = MemoryEngine()
+    memory.revise_belief("TEST_KEY", 10, 20, "Unit Test Revision", "EVT-TEST")
     
-    scenario_config = {
-        "mod_lag_days": 100,
-        "import_tariff_shock_pct": 20.0,
-        "saas_attach_rate_pct": 45.0,
-        "indigenous_mix": 0.55
-    }
+    beliefs = memory.get_belief_history()
+    assert len(beliefs) > 0, "Belief ledger is empty!"
+    assert beliefs[0]["assumption_key"] == "TEST_KEY", "Belief revision not logged at top!"
+    print("Persistent Memory Engine Test passed successfully.\n")
+    return memory
+
+def test_reasoning_and_advisor(causal_engine, memory_engine, events):
+    print("Testing 7-Step Strategic Reasoning Loop & McKinsey Advisor...")
+    reasoning_engine = StrategicReasoningEngine(causal_engine, memory_engine)
+    advisor_engine = StrategicAdvisorEngine(causal_engine, memory_engine)
     
-    state = orchestrator.run_workflow(scenario_config)
+    trace = reasoning_engine.execute_7_step_loop(events[0])
+    assert "step1_event" in trace, "Step 1 trace missing!"
+    assert "step7_simulations" in trace, "Step 7 simulations missing!"
     
-    # Verify each agent executed and wrote logs
-    assert len(state.agent_logs["DefenseProcurement"]) > 0, "Defense Procurement Agent logs are empty!"
-    assert len(state.agent_logs["SupplyChainRisk"]) > 0, "Supply Chain Risk Agent logs are empty!"
-    assert len(state.agent_logs["QofEAccounting"]) > 0, "QofE Accounting Agent logs are empty!"
-    assert len(state.agent_logs["CausalSimulation"]) > 0, "Causal Simulation Agent logs are empty!"
-    
-    # Check if flags were raised
-    assert "HIGH_MOD_DISBURSEMENT_LAG" in state.critical_flags, "Expected lag flag was not raised!"
-    assert "SUPPLY_CHAIN_MARGIN_SQUEEZE" in state.critical_flags, "Expected tariff flag was not raised!"
-    
-    print("Agent Orchestrator Test passed successfully.\n")
+    rec_matrix = advisor_engine.generate_strategic_recommendations(trace)
+    assert len(rec_matrix["action_matrix"]) >= 4, "Expected at least 4 McKinsey/PE recommendations!"
+    print("7-Step Reasoning & Strategic Advisor Test passed successfully.\n")
+
+def test_daily_briefing_job():
+    print("Testing Autonomous Daily Briefing Job...")
+    briefing_text = run_daily_briefing_job()
+    assert "DAILY EXECUTIVE BRIEFING" in briefing_text, "Executive briefing title missing!"
+    assert "2SLS Econometric Counterfactual Simulations" in briefing_text, "Simulations missing from briefing text!"
+    print("Daily Briefing Job Test passed successfully.\n")
 
 if __name__ == "__main__":
     print("==================================================")
-    print("   RUNNING CAUSAL TWIN BACKEND INTEGRATION TESTS  ")
+    print("   RUNNING AUTONOMOUS DIGITAL TWIN BACKEND TESTS ")
     print("==================================================")
-    pipeline, financials_df = test_ingestion_pipeline()
+    pipeline, financials_df, events = test_ingestion_pipeline()
     graph = test_graph_ontology()
-    engine = test_causal_engine(financials_df)
-    test_agent_orchestrator(pipeline, engine)
+    causal_engine = test_causal_engine(financials_df)
+    memory_engine = test_memory_engine()
+    test_reasoning_and_advisor(causal_engine, memory_engine, events)
+    test_daily_briefing_job()
     print("==================================================")
-    print("            ALL VERIFICATION TESTS PASSED          ")
+    print("         ALL AUTONOMOUS TWIN TESTS PASSED          ")
     print("==================================================")
 
 ```

@@ -9,9 +9,12 @@ class SharedTwinState:
             "DefenseProcurement": [],
             "SupplyChainRisk": [],
             "QofEAccounting": [],
-            "CausalSimulation": []
+            "CausalSimulation": [],
+            "StrategicAdvisory": [],
+            "ExecutiveBriefing": []
         }
         self.critical_flags = []
+        self.strategic_recommendations = []
 
 class DefenseProcurementAgent:
     def __init__(self, ingestion_pipeline):
@@ -193,27 +196,56 @@ class CausalSimulationAgent:
                 f"creates an additional borrowing interest cost of INR {state.simulated_results.get('Additional_Interest_Cost_Cr', 0.0):.2f} Cr."
             )
 
+class StrategicAdvisoryAgent:
+    def execute(self, state):
+        state.agent_logs["StrategicAdvisory"].append(
+            "Evaluating McKinsey, Bain, and PE strategic frameworks..."
+        )
+        ebitda = state.simulated_results.get("EBITDA_Margin", 18.2)
+        wc_days = state.simulated_results.get("Working_Capital_Days", 240)
+        
+        if ebitda < 16.0:
+            state.agent_logs["StrategicAdvisory"].append(
+                "[RECOMMENDATION] Primary Action: Immediate FLYGHT SaaS bundling to defend EBITDA margin floor."
+            )
+        elif wc_days > 250:
+            state.agent_logs["StrategicAdvisory"].append(
+                "[RECOMMENDATION] Primary Action: Restructure payables and accelerate Gujarat fab domestic sourcing."
+            )
+        else:
+            state.agent_logs["StrategicAdvisory"].append(
+                "[RECOMMENDATION] Primary Action: Expand enterprise commercial accounts while maintaining defense order pace."
+            )
+
+class ExecutiveBriefingAgent:
+    def execute(self, state):
+        flags = state.critical_flags
+        ebitda = state.simulated_results.get("EBITDA_Margin", 18.2)
+        state.agent_logs["ExecutiveBriefing"].append(
+            f"Daily Synthesis: Operational Twin status evaluated with {len(flags)} critical flags."
+        )
+        state.agent_logs["ExecutiveBriefing"].append(
+            f"Current Simulated EBITDA Margin: {ebitda:.2f}%. System is continuously monitoring regulatory updates."
+        )
+
 class IdeaForgeAgentOrchestrator:
     def __init__(self, ingestion_pipeline, causal_engine):
         self.defense_agent = DefenseProcurementAgent(ingestion_pipeline)
         self.supply_agent = SupplyChainRiskAgent(ingestion_pipeline)
         self.qofe_agent = QofEAccountingAgent(ingestion_pipeline)
         self.causal_agent = CausalSimulationAgent(causal_engine)
+        self.strategic_agent = StrategicAdvisoryAgent()
+        self.briefing_agent = ExecutiveBriefingAgent()
 
     def run_workflow(self, scenario_config):
-        """Runs the four agents sequentially to generate a cooperative report"""
+        """Runs all 6 agents sequentially to generate a full cooperative report"""
         state = SharedTwinState(scenario_config)
         
-        # 1. Defense Procurement Agent
         self.defense_agent.execute(state)
-        
-        # 2. Supply Chain Risk Agent
         self.supply_agent.execute(state)
-        
-        # 3. QofE Accounting Agent
         self.qofe_agent.execute(state)
-        
-        # 4. Causal Simulation Agent (Computes the final econometric state)
         self.causal_agent.execute(state)
+        self.strategic_agent.execute(state)
+        self.briefing_agent.execute(state)
         
         return state

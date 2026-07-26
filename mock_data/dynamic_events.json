@@ -1,0 +1,54 @@
+[
+    {
+        "event_id": "EVT-2026-101",
+        "title": "MoD Capital Budget Disbursement Lag Extended by 30 Days",
+        "category": "Government Policy & Defense Finance",
+        "source": "Ministry of Finance Clearance Gazette / PIB Release",
+        "timestamp": "2026-07-20 09:30:00",
+        "description": "Ministry of Defence announces milestone verification audits for Q2 defense capital payments, pushing disbursement schedules from 60 days to 90 days across all defense hardware contractors.",
+        "impact_parameters": {
+            "mod_lag_days": 90,
+            "import_tariff_shock_pct": 0,
+            "saas_attach_rate_pct": 35
+        }
+    },
+    {
+        "event_id": "EVT-2026-102",
+        "title": "15% Tariff Surge on Israeli & US Electro-Optical Payloads",
+        "category": "Supply Chain & International Trade",
+        "source": "DGFT Customs Tariff Notification #44/2026",
+        "timestamp": "2026-07-21 14:00:00",
+        "description": "Basic Customs Duty (BCD) on imported dual-use electro-optical/infrared (EO/IR) sensor payloads increased from 10% to 25%, creating a 15% net input cost shock for SWITCH UAV assembly.",
+        "impact_parameters": {
+            "mod_lag_days": 60,
+            "import_tariff_shock_pct": 15,
+            "saas_attach_rate_pct": 35
+        }
+    },
+    {
+        "event_id": "EVT-2026-103",
+        "title": "Survey of India Mandates FLYGHT Analytics Integration for SVAMITVA Phase 3",
+        "category": "Civil Market & Software Attach",
+        "source": "Survey of India Circular #SoI/SVAMITVA/2026/09",
+        "timestamp": "2026-07-22 11:15:00",
+        "description": "All survey drone deployments under SVAMITVA Phase 3 require mandatory cloud-synced GIS analytics, boosting FLYGHT SaaS attach rates across civil fleets to 45%.",
+        "impact_parameters": {
+            "mod_lag_days": 60,
+            "import_tariff_shock_pct": 0,
+            "saas_attach_rate_pct": 45
+        }
+    },
+    {
+        "event_id": "EVT-2026-104",
+        "title": "Indian Semiconductor Mission (ISM) Announces 50% Fab Subsidies in Gujarat",
+        "category": "Government Policy & Domestic Sourcing",
+        "source": "Ministry of Electronics and IT (MeitY) Press Release",
+        "timestamp": "2026-07-24 16:45:00",
+        "description": "MeitY approves capital subsidies for local assembly of autopilot microcontrollers and IMU sensors in Sanand, Gujarat, reducing local semiconductor procurement costs by 12%.",
+        "impact_parameters": {
+            "mod_lag_days": 60,
+            "import_tariff_shock_pct": -5,
+            "saas_attach_rate_pct": 35
+        }
+    }
+]

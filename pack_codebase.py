@@ -7,24 +7,27 @@ def pack_project():
     files_to_pack = [
         "requirements.txt",
         "graph_db.py",
+        "memory_engine.py",
         "data_ingestion.py",
         "causal_engine.py",
+        "reasoning_loop.py",
+        "strategic_advisor.py",
         "agents.py",
+        "daily_briefing_job.py",
         "app.py",
         "test_engine.py",
         "README.md"
     ]
     
     with open(output_file, "w", encoding="utf-8") as out:
-        out.write("# ideaForge Causal Digital Twin Codebase Export\n\n")
-        out.write("This document aggregates all the code files for the ideaForge Causal Digital Twin project. You can copy and paste this directly into ChatGPT to share the complete context of the application.\n\n")
+        out.write("# Autonomous Financial Digital Twin Codebase Export\n\n")
+        out.write("This document aggregates all the code files for the Autonomous Financial Digital Twin project. You can copy and paste this directly into ChatGPT to share the complete context of the application.\n\n")
         
         for filename in files_to_pack:
             filepath = os.path.join(project_dir, filename)
             if os.path.exists(filepath):
                 out.write(f"## File: `{filename}`\n")
                 
-                # Determine language for markdown syntax highlighting
                 ext = os.path.splitext(filename)[1]
                 lang = "python" if ext == ".py" else "markdown" if ext == ".md" else "text"
                 

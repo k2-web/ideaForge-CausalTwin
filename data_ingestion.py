@@ -213,3 +213,85 @@ class IdeaForgeIngestionPipeline:
                 return f"Chennai/Mumbai Custom House Bill of Entry, {match.iloc[0]['Audit_Trail']}"
             return "ICES Indian Custom House Cargo logs"
         return "Regulatory Disclosure Summary Sheet"
+
+    def load_dynamic_events(self):
+        file_path = os.path.join(self.data_dir, "dynamic_events.json")
+        if not os.path.exists(file_path):
+            default_events = [
+                {
+                    "event_id": "EVT-2026-101",
+                    "title": "MoD Capital Budget Disbursement Lag Extended by 30 Days",
+                    "category": "Government Policy & Defense Finance",
+                    "source": "Ministry of Finance Clearance Gazette / PIB Release",
+                    "timestamp": "2026-07-20 09:30:00",
+                    "description": "Ministry of Defence announces milestone verification audits for Q2 defense capital payments, pushing disbursement schedules from 60 days to 90 days across all defense hardware contractors.",
+                    "impact_parameters": {
+                        "mod_lag_days": 90,
+                        "import_tariff_shock_pct": 0,
+                        "saas_attach_rate_pct": 35
+                    }
+                },
+                {
+                    "event_id": "EVT-2026-102",
+                    "title": "15% Tariff Surge on Israeli & US Electro-Optical Payloads",
+                    "category": "Supply Chain & International Trade",
+                    "source": "DGFT Customs Tariff Notification #44/2026",
+                    "timestamp": "2026-07-21 14:00:00",
+                    "description": "Basic Customs Duty (BCD) on imported dual-use electro-optical/infrared (EO/IR) sensor payloads increased from 10% to 25%, creating a 15% net input cost shock for SWITCH UAV assembly.",
+                    "impact_parameters": {
+                        "mod_lag_days": 60,
+                        "import_tariff_shock_pct": 15,
+                        "saas_attach_rate_pct": 35
+                    }
+                },
+                {
+                    "event_id": "EVT-2026-103",
+                    "title": "Survey of India Mandates FLYGHT Analytics Integration for SVAMITVA Phase 3",
+                    "category": "Civil Market & Software Attach",
+                    "source": "Survey of India Circular #SoI/SVAMITVA/2026/09",
+                    "timestamp": "2026-07-22 11:15:00",
+                    "description": "All survey drone deployments under SVAMITVA Phase 3 require mandatory cloud-synced GIS analytics, boosting FLYGHT SaaS attach rates across civil fleets to 45%.",
+                    "impact_parameters": {
+                        "mod_lag_days": 60,
+                        "import_tariff_shock_pct": 0,
+                        "saas_attach_rate_pct": 45
+                    }
+                },
+                {
+                    "event_id": "EVT-2026-104",
+                    "title": "Indian Semiconductor Mission (ISM) Announces 50% Fab Subsidies in Gujarat",
+                    "category": "Government Policy & Domestic Sourcing",
+                    "source": "Ministry of Electronics and IT (MeitY) Press Release",
+                    "timestamp": "2026-07-24 16:45:00",
+                    "description": "MeitY approves capital subsidies for local assembly of autopilot microcontrollers and IMU sensors in Sanand, Gujarat, reducing local semiconductor procurement costs by 12%.",
+                    "impact_parameters": {
+                        "mod_lag_days": 60,
+                        "import_tariff_shock_pct": -5,
+                        "saas_attach_rate_pct": 35
+                    }
+                }
+            ]
+            with open(file_path, "w") as f:
+                json.dump(default_events, f, indent=4)
+            return default_events
+        
+        with open(file_path, "r") as f:
+            return json.load(f)
+
+    def inject_custom_event(self, title, category, description, impact_parameters):
+        events = self.load_dynamic_events()
+        new_event = {
+            "event_id": f"EVT-CUSTOM-{len(events)+1:03d}",
+            "title": title,
+            "category": category,
+            "source": "User Executive Override / Live Ingestion Stream",
+            "timestamp": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "description": description,
+            "impact_parameters": impact_parameters
+        }
+        events.insert(0, new_event)
+        file_path = os.path.join(self.data_dir, "dynamic_events.json")
+        with open(file_path, "w") as f:
+            json.dump(events, f, indent=4)
+        return new_event
+

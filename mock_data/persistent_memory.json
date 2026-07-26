@@ -1,0 +1,116 @@
+{
+    "company_name": "ideaForge Technology Limited",
+    "created_at": "2026-07-26 22:37:40",
+    "last_updated": "2026-07-26 22:37:40",
+    "belief_ledger": [
+        {
+            "timestamp": "2026-07-26 22:37:40",
+            "assumption_key": "MoD_Disbursement_Lag",
+            "old_value": 60,
+            "new_value": 90,
+            "reason": "Event EVT-2026-101: MoD Capital Budget Disbursement Lag Extended by 30 Days",
+            "event_id": "EVT-2026-101",
+            "impact_severity": "MAJOR"
+        },
+        {
+            "timestamp": "2026-07-26 22:37:40",
+            "assumption_key": "MoD_Disbursement_Lag",
+            "old_value": 60,
+            "new_value": 90,
+            "reason": "Event EVT-2026-101: MoD Capital Budget Disbursement Lag Extended by 30 Days",
+            "event_id": "EVT-2026-101",
+            "impact_severity": "MAJOR"
+        },
+        {
+            "timestamp": "2026-07-26 22:37:40",
+            "assumption_key": "TEST_KEY",
+            "old_value": 10,
+            "new_value": 20,
+            "reason": "Unit Test Revision",
+            "event_id": "EVT-TEST",
+            "impact_severity": "Moderate"
+        },
+        {
+            "timestamp": "2025-04-15 10:00:00",
+            "assumption_key": "MoD_Disbursement_Lag",
+            "old_value": 45,
+            "new_value": 60,
+            "reason": "MoD defense budget allocation delay announced in Parliament",
+            "event_id": "EVT-2025-001",
+            "impact_severity": "Moderate"
+        },
+        {
+            "timestamp": "2025-09-20 14:30:00",
+            "assumption_key": "EO_IR_Optical_Payload_Lead_Time",
+            "old_value": 90,
+            "new_value": 120,
+            "reason": "Middle East cargo logistics bottleneck and customs clearance delay",
+            "event_id": "EVT-2025-014",
+            "impact_severity": "Major"
+        },
+        {
+            "timestamp": "2026-01-10 11:15:00",
+            "assumption_key": "FLYGHT_SaaS_Attach_Rate",
+            "old_value": 0.25,
+            "new_value": 0.35,
+            "reason": "SVAMITVA civil mapping mandate required cloud portal analytics",
+            "event_id": "EVT-2026-003",
+            "impact_severity": "Positive Growth"
+        }
+    ],
+    "decision_history": [
+        {
+            "decision_id": "DEC-2025-Q2-01",
+            "date": "2025-06-30",
+            "context": "MoD Disbursement Lag increased to 60 days causing cash flow tension",
+            "chosen_action": "Buffered raw material inventory and arranged working capital line from SBI (INR 30 Cr)",
+            "predicted_outcome": "EBITDA margin maintained at 18.2%, Working Capital expanded to 240 days",
+            "actual_outcome": "Working Capital reached 245 days; interest expense increased by INR 0.8 Cr",
+            "lessons_learned": "Inventory buffering without vendor extended credit line increases net borrowing costs by 10.5% p.a."
+        },
+        {
+            "decision_id": "DEC-2025-Q4-02",
+            "date": "2025-12-15",
+            "context": "Foreign drone import ban enforced by DGFT",
+            "chosen_action": "Accelerated SWITCH UAV production for Indian Army fast-track tender",
+            "predicted_outcome": "Quarterly revenue surge to INR 160+ Cr",
+            "actual_outcome": "Revenue reached INR 161.2 Cr in Q4 FY25; gross margin expanded to 48%",
+            "lessons_learned": "Sovereign protection policy significantly increases win rate in defense tenders."
+        }
+    ],
+    "state_snapshots": [
+        {
+            "quarter": "Q4 FY25",
+            "revenue_cr": 161.2,
+            "ebitda_margin_pct": 23.9,
+            "working_capital_days": 275,
+            "saas_attach_rate": 0.25,
+            "key_highlight": "Record Q4 execution driven by Army SWITCH UAV deliveries"
+        },
+        {
+            "quarter": "Q3 FY26",
+            "revenue_cr": 121.8,
+            "ebitda_margin_pct": 18.1,
+            "working_capital_days": 228,
+            "saas_attach_rate": 0.32,
+            "key_highlight": "SVAMITVA civil mapping expansion offsets seasonal defense dip"
+        }
+    ],
+    "executive_briefings": [
+        {
+            "date": "2026-07-26 22:37:40",
+            "briefing_text": "\n# \ud83d\udccb DAILY EXECUTIVE BRIEFING: IDEAFORGE DIGITAL TWIN\n**Generated On**: 2026-07-20 09:30:00 | **Source**: Ministry of Finance Clearance Gazette / PIB Release\n\n---\n\n### 1. Executive Summary & Event Breakdown\n**Event**: MoD Capital Budget Disbursement Lag Extended by 30 Days\n**Category**: Government Policy & Defense Finance\n**Relevance**: DIRECT \u2014 Event acts directly on core operational variables (Disbursement Lag, Tariff Sourcing, or SaaS Attach Rate).\n**Severity Assessment**: **MAJOR**\n\n**Description**:\nMinistry of Defence announces milestone verification audits for Q2 defense capital payments, pushing disbursement schedules from 60 days to 90 days across all defense hardware contractors.\n\n---\n\n### 2. 15-Dimension Business Impact\n- **Revenue**: AFFECTED\n- **EBITDA Margins**: MONITORED\n- **Supply Chain**: STABLE\n- **Cash Flow / Working Capital**: CRITICAL\n- **Regulation**: STABLE\n\n---\n\n### 3. 2SLS Econometric Counterfactual Simulations\n- **Do Nothing (Status Quo)**:\n  - EBITDA Margin: **23.24%**\n  - Working Capital Days: **261.5 days**\n  - Working Capital Req.: **\u20b9145.01 Cr**\n  - Projected Net Profit: **\u20b927.86 Cr**\n\n- **Action A (Fast-Track Sanand Local Sourcing)**:\n  - EBITDA Margin: **22.07%** (+-1.17% vs status quo)\n  - Working Capital Days: **243.9 days**\n  - Projected Net Profit: **\u20b926.26 Cr**\n\n- **Action B (Accelerate FLYGHT SaaS Bundling)**:\n  - EBITDA Margin: **21.06%** (+-2.18% vs status quo)\n  - Working Capital Days: **217.3 days**\n  - Projected Net Profit: **\u20b924.22 Cr**\n\n---\n\n### 4. Prioritized McKinsey / PE Executive Action Matrix\n**Primary Recommended Strategy**: Accelerate Domestic Component Sourcing & Sanand Fab Supplier Qualifying\n\n",
+            "key_takeaways": [
+                "Event 'MoD Capital Budget Disbursement Lag Extended by 30 Days' categorized as MAJOR.",
+                "Action B (SaaS Bundling) yields highest EBITDA expansion (+-2.18%).",
+                "Action A (Local Sourcing) reduces working capital requirement by \u20b99.8 Cr."
+            ],
+            "recommended_actions": [
+                "Accelerate Domestic Component Sourcing & Sanand Fab Supplier Qualifying",
+                "Mandate FLYGHT Patrol Software Bundling on SVAMITVA & Commercial Fleets",
+                "Protect 'Cash Cow' (SWITCH UAV) while Scaling 'Star' (FLYGHT SaaS Platform)",
+                "Establish Milestone-Linked Vendor Credit & Restructure MoD Billing Cycles"
+            ]
+        }
+    ]
+}
