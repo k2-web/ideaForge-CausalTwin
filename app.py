@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import networkx as nx
 import os
+import json
 
 # Import custom modules
 from graph_db import IdeaForgeOntologyGraph
