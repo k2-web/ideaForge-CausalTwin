@@ -1874,54 +1874,34 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----------------- EXACT 3D WIREFRAME CYBERNETIC AVATAR HEAD MATCHING USER PICTURE -----------------
-st.markdown("""
-<div class="wireframe-avatar-stage">
-    <div style="font-family:'Orbitron', sans-serif; font-size:1.6rem; font-weight:900; color:#FFFFFF; margin-bottom:4px;">
-        AUTONOMOUS FINANCIAL DIGITAL TWIN OS
-    </div>
-    <div style="font-size:0.95rem; color:#00E5FF; font-weight:600; margin-bottom:16px;">
-        Cybernetic Wireframe Twin Core • Red Glow Active at Brain Synapse Node
-    </div>
-    
-    <!-- 3D Wireframe Human Avatar Head SVG Matching Reference Image -->
-    <svg width="260" height="270" viewBox="0 0 260 270" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <radialGradient id="brain-red-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(130 75) scale(50)">
-                <stop stop-color="#FF1E42" stop-opacity="1" />
-                <stop offset="0.5" stop-color="#FF4500" stop-opacity="0.8" />
-                <stop offset="1" stop-color="#FF0000" stop-opacity="0" />
-            </radialGradient>
-        </defs>
-
-        <!-- Red Crimson Brain Glow Effect at Top Head Area -->
-        <circle cx="130" cy="75" r="50" fill="url(#brain-red-glow)" filter="blur(8px)" opacity="0.95" />
-
-        <!-- Outer Head Outline Wireframe -->
-        <ellipse cx="130" cy="130" rx="75" ry="95" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 3" opacity="0.9" />
-        <ellipse cx="130" cy="130" rx="55" ry="95" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.8" />
-        <ellipse cx="130" cy="130" rx="35" ry="95" stroke="#00E5FF" stroke-width="1.5" opacity="0.7" />
-
-        <!-- Horizontal Lattice Lines (Curved Face Contour) -->
-        <ellipse cx="130" cy="130" rx="75" ry="60" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85" />
-        <ellipse cx="130" cy="130" rx="75" ry="30" stroke="#00E5FF" stroke-width="1.5" opacity="0.75" />
-        <ellipse cx="130" cy="85" rx="65" ry="25" stroke="#00E5FF" stroke-width="1.5" opacity="0.8" />
-        <ellipse cx="130" cy="175" rx="50" ry="20" stroke="#00E5FF" stroke-width="1.5" opacity="0.7" />
-
-        <!-- Cybernetic Eyes & Brain Node -->
-        <circle cx="100" cy="120" r="10" stroke="#00E5FF" stroke-width="2" fill="rgba(0,229,255,0.2)" />
-        <circle cx="160" cy="120" r="10" stroke="#00E5FF" stroke-width="2" fill="rgba(0,229,255,0.2)" />
-        <circle cx="100" cy="120" r="4" fill="#00E5FF" />
-        <circle cx="160" cy="120" r="4" fill="#00E5FF" />
-
-        <!-- Red Brain Synapse Node -->
-        <circle cx="130" cy="75" r="9" fill="#FF1E42" />
-        <circle cx="130" cy="75" r="18" stroke="#FF1E42" stroke-width="2" stroke-dasharray="2 2" />
-
-        <!-- Neck Wireframe Lattice -->
-        <path d="M95 210 L95 260 M165 210 L165 260 M130 215 L130 260 M80 235 L180 235" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85" />
-    </svg>
-</div>
-""", unsafe_allow_html=True)
+st.markdown("""<div class="wireframe-avatar-stage">
+<div style="font-family:'Orbitron', sans-serif; font-size:1.6rem; font-weight:900; color:#FFFFFF; margin-bottom:4px;">AUTONOMOUS FINANCIAL DIGITAL TWIN OS</div>
+<div style="font-size:0.95rem; color:#00E5FF; font-weight:600; margin-bottom:16px;">Cybernetic Wireframe Twin Core • Red Glow Active at Brain Synapse Node</div>
+<svg width="260" height="270" viewBox="0 0 260 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="brain-red-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(130 75) scale(50)">
+<stop stop-color="#FF1E42" stop-opacity="1" />
+<stop offset="0.5" stop-color="#FF4500" stop-opacity="0.8" />
+<stop offset="1" stop-color="#FF0000" stop-opacity="0" />
+</radialGradient>
+</defs>
+<circle cx="130" cy="75" r="50" fill="url(#brain-red-glow)" filter="blur(8px)" opacity="0.95" />
+<ellipse cx="130" cy="130" rx="75" ry="95" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 3" opacity="0.9" />
+<ellipse cx="130" cy="130" rx="55" ry="95" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.8" />
+<ellipse cx="130" cy="130" rx="35" ry="95" stroke="#00E5FF" stroke-width="1.5" opacity="0.7" />
+<ellipse cx="130" cy="130" rx="75" ry="60" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85" />
+<ellipse cx="130" cy="130" rx="75" ry="30" stroke="#00E5FF" stroke-width="1.5" opacity="0.75" />
+<ellipse cx="130" cy="85" rx="65" ry="25" stroke="#00E5FF" stroke-width="1.5" opacity="0.8" />
+<ellipse cx="130" cy="175" rx="50" ry="20" stroke="#00E5FF" stroke-width="1.5" opacity="0.7" />
+<circle cx="100" cy="120" r="10" stroke="#00E5FF" stroke-width="2" fill="rgba(0,229,255,0.2)" />
+<circle cx="160" cy="120" r="10" stroke="#00E5FF" stroke-width="2" fill="rgba(0,229,255,0.2)" />
+<circle cx="100" cy="120" r="4" fill="#00E5FF" />
+<circle cx="160" cy="120" r="4" fill="#00E5FF" />
+<circle cx="130" cy="75" r="9" fill="#FF1E42" />
+<circle cx="130" cy="75" r="18" stroke="#FF1E42" stroke-width="2" stroke-dasharray="2 2" />
+<path d="M95 210 L95 260 M165 210 L165 260 M130 215 L130 260 M80 235 L180 235" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85" />
+</svg>
+</div>""", unsafe_allow_html=True)
 
 # 6 Body Part Organ Selectors
 c_brain, c_heart, c_arms, c_lungs, c_eyes, c_legs = st.columns(6)
