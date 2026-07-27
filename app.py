@@ -15,13 +15,13 @@ from agents import IdeaForgeAgentOrchestrator
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="ideaForge Digital Twin | Human Avatar Company OS",
+    page_title="ideaForge Digital Twin | Cybernetic Human OS",
     page_icon="👤",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# 2. ULTRA-HIGH CONTRAST CSS & HUMAN AVATAR CANVAS
+# 2. ULTRA-HIGH CONTRAST CSS & WIREFRAME AVATAR DESIGN SYSTEM
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Orbitron:wght@700;800;900&display=swap');
@@ -30,8 +30,13 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
+    /* Background with White/Cyan Curvy Soundwave Lines */
     .stApp {
-        background-color: #050814;
+        background-color: #04060F;
+        background-image: 
+            url("data:image/svg+xml,%3Csvg width='1000' height='400' viewBox='0 0 1000 400' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100 200 C 150 100, 350 300, 600 200 C 750 140, 850 220, 1100 180' stroke='rgba(255, 255, 255, 0.18)' stroke-width='2' fill='none'/%3E%3Cpath d='M-100 240 C 200 140, 400 340, 650 220 C 800 160, 900 240, 1150 200' stroke='rgba(0, 229, 255, 0.2)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M-100 160 C 100 60, 300 260, 550 160 C 700 100, 800 180, 1050 140' stroke='rgba(255, 69, 0, 0.15)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+        background-repeat: repeat-y;
+        background-size: 100% auto;
         color: #FFFFFF;
     }
 
@@ -45,17 +50,17 @@ st.markdown("""
         color: #FFFFFF !important;
     }
 
-    /* Top Brand Bar */
+    /* Top Brand Bar with Neon Glow */
     .top-brand-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         background: #0F172A;
-        border: 2px solid #FF5500;
+        border: 2px solid #FF5500 !important;
         border-radius: 16px;
         padding: 16px 28px;
         margin-bottom: 24px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 0 30px rgba(255, 85, 0, 0.4), inset 0 0 15px rgba(255, 85, 0, 0.1) !important;
     }
 
     .brand-title {
@@ -81,34 +86,53 @@ st.markdown("""
         font-family: 'Orbitron', sans-serif;
         font-size: 0.8rem;
         font-weight: 800;
+        box-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
     }
 
-    /* Central Human Avatar Canvas */
-    .human-avatar-stage {
-        background: linear-gradient(180deg, #0F172A 0%, #050814 100%);
-        border: 2px solid #00E5FF;
+    /* Central Wireframe Avatar Stage */
+    .wireframe-avatar-stage {
+        background: linear-gradient(180deg, #0F172A 0%, #04060F 100%);
+        border: 2px solid #00E5FF !important;
         border-radius: 24px;
-        padding: 30px;
+        padding: 24px;
         text-align: center;
         position: relative;
-        margin-bottom: 30px;
-        box-shadow: 0 0 50px rgba(0, 229, 255, 0.15);
+        margin-bottom: 28px;
+        box-shadow: 0 0 45px rgba(0, 229, 255, 0.35), inset 0 0 20px rgba(0, 229, 255, 0.1) !important;
     }
 
-    .avatar-figure-box {
-        display: inline-block;
-        background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 70%);
-        border: 2px solid rgba(0, 229, 255, 0.4);
-        border-radius: 50%;
-        width: 200px;
-        height: 200px;
-        line-height: 200px;
-        font-size: 5rem;
-        margin: 16px 0;
-        box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+    /* Organ Selection Cards with Neon Glow & Shadow */
+    .organ-card {
+        background: #0F172A;
+        border: 2px solid #00E5FF !important;
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.3), inset 0 0 10px rgba(0, 229, 255, 0.08) !important;
+        height: 100%;
     }
 
-    /* Streamlit Button Override */
+    .organ-icon {
+        font-size: 2.5rem;
+        margin-bottom: 6px;
+        filter: drop-shadow(0 0 10px #00E5FF);
+    }
+
+    .organ-name {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        font-weight: 900;
+        color: #FFFFFF !important;
+        margin-bottom: 4px;
+    }
+
+    .organ-meta {
+        font-size: 0.85rem;
+        color: #38BDF8 !important;
+        font-weight: 700;
+    }
+
+    /* Streamlit Button Override with Neon Orange Glow */
     div.stButton > button {
         background: linear-gradient(135deg, #FF5500 0%, #FF2200 100%) !important;
         color: #FFFFFF !important;
@@ -121,23 +145,24 @@ st.markdown("""
         width: 100% !important;
         text-transform: uppercase !important;
         letter-spacing: 0.05em !important;
-        box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4) !important;
+        box-shadow: 0 0 20px rgba(255, 85, 0, 0.5) !important;
     }
 
     div.stButton > button:hover {
         background: linear-gradient(135deg, #00E5FF 0%, #0088FF 100%) !important;
         color: #04060C !important;
         border-color: #00E5FF !important;
-        box-shadow: 0 0 20px rgba(0, 229, 255, 0.8) !important;
+        box-shadow: 0 0 30px rgba(0, 229, 255, 0.9) !important;
     }
 
-    /* Section Content Box */
+    /* Section Content Box with Cyan Glow */
     .section-content-box {
         background: #0F172A;
-        border: 2px solid #00E5FF;
+        border: 2px solid #00E5FF !important;
         border-radius: 20px;
         padding: 28px;
         margin-bottom: 28px;
+        box-shadow: 0 0 35px rgba(0, 229, 255, 0.3), inset 0 0 15px rgba(0, 229, 255, 0.08) !important;
     }
 
     .section-header {
@@ -148,13 +173,14 @@ st.markdown("""
         margin-bottom: 16px;
     }
 
-    /* Metric Box */
+    /* Metric Box with Glowing Shadow */
     .metric-pill-box {
         background: #1E293B;
-        border: 2px solid #00E5FF;
+        border: 2px solid #00E5FF !important;
         border-radius: 14px;
         padding: 18px;
         text-align: center;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.25) !important;
     }
 
     .metric-pill-label {
@@ -171,25 +197,27 @@ st.markdown("""
         margin-top: 4px;
     }
 
-    /* Simulation Box */
+    /* Simulation Box with Orange Glow */
     .sim-drawer {
         background: #1E1008;
-        border: 2px solid #FF5500;
+        border: 2px solid #FF5500 !important;
         border-radius: 20px;
         padding: 24px;
-        box-shadow: 0 0 40px rgba(255, 85, 0, 0.3);
+        box-shadow: 0 0 40px rgba(255, 85, 0, 0.4), inset 0 0 20px rgba(255, 85, 0, 0.1) !important;
     }
 
-    /* Clean bullet list item styling */
+    /* Clean Bullet List Item with Glow */
     .bullet-item {
         background: #1E293B;
-        border-left: 4px solid #00E5FF;
+        border-left: 4px solid #00E5FF !important;
+        border: 1px solid rgba(0, 229, 255, 0.3);
         border-radius: 8px;
-        padding: 12px 16px;
+        padding: 14px 18px;
         margin-bottom: 10px;
         font-size: 0.95rem;
         font-weight: 600;
         color: #FFFFFF !important;
+        box-shadow: 0 0 15px rgba(0, 229, 255, 0.15) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -218,8 +246,8 @@ baseline_data = financials_df.iloc[-1].to_dict()
 st.markdown("""
 <div class="top-brand-bar">
     <div>
-        <div class="brand-title">ideaForge Digital Human OS</div>
-        <div class="brand-subtitle">An Interactive Digital Twin of India's Pioneer Drone Company — Built for Everyone</div>
+        <div class="brand-title">ideaForge Digital Twin OS</div>
+        <div class="brand-subtitle">Autonomous Cybernetic Company Twin — Built for Everyone</div>
     </div>
     <div>
         <span class="twin-status-pill">🟢 TWIN ONLINE & SYNCED</span>
@@ -227,23 +255,57 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ----------------- CENTRAL HUMAN AVATAR STAGE -----------------
+# ----------------- EXACT 3D WIREFRAME CYBERNETIC AVATAR HEAD MATCHING USER PICTURE -----------------
 st.markdown("""
-<div class="human-avatar-stage">
-    <div style="font-family:'Orbitron', sans-serif; font-size:1.6rem; font-weight:900; color:#FFFFFF;">
-        👤 CENTRAL DIGITAL HUMAN AVATAR OF IDEAFORGE
+<div class="wireframe-avatar-stage">
+    <div style="font-family:'Orbitron', sans-serif; font-size:1.6rem; font-weight:900; color:#FFFFFF; margin-bottom:4px;">
+        AUTONOMOUS FINANCIAL DIGITAL TWIN OS
     </div>
-    <div style="font-size:0.95rem; color:#00E5FF; font-weight:600; margin-top:4px;">
-        Click any body part below to explore that organ of the company in plain English:
+    <div style="font-size:0.95rem; color:#00E5FF; font-weight:600; margin-bottom:16px;">
+        Cybernetic Wireframe Twin Core • Red Glow Active at Brain Synapse Node
     </div>
-    <br>
-    <div class="avatar-figure-box">
-        👤
-    </div>
+    
+    <!-- 3D Wireframe Human Avatar Head SVG Matching Reference Image -->
+    <svg width="260" height="270" viewBox="0 0 260 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <radialGradient id="brain-red-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(130 75) scale(50)">
+                <stop stop-color="#FF1E42" stop-opacity="1" />
+                <stop offset="0.5" stop-color="#FF4500" stop-opacity="0.8" />
+                <stop offset="1" stop-color="#FF0000" stop-opacity="0" />
+            </radialGradient>
+        </defs>
+
+        <!-- Red Crimson Brain Glow Effect at Top Head Area -->
+        <circle cx="130" cy="75" r="50" fill="url(#brain-red-glow)" filter="blur(8px)" opacity="0.95" />
+
+        <!-- Outer Head Outline Wireframe -->
+        <ellipse cx="130" cy="130" rx="75" ry="95" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 3" opacity="0.9" />
+        <ellipse cx="130" cy="130" rx="55" ry="95" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.8" />
+        <ellipse cx="130" cy="130" rx="35" ry="95" stroke="#00E5FF" stroke-width="1.5" opacity="0.7" />
+
+        <!-- Horizontal Lattice Lines (Curved Face Contour) -->
+        <ellipse cx="130" cy="130" rx="75" ry="60" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85" />
+        <ellipse cx="130" cy="130" rx="75" ry="30" stroke="#00E5FF" stroke-width="1.5" opacity="0.75" />
+        <ellipse cx="130" cy="85" rx="65" ry="25" stroke="#00E5FF" stroke-width="1.5" opacity="0.8" />
+        <ellipse cx="130" cy="175" rx="50" ry="20" stroke="#00E5FF" stroke-width="1.5" opacity="0.7" />
+
+        <!-- Cybernetic Eyes & Brain Node -->
+        <circle cx="100" cy="120" r="10" stroke="#00E5FF" stroke-width="2" fill="rgba(0,229,255,0.2)" />
+        <circle cx="160" cy="120" r="10" stroke="#00E5FF" stroke-width="2" fill="rgba(0,229,255,0.2)" />
+        <circle cx="100" cy="120" r="4" fill="#00E5FF" />
+        <circle cx="160" cy="120" r="4" fill="#00E5FF" />
+
+        <!-- Red Brain Synapse Node -->
+        <circle cx="130" cy="75" r="9" fill="#FF1E42" />
+        <circle cx="130" cy="75" r="18" stroke="#FF1E42" stroke-width="2" stroke-dasharray="2 2" />
+
+        <!-- Neck Wireframe Lattice -->
+        <path d="M95 210 L95 260 M165 210 L165 260 M130 215 L130 260 M80 235 L180 235" stroke="#00E5FF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85" />
+    </svg>
 </div>
 """, unsafe_allow_html=True)
 
-# 6 Body Part Organ Selectors directly beneath avatar
+# 6 Body Part Organ Selectors
 c_brain, c_heart, c_arms, c_lungs, c_eyes, c_legs = st.columns(6)
 
 with c_brain:
@@ -427,7 +489,7 @@ elif organ == "brain":
     </div>
     """, unsafe_allow_html=True)
 
-# ----------------- REAL-WORLD SIMULATOR (NUMBERS & BULLET POINTS ONLY — NO MESSY CHARTS!) -----------------
+# ----------------- REAL-WORLD SIMULATOR (NUMBERS & BULLET POINTS ONLY) -----------------
 st.write("---")
 st.markdown("""
 <div class="sim-drawer">
@@ -478,7 +540,6 @@ with s_col2:
 
     ebitda_diff = sim_res["EBITDA_Margin"] - baseline_data["EBITDA_Margin"]
     wc_diff = sim_res["Working_Capital_Days"] - baseline_data["Working_Capital_Days"]
-    req_diff = sim_res["Working_Capital_Requirement_Cr"] - (baseline_data["Revenue"] * (baseline_data["Working_Capital_Days"] / 365.0))
 
     o1, o2 = st.columns(2)
     with o1:
