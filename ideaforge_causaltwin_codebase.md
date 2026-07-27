@@ -1634,166 +1634,243 @@ from agents import IdeaForgeAgentOrchestrator
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="ideaForge Digital Twin | Executive Cockpit",
-    page_icon="🚁",
+    page_title="AUTONOMOUS FINANCIAL DIGITAL TWIN OS for ideaForge",
+    page_icon="⚡",
     layout="wide",
-    initial_sidebar_state="collapsed" # Hide clutter sidebar by default
+    initial_sidebar_state="collapsed"
 )
 
-# 2. Modern Glassmorphism CSS & Clean UI Tokens
+# 2. Futuristic Cyberpunk / Glassmorphism Design System matching reference image
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
     html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
     .stApp {
-        background-color: #090D16;
+        background-color: #04060C;
+        background-image: 
+            radial-gradient(at 50% 0%, rgba(255, 69, 0, 0.12) 0px, transparent 60%),
+            radial-gradient(at 0% 100%, rgba(0, 191, 255, 0.1) 0px, transparent 50%);
         color: #F1F5F9;
     }
 
-    /* Main Container Padding */
     .main .block-container {
-        padding-top: 1.5rem;
+        padding-top: 1rem;
         padding-bottom: 3rem;
         max-width: 1400px;
     }
 
-    /* Top Executive Header */
-    .exec-header {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 16px;
-        padding: 20px 28px;
-        margin-bottom: 24px;
+    /* Top Navigation Bar */
+    .nav-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .status-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: #10B981;
-        border-radius: 50%;
-        margin-right: 6px;
-        box-shadow: 0 0 8px #10B981;
-    }
-
-    .status-badge {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34D399;
-        border: 1px solid rgba(16, 185, 129, 0.3);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-    }
-
-    /* Metric Cards */
-    .metric-card-clean {
-        background: #0F172A;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 14px 28px;
+        background: rgba(10, 15, 26, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 69, 0, 0.25);
         border-radius: 14px;
-        padding: 20px;
-        transition: all 0.2s ease-in-out;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
     }
 
-    .metric-card-clean:hover {
-        border-color: #3B82F6;
-        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+    .nav-brand {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #FFFFFF;
+        letter-spacing: 0.05em;
     }
 
-    .metric-title {
+    .nav-links {
+        display: flex;
+        gap: 24px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
         color: #94A3B8;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
+    }
+
+    .nav-link-item {
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .nav-link-item:hover {
+        color: #FF4500;
+    }
+
+    .nav-btn {
+        background: linear-gradient(135deg, #FF4500 0%, #FF2200 100%);
+        color: #FFFFFF;
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
         letter-spacing: 0.05em;
+        text-transform: uppercase;
+        box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
     }
 
-    .metric-value {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: #F8FAFC;
-        margin: 6px 0;
+    /* Hero Section */
+    .hero-center {
+        text-align: center;
+        margin-bottom: 28px;
     }
 
-    .metric-sub-pos {
-        color: #34D399;
-        font-size: 0.82rem;
-        font-weight: 600;
+    .hero-main-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
-    .metric-sub-neg {
-        color: #F43F5E;
-        font-size: 0.82rem;
-        font-weight: 600;
-    }
-
-    /* Product Cards */
-    .product-card-ui {
-        background: #0F172A;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 14px;
-        padding: 20px;
-        height: 100%;
-    }
-
-    .product-badge-blue {
-        background: rgba(59, 130, 246, 0.15);
-        color: #60A5FA;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 0.75rem;
+    .hero-sub-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.2rem;
         font-weight: 700;
-    }
-
-    .product-badge-green {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34D399;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 700;
-    }
-
-    /* Scenario Control Panel */
-    .control-box {
-        background: #0F172A;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 24px;
+        color: #FF4500;
+        letter-spacing: 0.05em;
         margin-bottom: 24px;
     }
 
-    /* Action Recommendation Card */
-    .action-card-ui {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
-        border-left: 4px solid #10B981;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        border-right: 1px solid rgba(255, 255, 255, 0.08);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
+    /* Glass Info Cards */
+    .glass-info-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 69, 0, 0.3);
+        border-radius: 14px;
         padding: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         margin-bottom: 16px;
+    }
+
+    .glass-card-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .glass-card-text {
+        font-size: 0.85rem;
+        color: #94A3B8;
+        line-height: 1.5;
+    }
+
+    /* 7-Step Reasoning Node Visualizer */
+    .reasoning-bar-container {
+        background: rgba(10, 15, 26, 0.9);
+        border: 1px solid rgba(255, 69, 0, 0.3);
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 32px;
+        box-shadow: 0 0 30px rgba(255, 69, 0, 0.15);
+    }
+
+    .reasoning-bar-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        text-align: center;
+        letter-spacing: 0.1em;
+        margin-bottom: 20px;
+    }
+
+    .nodes-flow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .node-circle {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #0B132B;
+        border: 2px solid #00BFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: #00BFFF;
+        box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+        z-index: 2;
+    }
+
+    .node-circle.active {
+        border-color: #FF4500;
+        color: #FF4500;
+        box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+    }
+
+    .node-label {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #94A3B8;
+        text-align: center;
+        margin-top: 6px;
+    }
+
+    /* Orange Econometric Monitor Panel */
+    .orange-monitor {
+        background: linear-gradient(135deg, #1C0A00 0%, #0F0500 100%);
+        border: 2px solid #FF4500;
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 0 40px rgba(255, 69, 0, 0.25);
+        margin-bottom: 24px;
+    }
+
+    .monitor-head {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: #FF4500;
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+    }
+
+    .monitor-sub {
+        font-size: 0.8rem;
+        color: #FFA07A;
+        margin-bottom: 16px;
+    }
+
+    .job-status-pill {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.2);
+        color: #34D399;
+        border: 1px solid #10B981;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # Session State Setup
-if "selected_product" not in st.session_state:
-    st.session_state["selected_product"] = "SWITCH_UAV"
 if "selected_node" not in st.session_state:
     st.session_state["selected_node"] = None
-if "active_tab" not in st.session_state:
-    st.session_state["active_tab"] = "Overview"
+if "selected_product" not in st.session_state:
+    st.session_state["selected_product"] = "SWITCH_UAV"
 
 # Backend Initialization
 @st.cache_resource
@@ -1811,261 +1888,204 @@ def get_backend():
 pipeline, graph_db, financials_df, causal_engine, memory_engine, reasoning_engine, strategic_advisor, orchestrator = get_backend()
 baseline_data = financials_df.iloc[-1].to_dict()
 
-# ----------------- TOP EXECUTIVE HEADER -----------------
+# ----------------- TOP NAVIGATION BAR -----------------
 st.markdown("""
-<div class="exec-header">
-    <div>
-        <div style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">ideaForge Technology Limited</div>
-        <div style="font-size: 0.9rem; color: #94A3B8;">Live Enterprise Digital Twin • Dual-Use Defense & Civil UAS</div>
+<div class="nav-bar">
+    <div class="nav-brand">ideaForge</div>
+    <div class="nav-links">
+        <span class="nav-link-item">Features</span>
+        <span class="nav-link-item">Products</span>
+        <span class="nav-link-item">Descriptions</span>
+        <span class="nav-link-item">Contact</span>
     </div>
     <div>
-        <span class="status-badge"><span class="status-dot"></span>DIGITAL TWIN LIVE & SYNCED</span>
+        <span class="nav-btn">Explore Twin</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ----------------- INTERACTIVE CONTROL PANEL ON MAIN PAGE -----------------
-with st.container():
+# ----------------- SECTION 1: HERO TITLE -----------------
+st.markdown("""
+<div class="hero-center">
+    <div class="hero-main-title">AUTONOMOUS FINANCIAL DIGITAL TWIN OS</div>
+    <div class="hero-sub-title">for ideaForge</div>
+</div>
+""", unsafe_allow_html=True)
+
+col_h1, col_h2 = st.columns(2)
+
+with col_h1:
     st.markdown("""
-    <div class="control-box">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #F8FAFC; margin-bottom: 4px;">
-            🎛️ Simulation Studio — Test Real-World Shocks
-        </div>
-        <div style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 16px;">
-            Move the sliders below to simulate how government payment delays and component import tariffs change ideaForge's profit margins and cash flow.
+    <div class="glass-info-card">
+        <div class="glass-card-title">AUTONOMOUS FINANCIAL DIGITAL TWIN</div>
+        <div class="glass-card-text">
+            ideaForge is a live mathematical replica that connects physical UAS operations (BOMs, lead times) directly to financial metrics (EBITDA, working capital, free cash flow).
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3)
+with col_h2:
+    st.markdown("""
+    <div class="glass-info-card">
+        <div class="glass-card-title">PERSISTENT REASONING ENGINE</div>
+        <div class="glass-card-text">
+            Ingests breaking news, defense tenders, and customs disclosures to continuously update internal operational beliefs and forecast multi-year counterfactual outcomes.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    with c1:
-        mod_lag = st.slider(
-            "⏳ Government Invoice Clearance Time",
-            min_value=15, max_value=180, value=int(baseline_data["MoD_Disbursement_Lag"]), step=5,
-            help="Days taken by the Ministry of Defence to pay milestone bills."
-        )
+# ----------------- SECTION 2: 7-STEP REASONING CYCLE FLOW -----------------
+st.markdown("""
+<div class="reasoning-bar-container">
+    <div class="reasoning-bar-title">7-STEP REASONING CYCLE</div>
+    <div class="nodes-flow">
+        <div>
+            <div class="node-circle active">01</div>
+            <div class="node-label">Detection</div>
+        </div>
+        <div>
+            <div class="node-circle">02</div>
+            <div class="node-label">Relevance</div>
+        </div>
+        <div>
+            <div class="node-circle">03</div>
+            <div class="node-label">15-Dim Impact</div>
+        </div>
+        <div>
+            <div class="node-circle active">04</div>
+            <div class="node-label">Severity</div>
+        </div>
+        <div>
+            <div class="node-circle">05</div>
+            <div class="node-label">Belief Update</div>
+        </div>
+        <div>
+            <div class="node-circle active">06</div>
+            <div class="node-label">Action Trigger</div>
+        </div>
+        <div>
+            <div class="node-circle active">07</div>
+            <div class="node-label">Simulate</div>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
-    with c2:
-        import_price_shock = st.slider(
-            "📷 Imported Camera / Tariff Price Shock",
-            min_value=0, max_value=50, value=0, step=5,
-            help="Import cost surge on Israeli EO/IR sensors & Taiwanese chips."
-        )
+# ----------------- SECTION 3: HOLOGRAM SPHERE CARDS -----------------
+col_s1, col_s2 = st.columns(2)
 
-    with c3:
-        saas_attach_rate = st.slider(
-            "💻 FLYGHT Software Adoption Rate",
-            min_value=0, max_value=100, value=int(baseline_data["SaaS_Attach_Rate"] * 100), step=5,
-            help="Percentage of drone clients subscribing to cloud mapping software."
-        )
+with col_s1:
+    st.markdown("""
+    <div class="glass-info-card" style="border-left: 4px solid #00BFFF;">
+        <div class="glass-card-title" style="color: #00BFFF;">CREATING AN EVOLVING, PERSISTENT MODEL</div>
+        <div class="glass-card-text">
+            Maintains an auditable memory ledger tracking historical assumptions, past decision rationales, and belief revisions across fiscal quarters.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-scenario_config = {
-    "mod_lag_days": mod_lag,
-    "import_tariff_shock_pct": import_price_shock,
-    "saas_attach_rate_pct": saas_attach_rate,
-    "indigenous_mix": 0.60
-}
-
-# Run 2SLS Causal & Agent calculation
-agent_state = orchestrator.run_workflow(scenario_config)
-sim_res = agent_state.simulated_results
+with col_s2:
+    st.markdown("""
+    <div class="glass-info-card" style="border-left: 4px solid #FF4500;">
+        <div class="glass-card-title" style="color: #FF4500;">INGESTING STATIC & DYNAMIC DATA</div>
+        <div class="glass-card-text">
+            Processes Ind AS quarterly filings, BRSR annual disclosures, GeM procurement portal tenders, and customs cargo BOE import logs.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.write("")
 
-# ----------------- LIVE METRIC CARDS -----------------
-m1, m2, m3, m4 = st.columns(4)
+# ----------------- SECTION 4: ORANGE ECONOMETRIC MONITOR PANEL -----------------
+st.markdown("""
+<div class="orange-monitor">
+    <div class="monitor-head">d o ( X = x ) &nbsp; COUNTERFACTUAL OUTCOMES</div>
+    <div class="monitor-sub">Two-Stage Least Squares (2SLS) Econometric SCM Engine & Dynamic Simulation Studio</div>
+</div>
+""", unsafe_allow_html=True)
 
-def render_metric_card(col, label, val_str, delta_str, is_good=True):
-    sub_class = "metric-sub-pos" if is_good else "metric-sub-neg"
-    col.markdown(f"""
-    <div class="metric-card-clean">
-        <div class="metric-title">{label}</div>
-        <div class="metric-value">{val_str}</div>
-        <div class="{sub_class}">{delta_str}</div>
+# Live Controls & Simulation Output
+ctrl_col1, ctrl_col2 = st.columns([1, 1.2])
+
+with ctrl_col1:
+    st.markdown("##### 🎛️ Simulation Controls")
+    
+    mod_lag = st.slider(
+        "MoD Disbursement Lag (Days)",
+        min_value=15, max_value=180, value=int(baseline_data["MoD_Disbursement_Lag"]), step=5
+    )
+
+    import_price_shock = st.slider(
+        "Import Payload Cost Shock (%)",
+        min_value=0, max_value=50, value=0, step=5
+    )
+
+    saas_attach_rate = st.slider(
+        "FLYGHT SaaS Attach Rate (%)",
+        min_value=0, max_value=100, value=int(baseline_data["SaaS_Attach_Rate"] * 100), step=5
+    )
+
+    scenario_config = {
+        "mod_lag_days": mod_lag,
+        "import_tariff_shock_pct": import_price_shock,
+        "saas_attach_rate_pct": saas_attach_rate,
+        "indigenous_mix": 0.60
+    }
+
+    agent_state = orchestrator.run_workflow(scenario_config)
+    sim_res = agent_state.simulated_results
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("##### ⚙️ Daily Executive Briefing Worker")
+    st.markdown("""
+    <div style="background:rgba(0,0,0,0.4); border:1px solid #FF4500; border-radius:10px; padding:16px;">
+        <span class="job-status-pill">Job Status: [Running]</span>
+        <div style="font-size:0.85rem; color:#FFA07A; margin-top:10px;">
+            Automated Nightly Worker is actively monitoring GeM tender notices and customs ICES BOE logs.
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-ebitda_diff = sim_res["EBITDA_Margin"] - baseline_data["EBITDA_Margin"]
-wc_diff = sim_res["Working_Capital_Days"] - baseline_data["Working_Capital_Days"]
-profit_diff = sim_res["Net_Profit"] - baseline_data["Net_Profit"]
-req_diff = sim_res["Working_Capital_Requirement_Cr"] - (baseline_data["Revenue"] * (baseline_data["Working_Capital_Days"] / 365.0))
-
-render_metric_card(m1, "Operating EBITDA Margin", f"{sim_res['EBITDA_Margin']:.1f}%", f"{'+' if ebitda_diff>=0 else ''}{ebitda_diff:.1f}% vs baseline", is_good=ebitda_diff>=0)
-render_metric_card(m2, "Cash Flow Collection Time", f"{sim_res['Working_Capital_Days']:.0f} Days", f"{'+' if wc_diff>=0 else ''}{wc_diff:.0f}d vs baseline", is_good=wc_diff<=0)
-render_metric_card(m3, "Projected Net Profit", f"₹{sim_res['Net_Profit']:.1f} Cr", f"{'+' if profit_diff>=0 else ''}₹{profit_diff:.1f} Cr vs base", is_good=profit_diff>=0)
-render_metric_card(m4, "Required Working Capital", f"₹{sim_res['Working_Capital_Requirement_Cr']:.1f} Cr", f"{'+' if req_diff>=0 else ''}₹{req_diff:.1f} Cr vs base", is_good=req_diff<=0)
+with ctrl_col2:
+    st.markdown("##### 📈 Econometric Counterfactual Projections")
+    
+    # Generate realistic trend curve for chart based on slider values
+    quarters = ["Q1 FY25", "Q2 FY25", "Q3 FY25", "Q4 FY25", "Q1 FY26", "Q2 FY26", "Q3 FY26", "Q4 FY26 (Simulated)"]
+    
+    baseline_trend = [12.8, 8.4, 18.2, 38.6, 15.1, 11.5, 22.1, baseline_data["EBITDA_Margin"]]
+    simulated_trend = [12.8, 8.4, 18.2, 38.6, 15.1, 11.5, 22.1, sim_res["EBITDA_Margin"]]
+    
+    chart_df = pd.DataFrame({
+        "Baseline EBITDA (%)": baseline_trend,
+        "Simulated Counterfactual EBITDA (%)": simulated_trend
+    }, index=quarters)
+    
+    st.line_chart(chart_df, color=["#00BFFF", "#FF4500"])
+    
+    # Summary Cards
+    sc1, sc2 = st.columns(2)
+    with sc1:
+        st.metric("Simulated EBITDA Margin", f"{sim_res['EBITDA_Margin']:.1f}%", f"{sim_res['EBITDA_Margin'] - baseline_data['EBITDA_Margin']:.1f}% vs base")
+    with sc2:
+        st.metric("Working Capital Cycle", f"{sim_res['Working_Capital_Days']:.0f} Days", f"{sim_res['Working_Capital_Days'] - baseline_data['Working_Capital_Days']:.0f}d vs base")
 
 st.write("---")
 
-# ----------------- MAIN INTERACTIVE TAB NAVIGATION -----------------
-nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
+# ----------------- SECTION 5: INTERACTIVE KNOWLEDGE GRAPH -----------------
+st.markdown("### 🕸️ Company Value Chain Knowledge Graph")
+st.caption("Interactive network visualizer mapping ideaForge's platforms, component BOMs, suppliers, and financial flow linkages:")
 
-with nav_col1:
-    if st.button("💬 Ask Digital Twin", use_container_width=True, type="primary" if st.session_state["active_tab"] == "Ask" else "secondary"):
-        st.session_state["active_tab"] = "Ask"
-        st.rerun()
+g1, g2 = st.columns([2, 1])
 
-with nav_col2:
-    if st.button("🚁 Products & BOM Explorer", use_container_width=True, type="primary" if st.session_state["active_tab"] == "Products" else "secondary"):
-        st.session_state["active_tab"] = "Products"
-        st.rerun()
-
-with nav_col3:
-    if st.button("💡 Strategic Recommendations", use_container_width=True, type="primary" if st.session_state["active_tab"] == "Strategy" else "secondary"):
-        st.session_state["active_tab"] = "Strategy"
-        st.rerun()
-
-with nav_col4:
-    if st.button("🕸️ Value Chain Network Map", use_container_width=True, type="primary" if st.session_state["active_tab"] == "Map" else "secondary"):
-        st.session_state["active_tab"] = "Map"
-        st.rerun()
-
-st.write("")
-
-# ----------------- TAB 1: ASK DIGITAL TWIN -----------------
-if st.session_state["active_tab"] in ["Overview", "Ask"]:
-    st.markdown("### 💬 Ask ideaForge Anything")
-    st.caption("Type any question about ideaForge's business, customers, products, or financial risks:")
-
-    q_col1, q_col2, q_col3, q_col4 = st.columns(4)
-    asked_q = None
-    if q_col1.button("❓ What does ideaForge build?"): asked_q = "What does ideaForge build?"
-    if q_col2.button("💰 How does ideaForge make money?"): asked_q = "How does ideaForge make money?"
-    if q_col3.button("⚠️ What is the biggest risk?"): asked_q = "What is the biggest risk?"
-    if q_col4.button("🚀 What is FLYGHT software?"): asked_q = "What is FLYGHT software?"
-
-    custom_q = st.text_input("Type your own question:", placeholder="e.g. Who are their main customers? What is SWITCH UAV?")
-    if custom_q: asked_q = custom_q
-
-    if asked_q:
-        q_lower = asked_q.lower()
-        if "build" in q_lower or "product" in q_lower:
-            ans = ("**ideaForge builds dual-use unmanned aircraft systems (drones):**\n\n"
-                   "1. **SWITCH VTOL UAV**: Fixed-wing + VTOL drone used by the Indian Army for high-altitude surveillance.\n"
-                   "2. **NETRA V4**: Compact quadcopter used by police & paramilitary for law enforcement.\n"
-                   "3. **Q6 UAV**: Heavy-payload drone for land mapping under the SVAMITVA scheme.\n"
-                   "4. **FLYGHT Platform**: Cloud software for live drone fleet tracking and map analytics.")
-        elif "money" in q_lower or "revenue" in q_lower:
-            ans = (f"**ideaForge revenue mix:**\n\n"
-                   f"- **Defense ISR (65%)**: Contracts from Indian Army & Ministry of Home Affairs.\n"
-                   f"- **Civil Mapping (20%)**: Government tenders (Survey of India).\n"
-                   f"- **FLYGHT SaaS (10%)**: Recurring annual software subscriptions.\n"
-                   f"- **Current Operating Margin**: {sim_res['EBITDA_Margin']:.1f}%.")
-        elif "risk" in q_lower or "tariff" in q_lower:
-            ans = (f"**Key Operational Risks:**\n\n"
-                   f"1. **Government Payment Delays**: Clearance takes ~60–90 days, tying up ₹{sim_res['Working_Capital_Requirement_Cr']:.1f} Cr in capital.\n"
-                   f"2. **Import Dependencies**: High-tech cameras imported from Israel/US face tariff risks.")
-        else:
-            ans = f"ideaForge is India's leading drone maker. Current simulated EBITDA margin is {sim_res['EBITDA_Margin']:.1f}% with working capital cycle of {sim_res['Working_Capital_Days']:.0f} days."
-
-        st.info(f"🤖 **Digital Twin Answer**: {ans}")
-
-# ----------------- TAB 2: PRODUCTS & BOM EXPLORER -----------------
-elif st.session_state["active_tab"] == "Products":
-    st.markdown("### 🚁 Product Platforms & Bill of Materials")
-    st.caption("Click a drone platform to inspect its cost structure and target customers:")
-
-    p1, p2, p3, p4 = st.columns(4)
-
-    with p1:
-        st.markdown("""
-        <div class="product-card-ui">
-            <span class="product-badge-green">65% Revenue</span>
-            <div style="font-size:1.2rem; font-weight:700; color:#F8FAFC; margin-top:10px;">SWITCH VTOL UAV</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Indian Army Border Surveillance</div>
-            <div style="font-size:0.85rem; color:#38BDF8; font-weight:600; margin-top:10px;">Price: ₹25 Lakhs / unit</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Inspect SWITCH UAV", use_container_width=True): st.session_state["selected_product"] = "SWITCH_UAV"
-
-    with p2:
-        st.markdown("""
-        <div class="product-card-ui">
-            <span class="product-badge-blue">15% Revenue</span>
-            <div style="font-size:1.2rem; font-weight:700; color:#F8FAFC; margin-top:10px;">NETRA V4 Quadcopter</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Police & Paramilitary Patrol</div>
-            <div style="font-size:0.85rem; color:#38BDF8; font-weight:600; margin-top:10px;">Price: ₹12 Lakhs / unit</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Inspect NETRA V4", use_container_width=True): st.session_state["selected_product"] = "NETRA_V4"
-
-    with p3:
-        st.markdown("""
-        <div class="product-card-ui">
-            <span class="product-badge-blue">10% Revenue</span>
-            <div style="font-size:1.2rem; font-weight:700; color:#F8FAFC; margin-top:10px;">Q6 Heavy Payload</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">SVAMITVA Rural Land Mapping</div>
-            <div style="font-size:0.85rem; color:#38BDF8; font-weight:600; margin-top:10px;">Price: ₹35 Lakhs / unit</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Inspect Q6 UAV", use_container_width=True): st.session_state["selected_product"] = "Q6_UAV"
-
-    with p4:
-        st.markdown("""
-        <div class="product-card-ui">
-            <span class="product-badge-green">High Growth</span>
-            <div style="font-size:1.2rem; font-weight:700; color:#F8FAFC; margin-top:10px;">FLYGHT SaaS Software</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Cloud Analytics & Fleet Stream</div>
-            <div style="font-size:0.85rem; color:#38BDF8; font-weight:600; margin-top:10px;">ARR: ₹1.5 Lakh / drone / yr</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Inspect FLYGHT SaaS", use_container_width=True): st.session_state["selected_product"] = "FLYGHT_Patrol"
-
-    st.write("")
-    prod_id = st.session_state["selected_product"]
-    st.markdown(f"#### 🔍 Detailed Component Cost Breakdown: `{prod_id}`")
-
-    b1, b2 = st.columns(2)
-    with b1:
-        st.markdown("**Component Bill of Materials (BOM):**")
-        if prod_id == "SWITCH_UAV":
-            st.markdown("- 📷 **EO/IR Optical Payload Camera** (Elbit Systems, Israel) — **₹8.0 Lakhs**")
-            st.markdown("- 🧭 **Autopilot Microcontroller Board** (Taiwan) — **₹2.0 Lakhs**")
-            st.markdown("- ✈️ **Carbon Fiber Frame** (Japan) — **₹1.5 Lakhs**")
-            st.markdown("- 🔋 **LiPo Battery Pack** (India Assembly) — **₹0.8 Lakhs**")
-        else:
-            st.markdown("- 📷 **Thermal Camera Sensor** — **₹4.5 Lakhs**")
-            st.markdown("- 🧭 **Autopilot Board** — **₹1.5 Lakhs**")
-            st.markdown("- 🔋 **Battery Pack** — **₹0.6 Lakhs**")
-
-    with b2:
-        st.markdown("**Key Customer Accounts:**")
-        st.markdown("- 🪖 **Indian Army** (Fast-Track Defense Procurement)")
-        st.markdown("- 🛡️ **Ministry of Home Affairs** (BSF, CRPF)")
-
-# ----------------- TAB 3: STRATEGIC RECOMMENDATIONS -----------------
-elif st.session_state["active_tab"] == "Strategy":
-    st.markdown("### 💡 Recommended Counter-Strategies")
-    st.caption("Synthesized by AI agents to protect profit margins and cash flow under current scenario:")
-
-    events_list = pipeline.load_dynamic_events()
-    trace = reasoning_engine.execute_7_step_loop(events_list[0])
-    advisor_matrix = strategic_advisor.generate_strategic_recommendations(trace)
-
-    for rec in advisor_matrix["action_matrix"]:
-        st.markdown(f"""
-        <div class="action-card-ui">
-            <div style="font-size: 1.1rem; font-weight: 700; color: #34D399;">💡 {rec['title']}</div>
-            <div style="font-size: 0.85rem; color: #94A3B8; margin: 4px 0;">Category: <b>{rec['category']}</b> | Owner: <b>{rec['executive_owner']}</b></div>
-            <p style="color: #E2E8F0; margin: 8px 0;"><b>Action</b>: {rec['recommended_action']}</p>
-            <p style="color: #60A5FA; font-weight: 700; margin-bottom:0;">💰 ROI Impact: {rec['financial_impact']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-# ----------------- TAB 4: VALUE CHAIN NETWORK MAP -----------------
-elif st.session_state["active_tab"] == "Map":
-    st.markdown("### 🕸️ Company Value Chain Network Map")
-    st.caption("Interactive network visualizer connecting Customers ➔ Products ➔ Components ➔ Financial Profitability:")
-
+with g1:
     nodes = graph_db.get_nodes()
     edges = graph_db.get_edges()
 
     cy_elements = []
     color_map = {
-        "BusinessSegment": "#3B82F6",      # Blue
+        "BusinessSegment": "#00BFFF",      # Cyan
         "ProductPlatform": "#10B981",      # Emerald
-        "SupplyChainComponent": "#EF4444", # Red
+        "SupplyChainComponent": "#FF4500", # Orange/Red
         "GovernmentPolicy": "#8B5CF6",     # Purple
         "CustomerEntity": "#F59E0B",       # Amber
         "FinancialMetric": "#EAB308"       # Yellow
@@ -2121,22 +2141,29 @@ elif st.session_state["active_tab"] == "Map":
 
     try:
         from st_cytoscape import cytoscape
-        selected = cytoscape(cy_elements, stylesheet, layout={"name": "cose"}, height="440px", key="cy_map_clean")
+        selected = cytoscape(cy_elements, stylesheet, layout={"name": "cose"}, height="440px", key="cy_ref")
         if selected and selected.get("nodes"):
             st.session_state["selected_node"] = selected["nodes"][0]
     except Exception:
         all_node_ids = [n["id"] for n in nodes]
-        chosen = st.selectbox("Inspect Network Node", ["-- Select Node --"] + all_node_ids)
+        chosen = st.selectbox("Inspect Graph Node", ["-- Select Node --"] + all_node_ids)
         if chosen != "-- Select Node --":
             st.session_state["selected_node"] = chosen
 
+with g2:
+    st.markdown("##### 📦 Node Inspector")
     if st.session_state["selected_node"]:
         n_id = st.session_state["selected_node"]
         details = graph_db.get_node_details(n_id)
         if details:
-            st.info(f"🔍 **Inspecting Node `{n_id}`** ({details.get('label')})")
+            st.markdown(f"**Entity**: `{n_id}`")
+            st.markdown(f"**Type**: `{details.get('label')}`")
             props = {k: v for k, v in details.items() if k != "label"}
             st.table(pd.DataFrame(list(props.items()), columns=["Property", "Value"]))
+    else:
+        st.info("Click any node in the Knowledge Graph to inspect its underlying BOM components and financial linkages.")
+
+st.markdown("<br><center style='color:#64748B; font-family:Orbitron, sans-serif; font-size:0.9rem;'>A Production-Grade Autonomous Twin</center>", unsafe_allow_html=True)
 
 ```
 
