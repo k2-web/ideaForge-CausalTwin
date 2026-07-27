@@ -506,8 +506,9 @@ node_data = graph_db.get_node_details(inspect_id)
 
 if node_data:
     st.info(f"🔍 **Selected Value Chain Element**: `{inspect_id}` ({node_data.get('label')})")
-    props = {k: v for k, v in node_data.items() if k != "label"}
+    props = {k: str(v) for k, v in node_data.items() if k != "label"}
     st.table(pd.DataFrame(list(props.items()), columns=["Property", "Details"]))
+
 
 st.write("---")
 
