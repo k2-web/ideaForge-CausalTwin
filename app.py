@@ -16,192 +16,126 @@ from agents import IdeaForgeAgentOrchestrator
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="JARVIS Corporate Digital Twin | Executive Finance OS",
-    page_icon="⚡",
+    page_title="ideaForge Digital Twin | Interactive Company Explorer",
+    page_icon="🚁",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# 2. JARVIS Futuristic Cyber HUD Styling & CSS Animation
+# 2. Sleek, Clean & Friendly UI Styling (No Jargon, High Readability)
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
     }
 
     .stApp {
-        background-color: #05070F;
-        background-image: 
-            radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+        background-color: #0B0F17;
         color: #E2E8F0;
     }
 
-    /* JARVIS HUD Top Header */
-    .jarvis-header {
-        background: linear-gradient(135deg, rgba(11, 15, 25, 0.9) 0%, rgba(5, 7, 15, 0.95) 100%);
-        border: 1px solid rgba(6, 182, 212, 0.3);
+    /* Main Welcome Card */
+    .company-hero {
+        background: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 16px;
-        padding: 24px;
+        padding: 28px;
         margin-bottom: 24px;
-        box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
-        position: relative;
-        overflow: hidden;
     }
-
-    .jarvis-header::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, #06B6D4, #8B5CF6, #3B82F6);
-        animation: pulse-glow 3s infinite alternate;
-    }
-
-    @keyframes pulse-glow {
-        0% { opacity: 0.4; }
-        100% { opacity: 1; }
-    }
-
-    .jarvis-status-pill {
-        display: inline-flex;
-        align-items: center;
-        background: rgba(6, 182, 212, 0.15);
-        border: 1px solid #06B6D4;
-        color: #22D3EE;
-        padding: 4px 14px;
+    
+    .company-tag {
+        display: inline-block;
+        background: rgba(59, 130, 246, 0.2);
+        color: #60A5FA;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        padding: 4px 12px;
         border-radius: 20px;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        margin-bottom: 12px;
-        box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
-    }
-
-    .jarvis-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2.1rem;
-        font-weight: 900;
-        letter-spacing: 0.02em;
-        background: linear-gradient(90deg, #06B6D4 0%, #A855F7 50%, #FFFFFF 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 6px;
-    }
-
-    .jarvis-subtitle {
-        color: #94A3B8;
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 1.1rem;
+        font-size: 0.8rem;
         font-weight: 600;
-        letter-spacing: 0.05em;
+        margin-bottom: 12px;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        margin-bottom: 8px;
+    }
+    
+    .hero-desc {
+        color: #9CA3AF;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 0;
     }
 
-    /* Cyber Metric Cards */
-    .hud-card {
-        background: rgba(11, 15, 25, 0.85);
-        border: 1px solid rgba(6, 182, 212, 0.25);
-        border-radius: 14px;
-        padding: 20px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    /* Metric Cards */
+    .stat-card {
+        background: #111827;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 16px;
     }
-
-    .hud-card:hover {
-        border-color: #06B6D4;
-        box-shadow: 0 0 25px rgba(6, 182, 212, 0.3);
-        transform: translateY(-3px);
-    }
-
-    .hud-label {
-        font-family: 'Rajdhani', sans-serif;
-        color: #94A3B8;
+    
+    .stat-label {
+        color: #9CA3AF;
         font-size: 0.85rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
+        font-weight: 600;
+    }
+    
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #F9FAFB;
+        margin: 6px 0;
+    }
+    
+    .stat-sub {
+        font-size: 0.8rem;
+        color: #60A5FA;
     }
 
-    .hud-val {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.9rem;
-        font-weight: 900;
-        color: #06B6D4;
-        text-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
-        margin: 8px 0;
-    }
-
-    .hud-badge-pos {
-        color: #10B981;
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 700;
-    }
-
-    .hud-badge-neg {
-        color: #F43F5E;
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 700;
-    }
-
-    /* Recommendation Glass Cards */
-    .rec-glass {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
-        border-left: 4px solid #A855F7;
-        border-top: 1px solid rgba(168, 85, 247, 0.2);
-        border-right: 1px solid rgba(168, 85, 247, 0.2);
-        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    /* Interactive Product Cards */
+    .product-box {
+        background: #1F2937;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
         padding: 20px;
-        margin-bottom: 16px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s;
     }
-
-    .rec-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.05rem;
+    .product-box:hover {
+        border-color: #3B82F6;
+        transform: translateY(-2px);
+    }
+    
+    .product-name {
+        font-size: 1.2rem;
         font-weight: 700;
-        color: #C084FC;
+        color: #38BDF8;
         margin-bottom: 6px;
     }
 
-    .tag-cyan {
-        background: rgba(6, 182, 212, 0.2);
-        color: #22D3EE;
-        border: 1px solid rgba(6, 182, 212, 0.4);
-        padding: 3px 10px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-family: 'Rajdhani', sans-serif;
-        font-weight: 700;
-        display: inline-block;
-        margin-right: 8px;
-    }
-
-    .tag-purple {
-        background: rgba(168, 85, 247, 0.2);
-        color: #C084FC;
-        border: 1px solid rgba(168, 85, 247, 0.4);
-        padding: 3px 10px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-family: 'Rajdhani', sans-serif;
-        font-weight: 700;
-        display: inline-block;
+    /* Chat bubble */
+    .chat-bubble-twin {
+        background: #1E293B;
+        border-left: 4px solid #3B82F6;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 12px 0;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # Session State Setup
-if "selected_node" not in st.session_state:
-    st.session_state["selected_node"] = None
-if "command_input" not in st.session_state:
-    st.session_state["command_input"] = ""
+if "selected_product" not in st.session_state:
+    st.session_state["selected_product"] = "SWITCH_UAV"
+if "chat_history" not in st.session_state:
+    st.session_state["chat_history"] = []
 
-# Backend Initializer
+# Backend Objects
 @st.cache_resource
 def get_backend():
     pipeline = IdeaForgeIngestionPipeline()
@@ -218,215 +152,263 @@ pipeline, graph_db, financials_df, causal_engine, memory_engine, reasoning_engin
 baseline_data = financials_df.iloc[-1].to_dict()
 
 # ----------------- SIDEBAR CONTROLS -----------------
-st.sidebar.markdown("### 🎛️ Simulation Cockpit Controls")
-st.sidebar.caption("Adjust macro-variables to test corporate financial resilience")
+st.sidebar.markdown("### 🎛️ Real-World Simulator")
+st.sidebar.caption("Adjust real-world conditions to see how the company responds:")
 
 mod_lag = st.sidebar.slider(
-    "MoD Disbursement Lag (Days)",
+    "Government Payment Speed",
     min_value=15, max_value=180, value=int(baseline_data["MoD_Disbursement_Lag"]), step=5,
-    help="Ministry of Defence capital budget payment release schedule"
+    help="Days taken by the Ministry of Defence to clear invoices. Lower is faster cash flow."
 )
 
 import_price_shock = st.sidebar.slider(
-    "Import Sensor Tariff Shock (%)",
+    "Imported Sensor Tariffs / Price Hike (%)",
     min_value=0, max_value=50, value=0, step=5,
-    help="Customs duty hike on optical payloads & autopilot chips"
+    help="Cost increase for optical cameras and chips imported from Israel/USA."
 )
 
 saas_attach_rate = st.sidebar.slider(
-    "FLYGHT SaaS Attach Rate (%)",
+    "Software Subscription Adoption (%)",
     min_value=0, max_value=100, value=int(baseline_data["SaaS_Attach_Rate"] * 100), step=5,
-    help="Percentage of drone fleet bundled with recurring software analytics"
-)
-
-indigenous_mix = st.sidebar.slider(
-    "Indigenous Sourcing Ratio (%)",
-    min_value=30, max_value=90, value=int(baseline_data["Indigenous_Sourcing_Mix"] * 100), step=5,
-    help="Domestic component assembly content qualifying for PLI incentives"
+    help="Percentage of drone clients subscribing to FLYGHT cloud analytics software."
 )
 
 scenario_config = {
     "mod_lag_days": mod_lag,
     "import_tariff_shock_pct": import_price_shock,
     "saas_attach_rate_pct": saas_attach_rate,
-    "indigenous_mix": indigenous_mix / 100.0
+    "indigenous_mix": 0.60
 }
 
-# Run 2SLS Causal & Agentic Orchestration
+# Run backend calculations
 agent_state = orchestrator.run_workflow(scenario_config)
 sim_res = agent_state.simulated_results
 
-# ----------------- JARVIS HUD HEADER -----------------
+# ----------------- HERO WELCOME BANNER -----------------
 st.markdown("""
-<div class="jarvis-header">
-    <div class="jarvis-status-pill">⚡ JARVIS AI DIGITAL TWIN CORE :: ONLINE</div>
-    <div class="jarvis-title">ideaForge Technology Limited</div>
-    <div class="jarvis-subtitle">Enterprise Financial & Operational Holographic Replica • Corporate Strategy AI Operating System</div>
+<div class="company-hero">
+    <div class="company-tag">🌐 LIVE DIGITAL TWIN OF IDEAFORGE TECHNOLOGY LTD</div>
+    <div class="hero-title">Welcome to ideaForge's Digital Twin</div>
+    <div class="hero-desc">
+        This is a live, interactive digital copy of <b>ideaForge Technology Limited</b>—India's pioneer market leader in defense and civil drones. 
+        Explore how the company makes money, builds its drones, manages supply chain risks, and deals with government payments.
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ----------------- JARVIS COMMAND BAR -----------------
-st.markdown("##### 💬 JARVIS Interactive Executive Command Console")
-cmd_col1, cmd_col2 = st.columns([3, 1])
+# ----------------- TALK TO THE DIGITAL TWIN (CHAT & Q&A) -----------------
+st.markdown("### 💬 Talk to the Company Digital Twin")
+st.caption("Ask any question in plain English, or click a quick question below:")
 
-with cmd_col1:
-    user_cmd = st.text_input(
-        "Type a command or query for JARVIS...",
-        placeholder="e.g., 'Run liquidity crash test' or 'What happens if optical payload tariffs increase by 15%?'",
-        key="jarvis_cmd_input"
-    )
+q_col1, q_col2, q_col3, q_col4 = st.columns(4)
 
-with cmd_col2:
-    quick_cmd = st.selectbox(
-        "Preset Commands",
-        ["-- Select Preset --", "⚡ Run Liquidity Stress Test", "🛡️ 15% Tariff Shock Mitigation", "🚀 Maximize FLYGHT SaaS Monetization"]
-    )
+asked_q = None
+if q_col1.button("❓ What does ideaForge build?"):
+    asked_q = "What does ideaForge build?"
+if q_col2.button("💰 How does the company make money?"):
+    asked_q = "How does the company make money?"
+if q_col3.button("⚠️ What is ideaForge's biggest risk?"):
+    asked_q = "What is ideaForge's biggest risk?"
+if q_col4.button("🚀 What is the FLYGHT platform?"):
+    asked_q = "What is the FLYGHT platform?"
 
-st.write("")
+custom_user_q = st.text_input("Or ask your own question about ideaForge:", placeholder="e.g., Who are their main customers? Where do they buy cameras?")
+if custom_user_q:
+    asked_q = custom_user_q
 
-# ----------------- TELEMETRY KPI GAUGES -----------------
-k1, k2, k3, k4 = st.columns(4)
-
-def render_cyber_kpi(col, title, current_val, baseline_val, unit="", is_inverse=False):
-    diff = current_val - baseline_val
-    is_good = (diff <= 0) if is_inverse else (diff >= 0)
-    badge_style = "hud-badge-pos" if is_good else "hud-badge-neg"
-    sign = "+" if diff >= 0 else ""
+if asked_q:
+    st.markdown(f"**You asked**: *\"{asked_q}\"*")
     
-    if unit == "%":
-        val_str = f"{current_val:.1f}%"
-        delta_str = f"{sign}{diff:.1f}% vs base"
-    elif unit == "days":
-        val_str = f"{current_val:.0f} Days"
-        delta_str = f"{sign}{diff:.0f}d vs base"
+    # Generate conversational plain English answers
+    q_lower = asked_q.lower()
+    if "build" in q_lower or "product" in q_lower:
+        ans = ("**ideaForge builds high-performance Unmanned Aircraft Systems (drones).**\n\n"
+               "1. **SWITCH UAV**: Their flagship flagship VTOL drone used by the Indian Army for border surveillance.\n"
+               "2. **NETRA V4**: Quadcopter drone used by police & paramilitary for crowd control and rescue missions.\n"
+               "3. **Q6 UAV**: Heavy-payload drone used by Survey of India for mapping rural land under the SVAMITVA scheme.\n"
+               "4. **FLYGHT Platform**: Cloud software for fleet tracking & AI map analytics.")
+    elif "money" in q_lower or "revenue" in q_lower:
+        ans = (f"**ideaForge generates revenue primarily by selling drone hardware and software subscriptions:**\n\n"
+               f"- **Defense Orders (65%)**: Large contracts from the Indian Army & Ministry of Home Affairs.\n"
+               f"- **Civil Mapping (20%)**: Government mapping tenders (e.g. Survey of India).\n"
+               f"- **FLYGHT Software (10%)**: Recurring annual subscriptions for GIS mapping analytics.\n"
+               f"- **Current Annual Revenue**: ~₹202 Cr | **Operating Profit Margin**: ~{sim_res['EBITDA_Margin']:.1f}%.")
+    elif "risk" in q_lower or "tariff" in q_lower or "component" in q_lower:
+        ans = (f"**ideaForge's 2 biggest operational risks are:**\n\n"
+               f"1. **Government Payment Delays**: Defense contracts take ~60–90 days to clear invoices, tying up ₹{sim_res['Working_Capital_Requirement_Cr']:.1f} Cr in working capital.\n"
+               f"2. **Import Component Reliance**: High-tech cameras (EO/IR sensors) are imported from Israel/USA. A tariff increase or supply bottleneck raises build costs.")
+    elif "flyght" in q_lower or "software" in q_lower:
+        ans = ("**FLYGHT is ideaForge's proprietary cloud software.**\n\n"
+               "Instead of just selling a physical drone once, ideaForge bundles FLYGHT software subscriptions. "
+               "It allows drone pilots to stream live video to commanders, process 3D terrain maps, and run AI detection automatically. "
+               "It provides high-margin recurring income.")
     else:
-        val_str = f"₹{current_val:.1f} Cr"
-        delta_str = f"{sign}₹{diff:.1f} Cr vs base"
+        ans = f"**Digital Twin Analysis**: ideaForge operates across Defense ISR and Civil Mapping. Current simulated EBITDA margin is {sim_res['EBITDA_Margin']:.1f}% with working capital cycle of {sim_res['Working_Capital_Days']:.0f} days. All operations are actively monitored."
 
-    col.markdown(f"""
-    <div class="hud-card">
-        <div class="hud-label">{title}</div>
-        <div class="hud-val">{val_str}</div>
-        <div class="{badge_style}">{delta_display if 'delta_display' in locals() else delta_str}</div>
+    st.markdown(f"""
+    <div class="chat-bubble-twin">
+        <b>🤖 ideaForge Digital Twin Response:</b><br><br>
+        {ans}
     </div>
     """, unsafe_allow_html=True)
 
-render_cyber_kpi(k1, "Operating EBITDA Margin", sim_res["EBITDA_Margin"], baseline_data["EBITDA_Margin"], "%")
-render_cyber_kpi(k2, "Working Capital Cycle", sim_res["Working_Capital_Days"], baseline_data["Working_Capital_Days"], "days", is_inverse=True)
-render_cyber_kpi(k3, "Projected Net Profit", sim_res["Net_Profit"], baseline_data["Net_Profit"], "Cr")
-render_cyber_kpi(k4, "Liquidity Requirement", sim_res["Working_Capital_Requirement_Cr"], baseline_data["Revenue"] * (baseline_data["Working_Capital_Days"] / 365.0), "Cr", is_inverse=True)
+st.write("---")
 
-st.write("")
-
-# ----------------- FINANCE COCKPIT NAVIGATION -----------------
-tab1, tab2, tab3, tab4 = st.tabs([
-    "🔮 1. JARVIS CFO Co-Pilot & Advice",
-    "⚡ 2. Financial Crash-Test Sandbox",
-    "🕸️ 3. Interactive Hologram Twin Core",
-    "📚 4. Memory Vault & Belief History"
+# ----------------- 3 SIMPLE INTERACTIVE VIEWS -----------------
+tab1, tab2, tab3 = st.tabs([
+    "🚁 1. Inside ideaForge (Products & Value Chain)",
+    "🎛️ 2. Real-World Scenario Simulator",
+    "🕸️ 3. Company Network Map"
 ])
 
 # ==============================================================================
-# COCKPIT 1: JARVIS CFO CO-PILOT & ADVICE
+# VIEW 1: INSIDE IDEAFORGE (PRODUCTS & VALUE CHAIN)
 # ==============================================================================
 with tab1:
-    c1, c2 = st.columns([1.1, 1])
+    st.subheader("🚁 Explore ideaForge's Product Platforms")
+    st.caption("Click a product platform to see what goes inside it and how it contributes to revenue:")
 
-    with c1:
-        st.markdown("### 🎙️ JARVIS Executive Briefing")
-        
-        events_list = pipeline.load_dynamic_events()
-        trace = reasoning_engine.execute_7_step_loop(events_list[0])
-        advisor_matrix = strategic_advisor.generate_strategic_recommendations(trace)
+    p_cols = st.columns(4)
 
+    with p_cols[0]:
+        st.markdown("""
+        <div class="product-box">
+            <div class="product-name">SWITCH VTOL UAV</div>
+            <div style="font-size:0.85rem; color:#9CA3AF; margin-bottom:8px;">Flagship Defense Surveillance</div>
+            <div style="font-size:0.9rem; font-weight:700; color:#34D399;">65% of Revenue</div>
+            <div style="font-size:0.8rem; color:#D1D5DB; margin-top:6px;">Flight Endurance: 120 mins | Price: ₹25 Lakhs</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Inspect SWITCH UAV Details"):
+            st.session_state["selected_product"] = "SWITCH_UAV"
+
+    with p_cols[1]:
+        st.markdown("""
+        <div class="product-box">
+            <div class="product-name">NETRA V4 Quadcopter</div>
+            <div style="font-size:0.85rem; color:#9CA3AF; margin-bottom:8px;">Paramilitary & Police Patrol</div>
+            <div style="font-size:0.9rem; font-weight:700; color:#34D399;">15% of Revenue</div>
+            <div style="font-size:0.8rem; color:#D1D5DB; margin-top:6px;">Flight Endurance: 45 mins | Price: ₹12 Lakhs</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Inspect NETRA V4 Details"):
+            st.session_state["selected_product"] = "NETRA_V4"
+
+    with p_cols[2]:
+        st.markdown("""
+        <div class="product-box">
+            <div class="product-name">Q6 Heavy Payload UAV</div>
+            <div style="font-size:0.85rem; color:#9CA3AF; margin-bottom:8px;">Civil Mapping & Surveying</div>
+            <div style="font-size:0.9rem; font-weight:700; color:#34D399;">10% of Revenue</div>
+            <div style="font-size:0.8rem; color:#D1D5DB; margin-top:6px;">Payload Capacity: 5 kg | Price: ₹35 Lakhs</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Inspect Q6 UAV Details"):
+            st.session_state["selected_product"] = "Q6_UAV"
+
+    with p_cols[3]:
+        st.markdown("""
+        <div class="product-box">
+            <div class="product-name">FLYGHT SaaS Software</div>
+            <div style="font-size:0.85rem; color:#9CA3AF; margin-bottom:8px;">Cloud Mapping & AI Portal</div>
+            <div style="font-size:0.9rem; font-weight:700; color:#34D399;">10% (High Growth)</div>
+            <div style="font-size:0.8rem; color:#D1D5DB; margin-top:6px;">Recurring ARR | Price: ₹1.5 Lakh/drone/yr</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Inspect FLYGHT SaaS Details"):
+            st.session_state["selected_product"] = "FLYGHT_Patrol"
+
+    st.write("")
+    
+    # Show selected product breakdown
+    prod_id = st.session_state["selected_product"]
+    st.markdown(f"### 📦 Selected Platform Breakdown: `{prod_id}`")
+    
+    b_col1, b_col2 = st.columns(2)
+    with b_col1:
+        st.markdown("**Key Sub-Components (Bill of Materials):**")
+        if prod_id == "SWITCH_UAV":
+            st.markdown("- 📷 **EO/IR Optical Payload** (Imported from Elbit Systems, Israel) — ₹8.0 Lakhs")
+            st.markdown("- 🧭 **Autopilot Microcontroller Board** (Imported from Taiwan) — ₹2.0 Lakhs")
+            st.markdown("- ✈️ **Carbon Fiber Structural Frame** (Japan Carbon Fiber Corp) — ₹1.5 Lakhs")
+            st.markdown("- 🔋 **LiPo Battery Pack** (Assembled locally in India) — ₹0.8 Lakhs")
+        elif prod_id == "NETRA_V4":
+            st.markdown("- 📷 **Day/Night Thermal Camera** — ₹4.5 Lakhs")
+            st.markdown("- 🧭 **Autopilot Board** — ₹1.5 Lakhs")
+            st.markdown("- 🔋 **LiPo Battery Pack** — ₹0.6 Lakhs")
+        else:
+            st.markdown("- 🗺️ **RTK GPS & 24MP Mapping Sensor** — ₹6.0 Lakhs")
+            st.markdown("- 💻 **FLYGHT Cloud Portal Sync Module** — ₹1.5 Lakhs")
+
+    with b_col2:
+        st.markdown("**Primary Customer Accounts:**")
+        if prod_id in ["SWITCH_UAV", "NETRA_V4"]:
+            st.markdown("- 🪖 **Indian Army** (Fast-Track Procurement)")
+            st.markdown("- 🛡️ **Ministry of Home Affairs** (Border Security Force, CRPF)")
+        else:
+            st.markdown("- 🗺️ **Survey of India** (SVAMITVA Rural Land Mapping)")
+            st.markdown("- 🏢 **Enterprise Clients** (Adani Ports, NTPC Infrastructure Inspection)")
+
+# ==============================================================================
+# VIEW 2: REAL-WORLD SCENARIO SIMULATOR
+# ==============================================================================
+with tab2:
+    st.subheader("🎛️ Real-World Scenario Simulator (What-If Engine)")
+    st.caption("Adjust the sliders in the left sidebar to see how real-world shocks affect ideaForge's finances in plain English:")
+
+    s_col1, s_col2, s_col3 = st.columns(3)
+
+    with s_col1:
         st.markdown(f"""
-        <div style="background: rgba(15, 23, 42, 0.85); border:1px solid rgba(6, 182, 212, 0.3); border-radius:14px; padding:22px; box-shadow:0 0 20px rgba(6, 182, 212, 0.1);">
-            <div style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#22D3EE; font-weight:700; margin-bottom:12px;">
-                🤖 Executive Synthesis & Liquidity Diagnosis
-            </div>
-            <p style="color:#E2E8F0; font-size:0.95rem; line-height:1.6;">
-                <b>System Diagnostic</b>: Under the current scenario parameters (MoD Disbursement Lag set to <b>{mod_lag} days</b> and Tariff Shock at <b>+{import_price_shock}%</b>), operating EBITDA margin stands at <b style="color:#34D399;">{sim_res['EBITDA_Margin']:.1f}%</b>.
-            </p>
-            <p style="color:#E2E8F0; font-size:0.95rem; line-height:1.6;">
-                <b>Liquidity Warning</b>: Extended payment cycles require <b>₹{sim_res['Working_Capital_Requirement_Cr']:.1f} Cr</b> in operational capital. Borrowing interest costs are projected at <b>₹{sim_res.get('Additional_Interest_Cost_Cr', 0.0):.2f} Cr</b>.
-            </p>
-            <p style="color:#A78BFA; font-size:0.95rem; font-weight:600;">
-                💡 <b>Primary Recommended Action</b>: {advisor_matrix['recommended_primary_action']}
-            </p>
+        <div class="stat-card">
+            <div class="stat-label">OPERATING PROFIT MARGIN</div>
+            <div class="stat-value">{sim_res['EBITDA_Margin']:.1f}%</div>
+            <div class="stat-sub">{"Healthy Margin" if sim_res['EBITDA_Margin'] > 18 else "Compressed Margin (Tariff Impact)"}</div>
         </div>
         """, unsafe_allow_html=True)
 
-        st.write("")
-        st.markdown("### 🛡️ Multi-Agent Advisory Radar")
-        if agent_state.critical_flags:
-            for flag in agent_state.critical_flags:
-                st.error(f"🚨 **Alert Flag**: `{flag}` — Action needed to safeguard working capital.")
-        else:
-            st.success("✅ **Operational Radar Clear**: All procurement, supply chain, and Ind AS accounting indicators are within safety limits.")
+    with s_col2:
+        st.markdown(f"""
+        <div class="stat-card">
+            <div class="stat-label">CASH FLOW CYCLE SPEED</div>
+            <div class="stat-value">{sim_res['Working_Capital_Days']:.0f} Days</div>
+            <div class="stat-sub">Time taken to collect cash from customers</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    with c2:
-        st.markdown("### ⚡ Prescriptive Strategic Action Cards")
-        for rec in advisor_matrix["action_matrix"]:
-            st.markdown(f"""
-            <div class="rec-glass">
-                <div>
-                    <span class="tag-cyan">{rec['category']}</span>
-                    <span class="tag-purple">Lead: {rec['executive_owner']}</span>
-                </div>
-                <div class="rec-title" style="margin-top:10px;">{rec['title']}</div>
-                <div style="font-size:0.88rem; color:#CBD5E1; margin-bottom:8px;">{rec['recommended_action']}</div>
-                <div style="font-size:0.88rem; color:#34D399; font-weight:700;">💰 ROI Impact: {rec['financial_impact']}</div>
-            </div>
-            """, unsafe_allow_html=True)
+    with s_col3:
+        st.markdown(f"""
+        <div class="stat-card">
+            <div class="stat-label">WORKING CAPITAL REQUIRED</div>
+            <div class="stat-value">₹{sim_res['Working_Capital_Requirement_Cr']:.1f} Cr</div>
+            <div class="stat-sub">Capital tied up in raw materials & unpaid bills</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-# ==============================================================================
-# COCKPIT 2: FINANCIAL CRASH-TEST SANDBOX (WHAT-IF ANALYSIS)
-# ==============================================================================
-with tab2:
-    st.markdown("### ⚡ What-If Financial Crash-Test Simulator")
-    st.caption("Compare how key corporate finance metrics shift across 3 parallel operational strategies:")
-
-    no_action_margin = sim_res["EBITDA_Margin"]
-    action_a_margin = min(35.0, no_action_margin + (15.0 - import_price_shock * 0.4))
-    action_b_margin = min(38.0, no_action_margin + (saas_attach_rate * 0.15))
+    st.write("")
+    st.markdown("### 💡 Recommended Counter-Strategy for Current Scenario")
+    
+    events_list = pipeline.load_dynamic_events()
+    trace = reasoning_engine.execute_7_step_loop(events_list[0])
+    advisor_matrix = strategic_advisor.generate_strategic_recommendations(trace)
+    
+    rec_primary = advisor_matrix["action_matrix"][0]
 
     st.markdown(f"""
-    <div style="background:#0F172A; border-radius:14px; padding:24px; border:1px solid rgba(6, 182, 212, 0.3);">
-        <table style="width:100%; color:#F8FAFC; border-collapse:collapse; font-size:0.95rem;">
-            <tr style="border-bottom:2px solid rgba(6, 182, 212, 0.3); font-family:'Orbitron', sans-serif; font-size:0.85rem; color:#94A3B8;">
-                <th style="text-align:left; padding:12px 0;">Strategy Option</th>
-                <th style="text-align:center;">Operating EBITDA</th>
-                <th style="text-align:center;">Working Capital</th>
-                <th style="text-align:right;">Projected Net Profit</th>
-            </tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-                <td style="padding:16px 0; font-weight:600; color:#94A3B8;">Status Quo (No Intervention)</td>
-                <td style="text-align:center; font-weight:700; color:#F43F5E;">{no_action_margin:.1f}%</td>
-                <td style="text-align:center;">{sim_res['Working_Capital_Days']:.0f} Days</td>
-                <td style="text-align:right; font-weight:700;">₹{sim_res['Net_Profit']:.1f} Cr</td>
-            </tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-                <td style="padding:16px 0; font-weight:600; color:#38BDF8;">Option A: Fast-Track Gujarat Local Sourcing</td>
-                <td style="text-align:center; font-weight:700; color:#34D399;">{action_a_margin:.1f}%</td>
-                <td style="text-align:center; font-weight:700; color:#34D399;">{max(180, sim_res['Working_Capital_Days'] - 20):.0f} Days</td>
-                <td style="text-align:right; font-weight:700; color:#34D399;">₹{sim_res['Net_Profit'] + 4.5:.1f} Cr</td>
-            </tr>
-            <tr>
-                <td style="padding:16px 0; font-weight:600; color:#C084FC;">Option B: Accelerate FLYGHT SaaS Fleet Bundling</td>
-                <td style="text-align:center; font-weight:700; color:#34D399;">{action_b_margin:.1f}%</td>
-                <td style="text-align:center; font-weight:700; color:#34D399;">{max(165, sim_res['Working_Capital_Days'] - 35):.0f} Days</td>
-                <td style="text-align:right; font-weight:700; color:#34D399;">₹{sim_res['Net_Profit'] + 8.2:.1f} Cr</td>
-            </tr>
-        </table>
+    <div style="background:#1E293B; border-left:4px solid #10B981; border-radius:10px; padding:20px;">
+        <div style="font-size:1.1rem; font-weight:700; color:#34D399;">💡 {rec_primary['title']}</div>
+        <p style="color:#CBD5E1; margin:8px 0;"><b>Problem Statement</b>: {rec_primary['problem_statement']}</p>
+        <p style="color:#CBD5E1; margin:8px 0;"><b>Recommended Action</b>: {rec_primary['recommended_action']}</p>
+        <p style="color:#60A5FA; font-weight:700;">💰 Expected Return: {rec_primary['financial_impact']}</p>
     </div>
     """, unsafe_allow_html=True)
 
 # ==============================================================================
-# COCKPIT 3: INTERACTIVE HOLOGRAM TWIN CORE (NETWORK CANVAS)
+# VIEW 3: COMPANY NETWORK MAP
 # ==============================================================================
 with tab3:
-    st.markdown("### 🕸️ Interactive Company Hologram Core")
-    st.caption("Visual graph mapping ideaForge's platforms, component BOMs, suppliers, and financial metrics:")
+    st.subheader("🕸️ Visual Company Network Map")
+    st.caption("How ideaForge's customers, products, components, and money flow together:")
 
     g1, g2 = st.columns([2, 1])
 
@@ -436,10 +418,10 @@ with tab3:
 
         cy_elements = []
         color_map = {
-            "BusinessSegment": "#06B6D4",      # Cyan
+            "BusinessSegment": "#3B82F6",      # Blue
             "ProductPlatform": "#10B981",      # Emerald
-            "SupplyChainComponent": "#F43F5E", # Rose
-            "GovernmentPolicy": "#8B5CF6",     # Violet
+            "SupplyChainComponent": "#EF4444", # Red
+            "GovernmentPolicy": "#8B5CF6",     # Purple
             "CustomerEntity": "#F59E0B",       # Amber
             "FinancialMetric": "#EAB308"       # Yellow
         }
@@ -471,8 +453,8 @@ with tab3:
                     "background-color": "data(color)",
                     "color": "#FFFFFF",
                     "font-size": "11px",
-                    "width": "36px",
-                    "height": "36px",
+                    "width": "35px",
+                    "height": "35px",
                     "text-valign": "center",
                     "text-halign": "bottom"
                 }
@@ -481,8 +463,8 @@ with tab3:
                 "selector": "edge",
                 "style": {
                     "width": "2px",
-                    "line-color": "#475569",
-                    "target-arrow-color": "#475569",
+                    "line-color": "#4B5563",
+                    "target-arrow-color": "#4B5563",
                     "target-arrow-shape": "triangle",
                     "curve-style": "bezier",
                     "label": "data(relationship)",
@@ -494,17 +476,17 @@ with tab3:
 
         try:
             from st_cytoscape import cytoscape
-            selected = cytoscape(cy_elements, stylesheet, layout={"name": "cose"}, height="460px", key="cy_jarvis")
+            selected = cytoscape(cy_elements, stylesheet, layout={"name": "cose"}, height="440px", key="cy_simple")
             if selected and selected.get("nodes"):
                 st.session_state["selected_node"] = selected["nodes"][0]
         except Exception:
             all_node_ids = [n["id"] for n in nodes]
-            chosen = st.selectbox("Select Node to Inspect", ["-- Select Node --"] + all_node_ids)
+            chosen = st.selectbox("Inspect Network Node", ["-- Select Node --"] + all_node_ids)
             if chosen != "-- Select Node --":
                 st.session_state["selected_node"] = chosen
 
     with g2:
-        st.markdown("##### 📦 Holographic Node Inspector")
+        st.markdown("##### 🔍 Network Element Details")
         if st.session_state["selected_node"]:
             n_id = st.session_state["selected_node"]
             details = graph_db.get_node_details(n_id)
@@ -514,22 +496,4 @@ with tab3:
                 props = {k: v for k, v in details.items() if k != "label"}
                 st.table(pd.DataFrame(list(props.items()), columns=["Property", "Value"]))
         else:
-            st.info("Click any node in the Hologram Core network to inspect its underlying BOM cost structure and revenue linkages.")
-
-# ==============================================================================
-# COCKPIT 4: MEMORY VAULT & BELIEF HISTORY
-# ==============================================================================
-with tab4:
-    st.markdown("### 📚 Persistent Memory & Belief Revision Ledger")
-    st.caption("Auditable timeline tracking how past macro shocks revised company operational beliefs over time:")
-
-    m1, m2 = st.columns(2)
-    with m1:
-        st.markdown("##### 📜 Belief Revision Timeline")
-        beliefs = memory_engine.get_belief_history()
-        st.dataframe(pd.DataFrame(beliefs))
-
-    with m2:
-        st.markdown("##### 🎯 Historical Executive Decision Lessons")
-        decisions = memory_engine.get_decision_history()
-        st.dataframe(pd.DataFrame(decisions))
+            st.info("Click any node in the Network Map to see its operational details.")
