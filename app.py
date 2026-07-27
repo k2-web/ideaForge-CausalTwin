@@ -132,8 +132,11 @@ st.markdown("""
 # Session State Setup
 if "selected_product" not in st.session_state:
     st.session_state["selected_product"] = "SWITCH_UAV"
+if "selected_node" not in st.session_state:
+    st.session_state["selected_node"] = None
 if "chat_history" not in st.session_state:
     st.session_state["chat_history"] = []
+
 
 # Backend Objects
 @st.cache_resource
