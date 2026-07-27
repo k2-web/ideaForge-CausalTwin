@@ -1639,22 +1639,19 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. Ultra-Futuristic Cyberpunk CSS Design System matching Digital Human Body Concept
+# 2. ULTRA-HIGH CONTRAST CSS DESIGN SYSTEM
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Orbitron:wght@700;800;900&display=swap');
 
     html, body, [class*="css"] {
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
+    /* High contrast dark background */
     .stApp {
-        background-color: #04060C;
-        background-image: 
-            radial-gradient(at 50% 10%, rgba(255, 69, 0, 0.15) 0px, transparent 60%),
-            radial-gradient(at 10% 90%, rgba(0, 191, 255, 0.12) 0px, transparent 50%),
-            radial-gradient(at 90% 90%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
-        color: #F8FAFC;
+        background-color: #050814;
+        color: #FFFFFF;
     }
 
     .main .block-container {
@@ -1663,92 +1660,96 @@ st.markdown("""
         max-width: 1400px;
     }
 
+    /* Streamlit default text override for ultra-contrast */
+    p, span, label, div {
+        color: #FFFFFF !important;
+    }
+    
+    .stMarkdown p {
+        color: #F1F5F9 !important;
+        font-weight: 500;
+    }
+
     /* Top Brand Header */
     .top-brand-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 69, 0, 0.3);
+        background: #0F172A;
+        border: 2px solid #FF5500;
         border-radius: 16px;
         padding: 16px 28px;
         margin-bottom: 24px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
     }
 
     .brand-title {
         font-family: 'Orbitron', sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: 900;
-        color: #FFFFFF;
+        color: #FFFFFF !important;
         letter-spacing: 0.05em;
     }
 
     .brand-subtitle {
-        font-size: 0.85rem;
-        color: #94A3B8;
+        font-size: 0.9rem;
+        color: #38BDF8 !important;
+        font-weight: 600;
     }
 
     .twin-status-pill {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34D399;
-        border: 1px solid rgba(16, 185, 129, 0.3);
+        background: #064E3B;
+        color: #34D399 !important;
+        border: 1px solid #34D399;
         padding: 6px 14px;
         border-radius: 20px;
         font-family: 'Orbitron', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 700;
+        font-size: 0.8rem;
+        font-weight: 800;
     }
 
     /* Hero Human Body Avatar Centerpiece */
     .human-body-container {
-        background: radial-gradient(circle, rgba(15, 23, 42, 0.95) 0%, rgba(4, 6, 12, 0.98) 100%);
-        border: 2px solid rgba(255, 69, 0, 0.35);
+        background: #0F172A;
+        border: 2px solid #38BDF8;
         border-radius: 24px;
         padding: 28px;
         text-align: center;
-        box-shadow: 0 0 50px rgba(255, 69, 0, 0.15);
+        box-shadow: 0 0 40px rgba(56, 189, 248, 0.2);
         margin-bottom: 28px;
     }
 
     .human-title {
         font-family: 'Orbitron', sans-serif;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         font-weight: 900;
-        color: #FFFFFF;
+        color: #FFFFFF !important;
         letter-spacing: 0.06em;
         margin-bottom: 6px;
     }
 
     .human-desc {
-        color: #94A3B8;
-        font-size: 0.9rem;
-        margin-bottom: 24px;
+        color: #F1F5F9 !important;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 20px;
     }
 
     /* Organ Selection Cards */
     .organ-card {
-        background: #0F172A;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #1E293B;
+        border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 16px;
         padding: 20px;
         text-align: center;
         transition: all 0.2s ease-in-out;
-        cursor: pointer;
         height: 100%;
     }
 
     .organ-card:hover {
-        border-color: #FF4500;
+        border-color: #FF5500;
         transform: translateY(-4px);
-        box-shadow: 0 0 25px rgba(255, 69, 0, 0.25);
-    }
-
-    .organ-card.active {
-        border-color: #00BFFF;
-        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-        box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
+        box-shadow: 0 0 25px rgba(255, 85, 0, 0.4);
     }
 
     .organ-icon {
@@ -1758,23 +1759,22 @@ st.markdown("""
 
     .organ-name {
         font-family: 'Orbitron', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 800;
-        color: #F8FAFC;
+        font-size: 1rem;
+        font-weight: 900;
+        color: #FFFFFF !important;
         margin-bottom: 4px;
     }
 
     .organ-meta {
-        font-size: 0.8rem;
-        color: #38BDF8;
-        font-weight: 600;
+        font-size: 0.85rem;
+        color: #38BDF8 !important;
+        font-weight: 700;
     }
 
     /* Section Content Box */
     .section-content-box {
-        background: rgba(15, 23, 42, 0.85);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 69, 0, 0.3);
+        background: #0F172A;
+        border: 2px solid #38BDF8;
         border-radius: 20px;
         padding: 28px;
         margin-bottom: 28px;
@@ -1782,51 +1782,66 @@ st.markdown("""
 
     .section-header {
         font-family: 'Orbitron', sans-serif;
-        font-size: 1.3rem;
-        font-weight: 800;
-        color: #FF4500;
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #FF5500 !important;
         margin-bottom: 16px;
     }
 
     /* Metric Box */
     .metric-pill-box {
         background: #1E293B;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 16px;
+        border: 2px solid #38BDF8;
+        border-radius: 14px;
+        padding: 18px;
         text-align: center;
     }
 
     .metric-pill-label {
-        font-size: 0.8rem;
-        color: #94A3B8;
-        font-weight: 600;
+        font-size: 0.85rem;
+        color: #F1F5F9 !important;
+        font-weight: 700;
         text-transform: uppercase;
     }
 
     .metric-pill-val {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #38BDF8;
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: #00E5FF !important;
         margin-top: 4px;
     }
 
     /* Simulation Control Drawer */
     .sim-drawer {
-        background: linear-gradient(135deg, #1C0A00 0%, #0F0500 100%);
-        border: 2px solid #FF4500;
+        background: #1E1008;
+        border: 2px solid #FF5500;
         border-radius: 20px;
         padding: 24px;
-        box-shadow: 0 0 40px rgba(255, 69, 0, 0.2);
+        box-shadow: 0 0 40px rgba(255, 85, 0, 0.3);
+    }
+
+    /* Table styling for ultra contrast */
+    .stTable table {
+        color: #FFFFFF !important;
+        background-color: #0F172A !important;
+    }
+    .stTable th {
+        color: #00E5FF !important;
+        font-weight: 800 !important;
+        background-color: #1E293B !important;
+    }
+    .stTable td {
+        color: #FFFFFF !important;
+        font-weight: 600 !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # Session State Setup
 if "selected_organ" not in st.session_state:
-    st.session_state["selected_organ"] = "heart"  # Default: Heart (Financial Statements)
+    st.session_state["selected_organ"] = "heart"
 
-# Backend Objects (Calculations run silently behind the scenes)
+# Backend Objects
 @st.cache_resource
 def get_backend():
     pipeline = IdeaForgeIngestionPipeline()
@@ -1859,7 +1874,7 @@ st.markdown("""
 st.markdown("""
 <div class="human-body-container">
     <div class="human-title">👤 THE DIGITAL BODY OF IDEAFORGE</div>
-    <div class="human-desc">Click any body part (organ) below to explore that exact section of the company in depth:</div>
+    <div class="human-desc">Click any body part (organ) below to explore that exact section of the company in high-contrast detail:</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1944,9 +1959,9 @@ if organ == "heart":
     st.markdown("""
     <div class="section-content-box">
         <div class="section-header">🫀 THE HEART OF IDEAFORGE — Financial Statements & Money Flow</div>
-        <p style="color:#CBD5E1;">
+        <p style="color:#FFFFFF; font-size:1rem; font-weight:600;">
             Just like a human heart pumps blood throughout the body, ideaForge's financial engine pumps money through its operations. 
-            Here is a simple breakdown of the company's revenue, profit, cash, and financial health.
+            Here is a high-contrast breakdown of revenue, profit, cash, and balance sheet health.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -1957,7 +1972,7 @@ if organ == "heart":
         <div class="metric-pill-box">
             <div class="metric-pill-label">Annual Revenue (Money Earned)</div>
             <div class="metric-pill-val">₹202 Cr</div>
-            <div style="font-size:0.8rem; color:#34D399; margin-top:4px;">+18.5% YoY Growth</div>
+            <div style="font-size:0.85rem; color:#34D399; font-weight:700; margin-top:4px;">+18.5% YoY Growth</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1966,7 +1981,7 @@ if organ == "heart":
         <div class="metric-pill-box">
             <div class="metric-pill-label">Operating Profit Margin</div>
             <div class="metric-pill-val">23.9%</div>
-            <div style="font-size:0.8rem; color:#34D399; margin-top:4px;">₹48.2 Cr EBITDA</div>
+            <div style="font-size:0.85rem; color:#34D399; font-weight:700; margin-top:4px;">₹48.2 Cr EBITDA</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1975,7 +1990,7 @@ if organ == "heart":
         <div class="metric-pill-box">
             <div class="metric-pill-label">Cash Collection Speed</div>
             <div class="metric-pill-val">75 Days</div>
-            <div style="font-size:0.8rem; color:#F43F5E; margin-top:4px;">MoD Invoice Lag</div>
+            <div style="font-size:0.85rem; color:#F43F5E; font-weight:700; margin-top:4px;">MoD Invoice Lag</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1984,7 +1999,7 @@ if organ == "heart":
         <div class="metric-pill-box">
             <div class="metric-pill-label">Working Capital Tank</div>
             <div class="metric-pill-val">₹41.5 Cr</div>
-            <div style="font-size:0.8rem; color:#60A5FA; margin-top:4px;">Cash Tied in Stock</div>
+            <div style="font-size:0.85rem; color:#38BDF8; font-weight:700; margin-top:4px;">Cash Tied in Stock</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1996,7 +2011,7 @@ if organ == "heart":
         st.markdown("**Where the Money Comes From (Revenue Mix):**")
         rev_data = pd.DataFrame({
             "Source": ["Defense Contracts (Army & BSF)", "Government Civil Mapping", "FLYGHT Software Subscriptions", "Spare Parts & Services"],
-            "Revenue (₹ Cr)": [131.3, 40.4, 20.2, 10.1],
+            "Revenue (₹ Cr)": ["131.3", "40.4", "20.2", "10.1"],
             "Share (%)": ["65%", "20%", "10%", "5%"]
         })
         st.table(rev_data)
@@ -2005,7 +2020,7 @@ if organ == "heart":
         st.markdown("**Where the Money Goes (Expense Structure):**")
         exp_data = pd.DataFrame({
             "Category": ["Raw Components & Camera BOMs", "R&D & Engineering Salaries", "Factory Operations & Logistics", "Net Profit After Tax"],
-            "Amount (₹ Cr)": [90.9, 40.4, 22.2, 48.5],
+            "Amount (₹ Cr)": ["90.9", "40.4", "22.2", "48.5"],
             "Share (%)": ["45%", "20%", "11%", "24%"]
         })
         st.table(exp_data)
@@ -2017,7 +2032,7 @@ elif organ == "arms":
     st.markdown("""
     <div class="section-content-box">
         <div class="section-header">🦾 ARMS & HANDS — Manufacturing Facilities & Drone Assembly</div>
-        <p style="color:#CBD5E1;">
+        <p style="color:#FFFFFF; font-size:1rem; font-weight:600;">
             These are the physical factories and hands that build ideaForge's drones. From raw carbon fiber sheets to high-altitude flight testing, explore how drones are crafted.
         </p>
     </div>
@@ -2027,37 +2042,37 @@ elif organ == "arms":
 
     with p1:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
-            <div style="font-size:1.1rem; font-weight:800; color:#38BDF8;">🏭 Navi Mumbai Main Plant</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Primary Manufacturing Facility</div>
-            <hr style="border-color:rgba(255,255,255,0.1);">
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Monthly Capacity: <b>350 Drones</b></div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Floor Area: <b>45,000 sq ft</b></div>
-            <div style="font-size:0.85rem; color:#34D399;">• Utilization Rate: <b>78% Active</b></div>
+        <div style="background:#1E293B; border:2px solid #38BDF8; border-radius:14px; padding:20px;">
+            <div style="font-size:1.2rem; font-weight:800; color:#00E5FF;">🏭 Navi Mumbai Main Plant</div>
+            <div style="font-size:0.9rem; color:#FFFFFF; margin-top:4px;">Primary Manufacturing Facility</div>
+            <hr style="border-color:rgba(255,255,255,0.2);">
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Monthly Capacity: <b style="color:#00E5FF;">350 Drones</b></div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Floor Area: <b style="color:#00E5FF;">45,000 sq ft</b></div>
+            <div style="font-size:0.9rem; color:#34D399;">• Utilization Rate: <b>78% Active</b></div>
         </div>
         """, unsafe_allow_html=True)
 
     with p2:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
-            <div style="font-size:1.1rem; font-weight:800; color:#38BDF8;">🔬 High-Altitude Testing Bay</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Ladakh & Leh Test Center</div>
-            <hr style="border-color:rgba(255,255,255,0.1);">
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Test Altitude: <b>Up to 20,000 ft</b></div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Temp Range: <b>-20°C to +50°C</b></div>
-            <div style="font-size:0.85rem; color:#34D399;">• Quality Pass Rate: <b>99.2%</b></div>
+        <div style="background:#1E293B; border:2px solid #38BDF8; border-radius:14px; padding:20px;">
+            <div style="font-size:1.2rem; font-weight:800; color:#00E5FF;">🔬 High-Altitude Testing Bay</div>
+            <div style="font-size:0.9rem; color:#FFFFFF; margin-top:4px;">Ladakh & Leh Test Center</div>
+            <hr style="border-color:rgba(255,255,255,0.2);">
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Test Altitude: <b style="color:#00E5FF;">Up to 20,000 ft</b></div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Temp Range: <b style="color:#00E5FF;">-20°C to +50°C</b></div>
+            <div style="font-size:0.9rem; color:#34D399;">• Quality Pass Rate: <b>99.2%</b></div>
         </div>
         """, unsafe_allow_html=True)
 
     with p3:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
-            <div style="font-size:1.1rem; font-weight:800; color:#38BDF8;">🛸 Product Lineup Built</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Flagship Drone Models</div>
-            <hr style="border-color:rgba(255,255,255,0.1);">
-            <div style="font-size:0.85rem; color:#E2E8F0;">• <b>SWITCH UAV</b> (Border Patrol)</div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• <b>NETRA V4</b> (Police Patrol)</div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• <b>Q6 UAV</b> (Land Mapping)</div>
+        <div style="background:#1E293B; border:2px solid #38BDF8; border-radius:14px; padding:20px;">
+            <div style="font-size:1.2rem; font-weight:800; color:#00E5FF;">🛸 Product Lineup Built</div>
+            <div style="font-size:0.9rem; color:#FFFFFF; margin-top:4px;">Flagship Drone Models</div>
+            <hr style="border-color:rgba(255,255,255,0.2);">
+            <div style="font-size:0.9rem; color:#FFFFFF;">• <b style="color:#FF5500;">SWITCH UAV</b> (Border Patrol)</div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• <b style="color:#FF5500;">NETRA V4</b> (Police Patrol)</div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• <b style="color:#FF5500;">Q6 UAV</b> (Land Mapping)</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -2068,7 +2083,7 @@ elif organ == "lungs":
     st.markdown("""
     <div class="section-content-box">
         <div class="section-header">🫁 LUNGS — Suppliers & Global Component Imports</div>
-        <p style="color:#CBD5E1;">
+        <p style="color:#FFFFFF; font-size:1rem; font-weight:600;">
             Just like lungs inhale oxygen from the environment, ideaForge inhales critical high-tech components from specialized global suppliers to build its drones.
         </p>
     </div>
@@ -2078,41 +2093,41 @@ elif organ == "lungs":
 
     with s1:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:18px;">
-            <div style="font-size:1.5rem;">🇮🇱</div>
-            <div style="font-weight:700; color:#F8FAFC; margin-top:6px;">Elbit Systems (Israel)</div>
-            <div style="font-size:0.8rem; color:#38BDF8;">EO/IR Optical Cameras</div>
-            <div style="font-size:0.8rem; color:#94A3B8; margin-top:6px;">Cost: ₹8.0 Lakhs / unit</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:18px;">
+            <div style="font-size:1.6rem;">🇮🇱</div>
+            <div style="font-weight:800; color:#FFFFFF; font-size:1rem; margin-top:6px;">Elbit Systems (Israel)</div>
+            <div style="font-size:0.85rem; color:#00E5FF; font-weight:700;">EO/IR Optical Cameras</div>
+            <div style="font-size:0.85rem; color:#FFFFFF; margin-top:6px;">Cost: ₹8.0 Lakhs / unit</div>
         </div>
         """, unsafe_allow_html=True)
 
     with s2:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:18px;">
-            <div style="font-size:1.5rem;">🇹🇼</div>
-            <div style="font-weight:700; color:#F8FAFC; margin-top:6px;">Taiwan Semi Corp</div>
-            <div style="font-size:0.8rem; color:#38BDF8;">Autopilot Microcontroller</div>
-            <div style="font-size:0.8rem; color:#94A3B8; margin-top:6px;">Cost: ₹2.0 Lakhs / unit</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:18px;">
+            <div style="font-size:1.6rem;">🇹🇼</div>
+            <div style="font-weight:800; color:#FFFFFF; font-size:1rem; margin-top:6px;">Taiwan Semi Corp</div>
+            <div style="font-size:0.85rem; color:#00E5FF; font-weight:700;">Autopilot Microcontroller</div>
+            <div style="font-size:0.85rem; color:#FFFFFF; margin-top:6px;">Cost: ₹2.0 Lakhs / unit</div>
         </div>
         """, unsafe_allow_html=True)
 
     with s3:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:18px;">
-            <div style="font-size:1.5rem;">🇯🇵</div>
-            <div style="font-weight:700; color:#F8FAFC; margin-top:6px;">Japan Carbon Fiber</div>
-            <div style="font-size:0.8rem; color:#38BDF8;">Ultra-Light Body Frame</div>
-            <div style="font-size:0.8rem; color:#94A3B8; margin-top:6px;">Cost: ₹1.5 Lakhs / unit</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:18px;">
+            <div style="font-size:1.6rem;">🇯🇵</div>
+            <div style="font-weight:800; color:#FFFFFF; font-size:1rem; margin-top:6px;">Japan Carbon Fiber</div>
+            <div style="font-size:0.85rem; color:#00E5FF; font-weight:700;">Ultra-Light Body Frame</div>
+            <div style="font-size:0.85rem; color:#FFFFFF; margin-top:6px;">Cost: ₹1.5 Lakhs / unit</div>
         </div>
         """, unsafe_allow_html=True)
 
     with s4:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:18px;">
-            <div style="font-size:1.5rem;">🇮🇳</div>
-            <div style="font-weight:700; color:#F8FAFC; margin-top:6px;">Local Indian Suppliers</div>
-            <div style="font-size:0.8rem; color:#38BDF8;">LiPo Batteries & Motors</div>
-            <div style="font-size:0.8rem; color:#94A3B8; margin-top:6px;">Cost: ₹0.8 Lakhs / unit</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:18px;">
+            <div style="font-size:1.6rem;">🇮🇳</div>
+            <div style="font-weight:800; color:#FFFFFF; font-size:1rem; margin-top:6px;">Local Indian Suppliers</div>
+            <div style="font-size:0.85rem; color:#00E5FF; font-weight:700;">LiPo Batteries & Motors</div>
+            <div style="font-size:0.85rem; color:#FFFFFF; margin-top:6px;">Cost: ₹0.8 Lakhs / unit</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -2123,7 +2138,7 @@ elif organ == "eyes":
     st.markdown("""
     <div class="section-content-box">
         <div class="section-header">👁️ EYES & EARS — Key Customers & Government Tenders</div>
-        <p style="color:#CBD5E1;">
+        <p style="color:#FFFFFF; font-size:1rem; font-weight:600;">
             ideaForge keeps its eyes and ears on defense security tenders and government mapping contracts across India.
         </p>
     </div>
@@ -2133,37 +2148,37 @@ elif organ == "eyes":
 
     with e1:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
-            <div style="font-size:1.1rem; font-weight:800; color:#F59E0B;">🪖 Indian Army (Ministry of Defence)</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Primary Defense Client</div>
-            <hr style="border-color:rgba(255,255,255,0.1);">
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Revenue Share: <b>65%</b></div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Primary Deployment: <b>High-Altitude Border Surveillance</b></div>
-            <div style="font-size:0.85rem; color:#60A5FA;">• Fast-Track Procurement Active</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:20px;">
+            <div style="font-size:1.2rem; font-weight:800; color:#FF5500;">🪖 Indian Army (Ministry of Defence)</div>
+            <div style="font-size:0.9rem; color:#FFFFFF; margin-top:4px;">Primary Defense Client</div>
+            <hr style="border-color:rgba(255,255,255,0.2);">
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Revenue Share: <b style="color:#00E5FF;">65%</b></div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Primary Deployment: <b>High-Altitude Border Surveillance</b></div>
+            <div style="font-size:0.9rem; color:#34D399;">• Fast-Track Procurement Active</div>
         </div>
         """, unsafe_allow_html=True)
 
     with e2:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
-            <div style="font-size:1.1rem; font-weight:800; color:#F59E0B;">🛡️ Ministry of Home Affairs (BSF, CRPF)</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Paramilitary & Law Enforcement</div>
-            <hr style="border-color:rgba(255,255,255,0.1);">
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Revenue Share: <b>15%</b></div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Primary Deployment: <b>Crowd Monitoring & Rescue</b></div>
-            <div style="font-size:0.85rem; color:#60A5FA;">• Multi-Year Service Tenders</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:20px;">
+            <div style="font-size:1.2rem; font-weight:800; color:#FF5500;">🛡️ Ministry of Home Affairs (BSF, CRPF)</div>
+            <div style="font-size:0.9rem; color:#FFFFFF; margin-top:4px;">Paramilitary & Law Enforcement</div>
+            <hr style="border-color:rgba(255,255,255,0.2);">
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Revenue Share: <b style="color:#00E5FF;">15%</b></div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Primary Deployment: <b>Crowd Monitoring & Rescue</b></div>
+            <div style="font-size:0.9rem; color:#34D399;">• Multi-Year Service Tenders</div>
         </div>
         """, unsafe_allow_html=True)
 
     with e3:
         st.markdown("""
-        <div style="background:#0F172A; border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
-            <div style="font-size:1.1rem; font-weight:800; color:#F59E0B;">🗺️ Survey of India</div>
-            <div style="font-size:0.85rem; color:#94A3B8; margin-top:4px;">Civil Mapping Tenders</div>
-            <hr style="border-color:rgba(255,255,255,0.1);">
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Revenue Share: <b>20%</b></div>
-            <div style="font-size:0.85rem; color:#E2E8F0;">• Primary Deployment: <b>SVAMITVA Rural Land Mapping</b></div>
-            <div style="font-size:0.85rem; color:#60A5FA;">• High-Precision Q6 Drone Fleet</div>
+        <div style="background:#1E293B; border:2px solid #FF5500; border-radius:14px; padding:20px;">
+            <div style="font-size:1.2rem; font-weight:800; color:#FF5500;">🗺️ Survey of India</div>
+            <div style="font-size:0.9rem; color:#FFFFFF; margin-top:4px;">Civil Mapping Tenders</div>
+            <hr style="border-color:rgba(255,255,255,0.2);">
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Revenue Share: <b style="color:#00E5FF;">20%</b></div>
+            <div style="font-size:0.9rem; color:#FFFFFF;">• Primary Deployment: <b>SVAMITVA Rural Land Mapping</b></div>
+            <div style="font-size:0.9rem; color:#34D399;">• High-Precision Q6 Drone Fleet</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -2174,7 +2189,7 @@ elif organ == "legs":
     st.markdown("""
     <div class="section-content-box">
         <div class="section-header">🦵 LEGS — Drone Fleet Deployment & Field Mobility</div>
-        <p style="color:#CBD5E1;">
+        <p style="color:#FFFFFF; font-size:1rem; font-weight:600;">
             ideaForge's drones have flown over 950,000 flight missions across difficult terrains, extreme altitudes, and urban environments.
         </p>
     </div>
@@ -2195,7 +2210,7 @@ elif organ == "brain":
     st.markdown("""
     <div class="section-content-box">
         <div class="section-header">🧠 THE BRAIN — AI Leadership & Strategy Simulator</div>
-        <p style="color:#CBD5E1;">
+        <p style="color:#FFFFFF; font-size:1rem; font-weight:600;">
             The brain processes complex information, calculates risks, and makes decisions for the company. 
             Use the simulation sliders below to see how executive decisions affect ideaForge in real time.
         </p>
@@ -2206,10 +2221,10 @@ elif organ == "brain":
 st.write("---")
 st.markdown("""
 <div class="sim-drawer">
-    <div style="font-family:'Orbitron', sans-serif; font-size:1.2rem; font-weight:900; color:#FF4500; margin-bottom:4px;">
+    <div style="font-family:'Orbitron', sans-serif; font-size:1.3rem; font-weight:900; color:#FF5500; margin-bottom:4px;">
         🎛️ REAL-WORLD SIMULATION STUDIO — Test Factors Affecting the Company
     </div>
-    <div style="font-size:0.85rem; color:#FFA07A; margin-bottom:16px;">
+    <div style="font-size:0.9rem; color:#FFFFFF; font-weight:600; margin-bottom:16px;">
         Drag the sliders below to simulate how government payment speeds, component import tariffs, and software adoption change ideaForge's profits and cash flow:
     </div>
 </div>
@@ -2260,7 +2275,7 @@ with s_col2:
         "Simulated Profit Margin (%)": simulated_trend
     }, index=quarters)
 
-    st.line_chart(chart_df, color=["#00BFFF", "#FF4500"])
+    st.line_chart(chart_df, color=["#00E5FF", "#FF5500"])
 
     o1, o2 = st.columns(2)
     with o1:
@@ -2268,7 +2283,7 @@ with s_col2:
     with o2:
         st.metric("Cash Collection Speed", f"{sim_res['Working_Capital_Days']:.0f} Days", f"{sim_res['Working_Capital_Days'] - baseline_data['Working_Capital_Days']:.0f}d change")
 
-st.markdown("<br><center style='color:#64748B; font-family:Orbitron, sans-serif; font-size:0.9rem;'>ideaForge Digital Human OS — An Autonomous Company Digital Twin Built for Everyone</center>", unsafe_allow_html=True)
+st.markdown("<br><center style='color:#00E5FF; font-family:Orbitron, sans-serif; font-size:0.95rem; font-weight:800;'>ideaForge Digital Human OS — An Autonomous Company Digital Twin Built for Everyone</center>", unsafe_allow_html=True)
 
 ```
 
