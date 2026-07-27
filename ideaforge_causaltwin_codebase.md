@@ -1834,6 +1834,30 @@ st.markdown("""
         color: #FFFFFF !important;
         font-weight: 600 !important;
     }
+
+    /* STREAMLIT BUTTON OVERRIDE (Fixes white boxes) */
+    div.stButton > button {
+        background: linear-gradient(135deg, #FF5500 0%, #FF2200 100%) !important;
+        color: #FFFFFF !important;
+        border: 2px solid #FF5500 !important;
+        border-radius: 10px !important;
+        font-family: 'Orbitron', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 800 !important;
+        padding: 8px 12px !important;
+        width: 100% !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4) !important;
+        margin-top: 8px !important;
+    }
+
+    div.stButton > button:hover {
+        background: linear-gradient(135deg, #00E5FF 0%, #0088FF 100%) !important;
+        color: #04060C !important;
+        border-color: #00E5FF !important;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.8) !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1889,7 +1913,7 @@ with c_brain:
         <div class="organ-meta">AI Strategy & Decisions</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Explore Brain", key="btn_brain", use_container_width=True):
+    if st.button("EXPLORE BRAIN 🧠", key="btn_brain", use_container_width=True):
         st.session_state["selected_organ"] = "brain"
 
 with c_heart:
@@ -1900,7 +1924,7 @@ with c_heart:
         <div class="organ-meta">Financial Statements</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Explore Heart", key="btn_heart", use_container_width=True):
+    if st.button("EXPLORE HEART 🫀", key="btn_heart", use_container_width=True):
         st.session_state["selected_organ"] = "heart"
 
 with c_arms:
@@ -1911,7 +1935,7 @@ with c_arms:
         <div class="organ-meta">Manufacturing Plants</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Explore Arms", key="btn_arms", use_container_width=True):
+    if st.button("EXPLORE ARMS 🦾", key="btn_arms", use_container_width=True):
         st.session_state["selected_organ"] = "arms"
 
 with c_lungs:
@@ -1922,7 +1946,7 @@ with c_lungs:
         <div class="organ-meta">Suppliers & Imports</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Explore Lungs", key="btn_lungs", use_container_width=True):
+    if st.button("EXPLORE LUNGS 🫁", key="btn_lungs", use_container_width=True):
         st.session_state["selected_organ"] = "lungs"
 
 with c_eyes:
@@ -1933,7 +1957,7 @@ with c_eyes:
         <div class="organ-meta">Customers & Tenders</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Explore Eyes", key="btn_eyes", use_container_width=True):
+    if st.button("EXPLORE EYES 👁️", key="btn_eyes", use_container_width=True):
         st.session_state["selected_organ"] = "eyes"
 
 with c_legs:
@@ -1944,8 +1968,9 @@ with c_legs:
         <div class="organ-meta">Drone Fleet Deployment</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Explore Legs", key="btn_legs", use_container_width=True):
+    if st.button("EXPLORE LEGS 🦵", key="btn_legs", use_container_width=True):
         st.session_state["selected_organ"] = "legs"
+
 
 st.write("---")
 
